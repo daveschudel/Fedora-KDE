@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# Setup information
+
+LOGFILE="./dev-setup.log"
+source $PWD/colors.sh
+
+HEADINGCOLOR=$CYAN_F
+SUBHEADINGCOLOR=$YELLOW_F
+INDENTEDCOLOR=$GREEN_F
+
+echo -e "${BOLD}${HEADINGCOLOR}Setting up KDE Development Environment${NORM}"
+mkdir -p ~/kde/src >> $LOGFILE
+cd ~/kde/src/ >> $LOGFILE
+git clone https://invent.kde.org/sdk/kdesrc-build.git  >> $LOGFILE
+cd kdesrc-build >> $LOGFILE
+
+echo -e "${BOLD}${SUBHEADINGCOLOR}  Running Initial Setup${NORM}"
+./kdesrc-build --initial-setup >> $LOGFILE
+source ~/.bashrc
+
+echo -e "${BOLD}${SUBHEADINGCOLOR}  Building Dependencies${NORM}"
+sudo dnf -y install builddep plasma-desktop plasma-workspace kwin >> $LOGFILE
+

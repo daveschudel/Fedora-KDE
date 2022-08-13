@@ -1,0 +1,12 @@
+akregator
+dragon
+kaddressbook
+kde-connect
+kmag
+kmail
+kmouth
+korganizer
+krdc
+krfb
+krusader
+kwrite

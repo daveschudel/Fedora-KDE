@@ -1,0 +1,53 @@
+#!/bin/bash
+# Personal Setup
+
+source colors.sh
+
+LOGFILE="personal-setup.log"
+FLATPAKFILE="install-flatpak.txt"
+DEVDIR="$HOME/Source"
+GIT_USER_NAME=""
+GIT_EMAIL=""
+REMOVE_DIRECTORIES="true"
+HEADINGCOLOR=$CYAN_F              # Colors defined in color.sh
+INDENTEDCOLOR=$GREEN_F            #
+
+
+if [ $SHELL == "/bin/zsh" ];
+then
+echo -e "${BOLD}${INDENTEDCOLOR}  .zshrc${NORM}"
+cp -v -p User/.zshrc $HOME
+cp -v -p User/*.zsh-theme $HOME/.oh-my-zsh/themes
+source $HOME/.zshrc
+fi
+
+if [ $SHELL == "/bin/bash" ];
+then
+echo -e "${BOLD}${HEADINGCOLOR}Personal Setup${NORM}"
+echo -e "${BOLD}${INDENTEDCOLOR}  .bashrc${NORM}"
+cp -v -p User/.dircolors $HOME
+cp -v -p User/.bashrc $HOME/ >> $LOGFILE
+source $HOME/.bashrc
+fi
+
+# My ssh files in ..Fedora/User already have the attributes set neecded for ssh
+# if yours don't, set them to:
+#   /./ssh      700
+#   private key 600
+#   public key  640
+
+echo -e "${BOLD}${INDENTEDCOLOR}  .ssh${NORM}"
+cp -r --preserve=all User/.ssh/ $HOME >> $LOGFILE
+
+if [ $REMOVE_DIRECTORIES == "true" ];
+    echo -e "${BOLD}${HEADINGCOLOR}Removing unused directories${NORM}"
+# Don't use these so get rid of them
+    rm -rf $HOME/Public  >> $LOGFILE
+    rm -rf $HOME/Videos >> $LOGFILE
+    rm -rf $HOME/Templates >> $LOGFILE
+fi
+
+echo -e "${BOLD}${HEADINGCOLOR}Git config${NORM}"
+git config --global user.name $GIT_USER_NAME >> $LOGFILE
+git config --global user.email $GIT_EMAIL >> $LOGFILE
+git config --global color.ui auto >> $LOGFILE
