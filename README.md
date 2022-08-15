@@ -254,7 +254,7 @@ There are many options for DNF from getting through proxies, security settings, 
 I use one option for dnf, set in <code>/etc/dnf/dnf.conf</code>.
 
 ```
-fastestmirror=1  # The default setting is off. If you have problems after setting this
+fastestmirror=1  # The default setting is off. If you have problems after setting this revert back.
 ```
 
 I also use the -y parameter to suppress the 'Are you sure' messages.<br>
