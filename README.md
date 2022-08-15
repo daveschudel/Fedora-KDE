@@ -76,11 +76,13 @@ gpg --verify-files CHECKSUM_FILENAME
 sha256sum -c CHECKSUM_FILE
 ```
 
-Unless I'm installing Fedora in a VM I ***always*** encrypt the drive. I use the standard install options and leave the root user disabled. Obviously if you need a specific partition layout set it up here.
+Unless I'm installing Fedora in a VM I ***always*** encrypt the drive. I use the standard install options and leave the root user disabled. Obviously if you need a specific partition layout set it up here. I'd be wary of playing with it for the sake of playing with it. The Fedora engineers have done a great job of optimizing everything for the desktop and it would be very easy to *optimize* your system so it runs worse. I used to make the swap partition larger but there was no need for it.
 
-Anaconda is the Fedora installer. It looks different depending on what Spin you're installing. For example, the KDE Spin has you setup the user account before installing while the standard Fedora installation (Gnome) has you creating the user after installing. I'm not sure why.
+Fedora switched to the Btvfs file system from Ext4. I'd leave it alone. There are discussions/arguments all over the web about the problems & benefits of Btvfs but like for partitioning, you're best just to leave it alone.
 
-After installing Fedora you'll want to update everything before adding to your system.
+The Fedora installer looks different depending on what Spin you're installing. For example, the KDE Spin has you setup the user account before installing while the standard Fedora installation (Gnome) has you creating the user after installing. I'm not sure why.
+
+After installing Fedora you'll want to update everything before adding to your system. See the [DNF](#dnf) section for more information. 
 
 ```bash
 sudo dnf update -y
@@ -91,7 +93,14 @@ The '-y' parameter suppresses the 'yes/no' prompts.
 <a name="shells"></a>
 
 ## X11 vs Wayland
-Wayland is supposed to work with KDE but I've had just enough trouble with it to stick to X11. 
+
+Wayland is the default display manager for the Fedora KDE spin. Here are the Fedora [Wayland](https://docs.fedoraproject.org/en-US/fedora/latest/system-administrators-guide/Wayland/) docs. 
+
+I don't have any experience using KDE under Wayland. I tried it and had problems, but I'm running an ARM build of Fedora inside a VM on a M1 Macbook Air. Not really a fair test.
+
+When I get to it, I'll try it on my old PC laptop (Ryzen 5) and add more here.
+
+
 
 <hr>
 
@@ -240,11 +249,12 @@ and looks like this.
 
 ## DNF Options
 
-I use these options for dnf, set in <code>/etc/dnf/dnf.conf</code>.
+There are many options for DNF from getting through proxies, security settings, and more. Look at the official [Fedora DNF Reference](https://docs.fedoraproject.org/en-US/fedora/latest/system-administrators-guide/package-management/DNF/), the [Fedora DNF Quickdocs](https://docs.fedoraproject.org/en-US/quick-docs/dnf/) and the [DNF GitHub page](https://github.com/rpm-software-management/dnf) for more information.
+
+I use one option for dnf, set in <code>/etc/dnf/dnf.conf</code>.
 
 ```
-fastestmirror=1  
-deltarpm=true"  
+fastestmirror=1  # The default setting is off. If you have problems after setting this
 ```
 
 I also use the -y parameter to suppress the 'Are you sure' messages.<br>
@@ -252,14 +262,20 @@ I also use the -y parameter to suppress the 'Are you sure' messages.<br>
 ```
 sudo dnf -y update
 ```
+You can set this in <code>/etc/dnf/dnf.conf</code> by using <code>assumeyes=1</code> but I'd advise against it. I use -y for running updates but not to install individual packages so I can see what's actually getting installed.
 
-I don't know why it takes dnf so long to update itself but if you use -q parameter (quiet) it will look like the process hangs. It takes **minutes** to update on a Ryzen 5 & my M1. That's my queue to get another cup of coffee.
+
+DNF can take a long to update itself because it downloads the repository data often. A [discussion](https://ask.fedoraproject.org/t/why-is-dnf-so-slow/6316) on the Fedora Project site suggested setting <code>metadata_expire=2d</code> in <code>/etc/dnf/dnf.conf</code>. If you use the -q parameter (quiet) like in my install scripts it will look like the process hangs. 
 
 There are a lot of dnf groups to choose from. See a list of groups by running 
 ```
 dnf group list
 ```
- or see [https://docs.fedoraproject.org/en-US/fedora/latest/system-administrators-guide/package-management/DNF/](https://docs.fedoraproject.org/en-US/fedora/latest/system-administrators-guide/package-management/DNF/). Groups are by far the easiest way to install the big desktop environments. For example, if for some unknown reason you wanted to install Gnome you'd use
+
+You can see what's in each group by running <code>dnf group info GROUP_NAME</code> I generally install *Development Tools*, *Development Libraries* and *X Software Development* but take a look at the ones that sound like they might fit your needs. 
+ 
+ 
+ Groups are by far the easiest way to install the big desktop environments. For example, if for some unknown reason you wanted to install Gnome you'd use
 ```
 sudo dnf group install "GNOME Desktop Environment
 ```
@@ -284,7 +300,7 @@ You can install it from your browser but I think it's easier to do it from the c
 sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 ```
 
-Installing the appstream data will enable showing apps from those repos in Discover.
+Installing the appstream packages with dnf will enable showing apps from those repos in Discover.
 ```
 appstream
 appstream-qt
