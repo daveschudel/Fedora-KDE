@@ -277,7 +277,8 @@ You can see what's in each group by running <code>dnf group info GROUP_NAME</cod
  
  Groups are by far the easiest way to install the big desktop environments. For example, if for some unknown reason you wanted to install Gnome you'd use
 ```
-sudo dnf group install "GNOME Desktop Environment
+sudo dnf -y group install "GNOME Desktop Environment 
+sudo dnf -y group install "Cinnamon Desktop"
 ```
 
 (IMHO Gnome looks like what you'd get if Crayola wrote a window manager :sunglasses: )
