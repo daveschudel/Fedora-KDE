@@ -26,11 +26,11 @@ INITLOG="true"
 # Installing on a laptop? if so, install power management
 POWER_MANAGEMENT="false"
 
-#Installing on bare metal (not a VM)? Setup GRUB
-SETUPBOOT="false"
+# Setup GRUB
+SETUPBOOT="true"
 
 # Install extra KDE development packages
-INSTALL_KDE_DEV="true"
+INSTALL_KDE_DEV="false"
 
 # Install Plymouth theme
 INSTALL_PLYMOUTH_THEME="false"
@@ -100,8 +100,6 @@ hostnamectl set-hostname $HOSTNAME >> $LOGFILE
 echo -e "${BOLD}${HEADINGCOLOR}Configuring DNF${NORM}"
 echo "Configuring DNF" >> $LOGFILE
 echo "fastestmirror=1" >> /etc/dnf/dnf.conf
-echo "max_parallel_downloads=10" >> /etc/dnf/dnf.conf
-echo "deltarpm=true" >> /etc/dnf/dnf.conf
 
 #------------------------------------------------------------------------------
 echo -e "${BOLD}${HEADINGCOLOR}Installing repositories${NORM}"
@@ -113,8 +111,8 @@ echo -e "  ${BOLD}${INDENTEDCOLOR}RPM Fusion Non-Free${BOLD}${NORM}"
 dnf install -y -q https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm >> $LOGFILE
 
 # Add any other repos needed here
-echo -e "  ${BOLD}${INDENTEDCOLOR}Vivaldi${BOLD}${NORM}"
-dnf config-manager --add-repo https://repo.vivaldi.com/archive/fedora.repo>> $LOGFILE
+#echo -e "  ${BOLD}${INDENTEDCOLOR}Vivaldi${BOLD}${NORM}"
+#dnf config-manager --add-repo https://repo.vivaldi.com/archive/vivaldi-fedora.repo>> $LOGFILE
 
 echo -e "  ${BOLD}${INDENTEDCOLOR}Flathub${BOLD}${NORM}"
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
@@ -200,7 +198,7 @@ then
   cp /etc/default/grub /etc/default/grub.bak
 
   # Install Grub theme
-  cp Grub/poly-dark /boot/grub2/themes
+  cp -r Grub/poly-dark /boot/grub2/themes
 
   # Comment out the default settings
   sed -ie 's/GRUB_TERMINAL/#GRUB_TERMINAL/' /etc/default/grub

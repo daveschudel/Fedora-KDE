@@ -1,12 +1,9 @@
-appstream
-appstream-qt
 cabextract
 colordiff
 dkms
 evince
 fontforge
 fonttools
-gjs
 gtkhash
 kate
 katomic
@@ -20,7 +17,6 @@ rpmfusion-free-appstream-data
 rpmfusion-nonfree-appstream-data
 plymouth-kcm
 setroubleshoot
-vivaldi-stable
 vlc
 yakuake
 xorg-x11-font-utils

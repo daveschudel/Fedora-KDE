@@ -8,5 +8,4 @@ kmouth
 korganizer
 krdc
 krfb
-krusader
 kwrite
