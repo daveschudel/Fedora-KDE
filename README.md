@@ -582,7 +582,7 @@ This is what it looks like with the above options without the theme.
 <a name="grub-themes"></a>
 
 ### Themes
-You can download Grub themes from gnome-look.org or the KDE store. Depending on your monitor and/or resolution you may want to change the font sizes.
+You can download Grub themes from gnome-look.org or the KDE store. Depending on your monitor and/or resolution you may want to change the font sizes. *Note: I have not been able to get Grub themes to work in a VM.*
 
 [Here's a good article explaining how to do it](https://www.bleepingcomputer.com/forums/t/743402/how-to-change-font-size-in-grub-menu/)<br>
 [There are some nice Grub themes here](https://www.gnome-look.org/browse?cat=109)
