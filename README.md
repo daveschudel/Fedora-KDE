@@ -514,12 +514,16 @@ I ran into some strange problems using their NordLynx protocol so I switched to 
 <a name="selinux"></a>
 
 # 8) SELinux
-There are people out there who recommend disabling SELinux when alerts start popping up. ***Please*** don't do that. SELinux is a powerful security tool. SELinux runs in three modes: *disabled*, *permissive* & *enforcing*. If you install <code>setroubleshoot</code> (I recommend it) it will give you a detail description of what the problem is. If you get an SELinux alert something is trying to write where it doesn't have permission. If the app should be able to write there you can tell SELinux to allow that app to access that file.
+There are people out there who recommend disabling SELinux when alerts start popping up. ***Please*** don't do that. SELinux is a powerful security tool. It runs in three modes: *disabled*, *permissive* & *enforcing*. Fedora defaults to *permissive* which sets SELinux to alert you of any problems, but doesn't stop anything from running. *Enforcing* will stop any violations. So once you've set your machine up the way you want it you can switch it to *enforcing*. 
+
+I've never seen anything installed from the Fedora or RPMFusion repositories that caused an SELinux exception. For me it's always been something where I downloaded a binary or compiled from source.
+
+ If you install <code>setroubleshoot</code> (I recommend it) it will give you a detailed description of what the problem is. If you get an SELinux alert something is trying to write where it doesn't have permission. If the app should be able to write there you can tell SELinux to allow that app to access that file.
 
 Here is a good overview of SELinux for Fedora.
 [https://docs.fedoraproject.org/en-US/quick-docs/getting-started-with-selinux/](https://docs.fedoraproject.org/en-US/quick-docs/getting-started-with-selinux/)
 
-If an app is trying to write where it shouldn't that's a problem for the developer or package maintainer to fix but you can use a policy to fix it for now.
+
 <hr>
 <a name = "advanced"></a>
 
