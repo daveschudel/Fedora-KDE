@@ -514,7 +514,7 @@ I ran into some strange problems using their NordLynx protocol so I switched to 
 <a name="selinux"></a>
 
 # 8) SELinux
-There are people out there who recommend disabling SELinux when alerts start popping up. ***Please*** don't do that. SELinux is a powerful security tool. It runs in three modes: *disabled*, *permissive* & *enforcing*. Fedora defaults to *permissive* which sets SELinux to alert you of any problems, but doesn't stop anything from running. *Enforcing* will stop any violations. So once you've set your machine up the way you want it you can switch it to *enforcing*. 
+There are people out there who recommend disabling SELinux when alerts start popping up. ***Please*** don't do that. SELinux is a powerful security tool. It runs in three modes: *disabled*, *permissive* & *enforcing*. Fedora defaults to *enforcing* which sets SELinux to alert you of any problems, but doesn't stop anything from running. *Enforcing* will stop any violations. So once you've set your machine up the way you want it you can switch it to *enforcing*. 
 
 I've never seen anything installed from the Fedora or RPMFusion repositories that caused an SELinux exception. For me it's always been something where I downloaded a binary or compiled from source.
 
@@ -522,7 +522,6 @@ I've never seen anything installed from the Fedora or RPMFusion repositories tha
 
 Here is a good overview of SELinux for Fedora.
 [https://docs.fedoraproject.org/en-US/quick-docs/getting-started-with-selinux/](https://docs.fedoraproject.org/en-US/quick-docs/getting-started-with-selinux/)
-
 
 <hr>
 <a name = "advanced"></a>
