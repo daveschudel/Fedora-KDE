@@ -1,6 +1,5 @@
 - [1) Introduction](#1-introduction)
 - [2) Installation](#2-installation)
-  - [X11 vs Wayland](#x11-vs-wayland)
 - [3) Shells](#3-shells)
   - [Zsh](#zsh)
     - [Themes](#themes)
@@ -92,17 +91,6 @@ The '-y' parameter suppresses the 'yes/no' prompts.
 
 <a name="shells"></a>
 
-## X11 vs Wayland
-
-Wayland is the default display manager for the Fedora KDE spin. Here are the Fedora [Wayland](https://docs.fedoraproject.org/en-US/fedora/latest/system-administrators-guide/Wayland/) docs. 
-
-I don't have any experience using KDE under Wayland. I tried it and had problems, but I'm running an ARM build of Fedora inside a VM on a M1 Macbook Air. Not really a fair test.
-
-When I get to it, I'll try it on my old PC laptop (Ryzen 5) and add more here.
-
-
-
-<hr>
 
 # 3) Shells
 
@@ -239,8 +227,6 @@ and looks like this.
 ![title](Images/bash.png)
 
 <hr>
-
-
 
 <a name="dnf"></a>
 

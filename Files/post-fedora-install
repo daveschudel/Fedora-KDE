@@ -29,6 +29,10 @@ POWER_MANAGEMENT="false"
 # Setup GRUB
 SETUPBOOT="true"
 
+# Install Grub theme. The script expects to find the theme in ./Grub
+INSTALL_GRUB_THEME="false"
+GRUB_THEME="poly-dark"
+
 # Install extra KDE development packages
 INSTALL_KDE_DEV="false"
 
@@ -197,8 +201,8 @@ then
   # Backup our grub config first
   cp /etc/default/grub /etc/default/grub.bak
 
-  # Install Grub theme
-  cp -r Grub/poly-dark /boot/grub2/themes
+
+
 
   # Comment out the default settings
   sed -ie 's/GRUB_TERMINAL/#GRUB_TERMINAL/' /etc/default/grub
@@ -209,11 +213,18 @@ then
 
   # Update with mine
   echo "#-- Added by setup script, remove duplicates --" >> /etc/default/grub
-  echo "GRUB_THEME=/boot/grub2/themes/poly-dark/theme.txt" >> /etc/default/grub
+
   echo "GRUB_DISABLE_SUBMENU=false" >> /etc/default/grub
   echo "GRUB_DISABLE_RECOVERY=false" >> /etc/default/grub
   echo "GRUB_DEFAULT=0" >> /etc/default/grub
   echo "GRUB_ENABLE_BLSCFG=false" >> /etc/default/grub
+
+  if [ INSTALL_GRUB_THEME == "TRUE" ];
+  then
+  # Install Grub theme
+  cp -r Grub/poly-dark /boot/grub2/themes
+  echo "GRUB_THEME=/boot/grub2/themes/$GRUB_THEME/theme.txt" >> /etc/default/grub
+  fi
 
   # Important - for a UEFI machine this is how to rebuild grub.cfg.
   # (For BIOS machines it needs to be: grub2-mkconfig -o /boot/grub2/grub.cfg)

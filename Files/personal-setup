@@ -6,12 +6,11 @@ source colors.sh
 LOGFILE="personal-setup.log"
 FLATPAKFILE="install-flatpak.txt"
 DEVDIR="$HOME/Source"
-GIT_USER_NAME=""
-GIT_EMAIL=""
+GIT_USER_NAME="Dave Schudel"
+GIT_EMAIL="dave@schudel.com"
 REMOVE_DIRECTORIES="true"
 HEADINGCOLOR=$CYAN_F              # Colors defined in color.sh
 INDENTEDCOLOR=$GREEN_F            #
-
 
 if [ $SHELL == "/bin/zsh" ];
 then
@@ -40,6 +39,7 @@ echo -e "${BOLD}${INDENTEDCOLOR}  .ssh${NORM}"
 cp -r --preserve=all User/.ssh/ $HOME >> $LOGFILE
 
 if [ $REMOVE_DIRECTORIES == "true" ];
+then
     echo -e "${BOLD}${HEADINGCOLOR}Removing unused directories${NORM}"
 # Don't use these so get rid of them
     rm -rf $HOME/Public  >> $LOGFILE
