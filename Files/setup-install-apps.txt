@@ -1,3 +1,6 @@
+@development-tools
+@development-libraries
+@x-software-development
 cabextract
 code
 colordiff

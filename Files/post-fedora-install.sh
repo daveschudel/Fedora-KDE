@@ -161,15 +161,6 @@ do
   dnf -y -q remove "$filename"
 done < $REMOVEFILE
 
-echo -e "${BOLD}${HEADINGCOLOR}Installing Software Groups${NORM}"
-
-while IFS= read -r line
-do
-  filename="${line%%\#*}"
-  echo -e "  ${BOLD}${INDENTEDCOLOR}$filename${NORM}"
-  dnf groupinstall -y -q "$filename"
-done < $GROUPSFILE
-
 echo -e "${BOLD}${HEADINGCOLOR}Installing Individual Apps${NORM}"
 
 while IFS= read -r line
