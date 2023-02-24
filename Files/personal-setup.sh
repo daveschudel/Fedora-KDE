@@ -34,9 +34,6 @@ rm -rf $HOME/Templates
 echo -e "${BOLD}${HEADINGCOLOR}Git config${NORM}"
 cp $USER_FILES_DIR/.gitconfig $HOME
 
-echo -e "${BOLD}${HEADINGCOLOR}Restoring KDE settings${NORM}"
-\cp -r $USER_FILES_DIR/KDE/* $HOME
-
 echo -e "${BOLD}${HEADINGCOLOR}Removing MacOS files from Setup directory${NORM}"
 find $HOME/Setup -name '*.DS_STORE' -print0 | xargs -0 rm -f
 find $HOME/Setup -name 'Icon?' -print0 | xargs -0 rm -rf
