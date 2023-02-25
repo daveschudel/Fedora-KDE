@@ -115,7 +115,7 @@ To install Oh-My-Zsh
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
 
-It will create <code>~/.oh-my-zsh</code> in your home directory. Themes are in <code>~/.oh-my-zsh/themes</code>.
+It will create <code>~./oh-my-zsh</code> in your home directory. Themes are in <code>~/.oh-my-zsh/themes</code>.
 
 <a name="zsh-themes"></a>
 
@@ -260,12 +260,23 @@ dnf group list
 
 You can see what's in each group by running <code>dnf group info GROUP_NAME</code> I generally install *Development Tools*, *Development Libraries* and *X Software Development* but take a look at the ones that sound like they might fit your needs. 
  
- 
+Alternatively, you could use the shorter group name
+```
+sudo dnf -y install @development-tools
+```
+Those can be found by running
+```
+dnf -v groupinfo "Development Tools"
+```
+and look for the 'Group-ID'. I've moved the list of groups I install from a seperate group list file to ```setup-install-apps.txt```.
+
+
  Groups are by far the easiest way to install the big desktop environments. For example, if for some unknown reason you wanted to install Gnome you'd use
 ```
 sudo dnf -y group install "GNOME Desktop Environment 
 sudo dnf -y group install "Cinnamon Desktop"
 ```
+
 
 (IMHO Gnome looks like what you'd get if Crayola wrote a window manager :sunglasses: )
 
