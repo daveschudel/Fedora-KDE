@@ -1,4 +1,5 @@
 - [1) Introduction](#1-introduction)
+  - [KDE Plasma v5.27](#kde-plasma-v527)
   - [Other KDE Fedora options](#other-kde-fedora-options)
 - [2) Installation](#2-installation)
   - [X11 vs Wayland](#x11-vs-wayland)
@@ -51,6 +52,10 @@
 <a name="intro"></a>
 
 # 1) Introduction
+
+## KDE Plasma v5.27
+
+Here's a nice article from [It's FOSS](https://news.itsfoss.com/kde-plasma-5-27-release/) on what's new with KDE Plasma v5.27. I noticed a few things but after reading the article I'm diving in. Of course, if you're running Fedora 37 KDE & you update everything you already have it.
 
 I've run Fedora since Fedora 9. It's my choice for a Linux OS for a number of reasons. When I first started with Linux my college used Scientific Linux, based on CentOS which itself is based on RedHat. Other students used Ubuntu, but I found it difficult to use since the development tools & other things don't match. Think Ubuntu's Build Essentials vs Fedora's Development Tools group. Everything I did on my machine matched what was used on the servers.  
 
@@ -482,7 +487,7 @@ If you wanted the spinning cube, however, they removed it. The code wasn't compa
 
 <a name="pagers"></a>
 ## Pagers
-KDE comes with a basic pager Plasmoid that works, but I think it takes up too much space on the toolbar, especially when you have 4 or more desktops configured. I use Minimal Desktop Pager. It doesn't take up as much space if you have more desktops like I do (4).
+KDE comes with a basic pager Plasmoid that works, but I think it takes up too much space on the toolbar, especially when you have 4 or more desktops configured. I use AllJavi's [Virtual Desktop Bar](https://github.com/AllJavi/virtual-desktop-bar) It doesn't take up as much space if you have more desktops like I do (4).
 
 <br>
 <hr>
