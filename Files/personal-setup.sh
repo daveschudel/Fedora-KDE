@@ -9,6 +9,8 @@ INDENTEDCOLOR=$GREEN_F            #
 
 # Copy my .zshrc & theme
 echo -e "${BOLD}${INDENTEDCOLOR}Shells${NORM}"
+
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 cp -v -p $USER_FILES_DIR/.zshrc $HOME
 cp -v -p $USER_FILES_DIR/*.zsh-theme $HOME/.oh-my-zsh/themes
 source $HOME/.zshrc

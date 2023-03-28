@@ -1,6 +1,5 @@
 - [1) Introduction](#1-introduction)
-  - [KDE Plasma v5.27](#kde-plasma-v527)
-  - [Other KDE Fedora options](#other-kde-fedora-options)
+  - [Other Fedora options](#other-fedora-options)
 - [2) Installation](#2-installation)
   - [X11 vs Wayland](#x11-vs-wayland)
   - [My Post-Installation Scripts](#my-post-installation-scripts)
@@ -53,20 +52,26 @@
 
 # 1) Introduction
 
-## KDE Plasma v5.27
-
-Here's a nice article from [It's FOSS](https://news.itsfoss.com/kde-plasma-5-27-release/) on what's new with KDE Plasma v5.27. I noticed a few things but after reading the article I'm diving in. Of course, if you're running Fedora 37 KDE & you update everything you already have it.
-
 I've run Fedora since Fedora 9. It's my choice for a Linux OS for a number of reasons. When I first started with Linux my college used Scientific Linux, based on CentOS which itself is based on RedHat. Other students used Ubuntu, but I found it difficult to use since the development tools & other things don't match. Think Ubuntu's Build Essentials vs Fedora's Development Tools group. Everything I did on my machine matched what was used on the servers.  
 
 Also, I just like the way Fedora does things. It may seem more complicated that Ubuntu but it gave me the opportunity to learn much more about what's happening inside. Linus Torvalis uses Fedora. The prosecution rests. :)
 
 I've spent a lot of time just playing with Fedora and KDE, learning how it works. KDE is very configurable. You can pretty much set it up however you want. This is going to be a work in progress. As I find (or remember) more I'll add it. I hope it helps you. 
+<br><br>
 
+## Other Fedora options
 
-## Other KDE Fedora options
+The primary Fedora release comes with the GNOME desktop environment. Fedora also releases 'spins' and 'labs'. Spins are distros focused on a desktop environment; e.g. KDE, LXDE, i3. Spins can be found [here](https://spins.fedoraproject.org/). Fedora Labs are distros designed for a specific purpose. These include
 
-Fedora releases 'spins' and 'labs'. Spins are the distros focused on a desktop environment; e.g. KDE, LXDE, i3. Fedora Labs are distros designed for a specific purpose, like Astronomy, Comp Neuro, Python Classroom and others. The Astronomy & Scientific Fedora labs distros are KDE-based.
+* [Astronomy](https://labs.fedoraproject.org/en/astronomy/)
+* [Comp Neuro](https://labs.fedoraproject.org/en/comp-neuro/) for computational modelling tools for neuroscience
+* [Design Suite](https://labs.fedoraproject.org/en/design-suite/) for multimedia production & design
+* [Games](https://labs.fedoraproject.org/en/games/)
+* [Jam](https://labs.fedoraproject.org/en/games/) for music production
+* [Python Classroom](https://labs.fedoraproject.org/en/python-classroom/)
+* [Security Lab](https://labs.fedoraproject.org/en/security/)
+* [Robotics Suite](https://labs.fedoraproject.org/en/robotics/)
+* [Scientific](https://labs.fedoraproject.org/en/scientific/)
 
 <br>
 <hr>
@@ -107,15 +112,15 @@ sudo dnf update -y
 ```
 
 The '-y' parameter suppresses the 'yes/no' prompts.
+<br><br>
 
 <a name="shells"></a>
-
 ## X11 vs Wayland
 
 Wayland is the default display manager for the Fedora KDE spin. Here are the Fedora [Wayland](https://docs.fedoraproject.org/en-US/fedora/latest/system-administrators-guide/Wayland/) docs. 
 
 I still have odd problems cropping up from time to time using Wayland so I'm still using X11. Wayland didn't work well at all in a VM on an M1 Mac.
-
+<br><br>
 
 ## My Post-Installation Scripts
 
@@ -164,6 +169,7 @@ sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.
 ```
 
 It will create <code>~/.oh-my-zsh</code> in your home directory. Themes are in <code>~/.oh-my-zsh/themes</code>.
+<br><br>
 
 <a name="zsh-themes"></a>
 
@@ -177,7 +183,7 @@ for the line
 and change it to something like this. (I put mine in .config)
 
 ```ZSH_COMPDUMP="${ZDOTDIR:-$HOME}/.config/.zcompdump-${SHORT_HOST}-${ZSH_VERSION}"```
-
+<br><br>
 
 ### Themes
 
@@ -353,7 +359,7 @@ Smaller DE's are just installed as packages; e.g.
 ```
 sudo dnf install fluxbox
 ```
-
+<br><br>
 <a name="rpmfusion"></a>
 
 ## RPM Fusion
@@ -393,6 +399,7 @@ If you want something other than what's in the Fedora & RPM Fusion repos, check 
 ## Changing The Volume Name
 
 Launch KDE Disk Editor from the Live CD. Rename your home volume to whatever you want. You can't change the name of a volume when booting from it. If your disk in encrypted you'll have to unlock it first.
+<br><br>
 
 <a name="konsole"></a>
 
@@ -405,6 +412,7 @@ Launch KDE Disk Editor from the Live CD. Rename your home volume to whatever you
 
 
 Set your new profile to the default profile. Then I disable all of toolbars under the Konsole Settings menu and hide the Menubar. Make sure you exit the Konsole session or it won't save your profile properly.
+<br><br>
 
 <a name="dolphin"></a>
 
@@ -420,6 +428,7 @@ To change the icons for file types, go into System Settings/Applications and cre
 
 
 <img src="Images/dolphin.png"/>
+<br><br>
 
 <a name="system-settings"></a>
 
@@ -428,7 +437,7 @@ To change the icons for file types, go into System Settings/Applications and cre
 
 ### Startup/SDDM
 I set it to automatically log in. Yes, I know this is bad security but if you set the machine up with an encrypted drive you have to login with that before continuing. I don't worry about it on a VM either. Obviously if this machine might be at risk don't do this. I use mine for playing around and learning about Fedora. 
-
+<br><br>
 <a name="appearance"></a>
 
 ### Appearance
@@ -441,7 +450,7 @@ I set it to automatically log in. Yes, I know this is bad security but if you se
 * Splash Screen - Breeze
 
 The KDE Store [https://store.kde.org](https://store.kde.org) has a complete list of Plasma widgets, fonts, colors, themes and other addons. They can also be found in Discover under Plasma Addons.
-
+<br><br>
 <a name="taskbar"></a>
 
 ### KDE Taskbar
@@ -456,13 +465,12 @@ The KDE Store [https://store.kde.org](https://store.kde.org) has a complete list
 
 Once it's done it looks like this
 <img src="Images/taskbar.png"/>
-<br>
-<hr>
 
+<br><br>
 ### KDE Desktop Effects
 
 I started using a Desktop Effect called Energize B [Burn-My-Windows] available on the KDE Store [https://www.pling.com/p/1884311It]. It makes opening & closing windows look like they're beaming in and out with a transporter. Completely frivolous eye candy. :)
-<br>
+<br><br>
 
 <a name="power"></a>
 
@@ -475,7 +483,7 @@ from the command line install tlp, then you can set power management this way<br
 cpupower frequency-set --governor conservative
 ```
 Read the man page for cpupower for more options
-
+<br><br>
 <a name="desktops"></a>
 ## Multiple Desktops
 
@@ -484,7 +492,7 @@ KDE, like most desktop environments will use multiple desktops. Set them up in S
 There are some great transitions available where your desktops can slide over one another and that sort of thing. Those are in Desktop Effects.
 
 If you wanted the spinning cube, however, they removed it. The code wasn't compatible with the way the KDE team is setting up the rest of the system. Hopefully it will come back. 
-
+<br><br>
 <a name="pagers"></a>
 ## Pagers
 KDE comes with a basic pager Plasmoid that works, but I think it takes up too much space on the toolbar, especially when you have 4 or more desktops configured. I use AllJavi's [Virtual Desktop Bar](https://github.com/AllJavi/virtual-desktop-bar) It doesn't take up as much space if you have more desktops like I do (4).
@@ -545,7 +553,7 @@ flatpak install https://flathub.org/repo/appstream/com.visualstudio.code.flatpak
 ```
 
 See [https://code.visualstudio.com/docs/setup/linux](https://code.visualstudio.com/docs/setup/linux) or their GitHub page [Microsoft's Visual Studio Code GitHub page](https://github.com/Microsoft/vscode) for more information.
-
+<br><br>
 
 
 <a name="microsoft-open-fonts"></a>
@@ -562,6 +570,7 @@ rpm -i --quiet https://downloads.sourceforge.net/project/mscorefonts2/rpms/msttc
 ```
 
 You'll need <code>cabextract</code> and <code>xorg-x11-font-utils</code> to install the fonts.
+<br><br>
 
 <hr>
 <a name="linux"></a>
@@ -578,10 +587,12 @@ Public key    644
 
 ex: chmod 600 id_rsa
 ```
+
 ## Backups
 ***Always*** do backups. Have more than one if possible. It can be as simple and copying everything to an external USB drive to using a tool like rsync. Here's a good list of suggestions. 
 
 [https://linuxhint.com/11_best_backup_tools_linux/](https://linuxhint.com/11_best_backup_tools_linux/)
+<br><br>
 
 ## VPN
 I use NordVPN on Windows, MacOS and Linux. For info, see [https://nordvpn.com/download/linux/](https://nordvpn.com/download/linux/). Select 'install the rpm package'.
@@ -589,7 +600,7 @@ I use NordVPN on Windows, MacOS and Linux. For info, see [https://nordvpn.com/do
 I ran into some strange problems using their NordLynx protocol so I switched to OpenVPN. That fixed everything.
 
 There's a nice NordVPN Plasma Widget in Discover that puts a icon in the tray for controlling it.
-<hr>
+<br><br>
 
 <a name="selinux"></a>
 
@@ -648,6 +659,7 @@ For legacy systems run
 sudo grub2-mkconfig -o /boot/grub2/grub.cfg
 ```
 You can edit grub.cfg directly for testing, but it will work until grub2-mkconfig overwrites it.
+<br><br>
 
 <a name="custom-grub"></a>
 
@@ -671,8 +683,7 @@ You can download Grub themes from gnome-look.org or the KDE store. Depending on 
 
 [Here's a good article explaining how to do it](https://www.bleepingcomputer.com/forums/t/743402/how-to-change-font-size-in-grub-menu/)<br>
 [There are some nice Grub themes here](https://www.gnome-look.org/browse?cat=109)
-
-
+<br><br>
 <a name="custom-repo-list"></a>
 
 ## Customizing the DNF repository list
@@ -721,7 +732,7 @@ If you want them in order, rename each repo file; e.g.
 to make it look like this
 
 <img src="Images/dnf.png"/>
-<br>
+<br><br>
 
 <a name="parallels"></a>
 
@@ -732,10 +743,12 @@ I've run Fedora in a VM on my MacBook but it was klunky at best. I have a dedica
 There is a problem with the Parallels tools running inside Parallels on an M1 Mac. It looks like running with Linux kernel 5.18.13-200 causes the tools & integration to fail, but running 5.17.5-300 it works fine. 
 
 I'm waiting to see if a kernel or software update fixes it.
+<br><br>
 
 ## Fedora Beta versions
 
 The only problem I've had running betas are with the RPM Fusion repos not being set up yet. If you feel adventurous go for it. You'll have to update to the release version when it comes out. 
+<br><br>
 
 ## Upgrading Fedora
 

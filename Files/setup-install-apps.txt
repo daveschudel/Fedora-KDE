@@ -1,16 +1,20 @@
 @development-tools
 @development-libraries
 @x-software-development
+aide
 cabextract
 code
 colordiff
 dkms
+eterm
 evince
 exa
+fluxbox
 fontforge
 fonttools
 gnome-tetravex
 gtkhash
+ImageMagick
 kate
 katomic
 keepassxc
@@ -30,4 +34,3 @@ vivaldi-stable
 vlc
 xorg-x11-font-utils
 yakuake
-zsh
