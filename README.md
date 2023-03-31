@@ -1,4 +1,5 @@
 - [1) Introduction](#1-introduction)
+  - [Fedora 38 Beta](#fedora-38-beta)
   - [Other Fedora options](#other-fedora-options)
 - [2) Installation](#2-installation)
   - [X11 vs Wayland](#x11-vs-wayland)
@@ -12,6 +13,7 @@
   - [DNF Options](#dnf-options)
   - [RPM Fusion](#rpm-fusion)
 - [5) My Fedora KDE settings \& tweaks](#5-my-fedora-kde-settings--tweaks)
+  - [Backup \& Restore](#backup--restore)
   - [Changing The Volume Name](#changing-the-volume-name)
   - [Konsole](#konsole)
   - [Dolphin](#dolphin)
@@ -59,6 +61,14 @@ Also, I just like the way Fedora does things. It may seem more complicated that 
 I've spent a lot of time just playing with Fedora and KDE, learning how it works. KDE is very configurable. You can pretty much set it up however you want. This is going to be a work in progress. As I find (or remember) more I'll add it. I hope it helps you. 
 <br><br>
 
+## Fedora 38 Beta
+*IF* you feel daring, you can try Fedora 38 Beta. The Beta Spins are [here](https://spins.fedoraproject.org/prerelease). NOTE: RPM Fusion for 
+Fedora 38 isn't available yet. It's under Rawhide (the Fedora beta builds). You can get the proper one by downloading the RPM directly 
+from the RPM Fusion site. [https://rpmfusion.org/Configuration](https://rpmfusion.org/Configuration)
+
+Of course you'll have to upgrade once 38 is officially released near the end of April.
+<br><br>
+
 ## Other Fedora options
 
 The primary Fedora release comes with the GNOME desktop environment. Fedora also releases 'spins' and 'labs'. Spins are distros focused on a desktop environment; e.g. KDE, LXDE, i3. Spins can be found [here](https://spins.fedoraproject.org/). Fedora Labs are distros designed for a specific purpose. These include
@@ -99,7 +109,7 @@ gpg --verify-files CHECKSUM_FILENAME
 sha256sum -c CHECKSUM_FILE
 ```
 
-Unless I'm installing Fedora in a VM I ***always*** encrypt the drive. I use the standard install options and leave the root user disabled. Obviously if you need a specific partition layout set it up here. I'd be wary of playing with it for the sake of playing with it. The Fedora engineers have done a great job of optimizing everything for the desktop and it would be very easy to *optimize* your system so it runs worse. I used to make the swap partition larger but there was no need for it.
+Unless I'm installing Fedora in a VM I ***always*** encrypt the drive. I use the standard install options and leave the root user disabled. Obviously if you need a specific partition layout set it up here. I'd be wary of playing with it for the sake of playing with it. The Fedora engineers have done a great job of optimizing everything for the desktop and it would be very easy to *optimize* your system so it runs worse. I used to make the swap partition larger but there was no need for it. Enlarge it if you want to be able to hibernate.
 
 Fedora switched to the Btvfs file system from Ext4. I'd leave it alone. There are discussions/arguments all over the web about the problems & benefits of Btvfs but like for partitioning, you're best just to leave it alone.
 
@@ -129,7 +139,7 @@ I have a few scripts I use for setting up my Fedora installations that are in th
 Fedora (where the scripts are)
 * ../User for user files (.zshrc, etc)
 * ../User/.ssh
-* Grub/<theme name>
+* Grub/theme name
 * Repos
 
 I use these scripts
@@ -139,8 +149,6 @@ I use these scripts
 * [install-zsh.sh](Files/install-zsh.sh) installs zsh & sets the default shell
 
 * [personal-setup.sh](Files/personal-setup.sh) copies .bashrc & .zshrc, my oh-my-zsh theme, my ssh keys, .gitconfigure, .dircolors & removes all of those annoying .DS_Store files from the Mac.
-
-
 
 <br>
 <hr>
@@ -394,11 +402,18 @@ If you want something other than what's in the Fedora & RPM Fusion repos, check 
 
 # 5) My Fedora KDE settings & tweaks
 
+## Backup & Restore
+
+I haven't found a reliable way to restore all of my KDE settings when installing a new Fedora build. If you back up
+./local & ./config that will take care of your personal settings but it will miss anything installed as the superuser. 
+All of that lives down in /usr. I'll keep trying until I get it right.
+<br><br>
+
 <a name="change-volume-name"></a>
 
 ## Changing The Volume Name
 
-Launch KDE Disk Editor from the Live CD. Rename your home volume to whatever you want. You can't change the name of a volume when booting from it. If your disk in encrypted you'll have to unlock it first.
+Launch KDE Disk Editor from the Live CD. Rename your home volume to whatever you want. You can't change the name of a volume when booting from it. If your disk in encrypted you'll have to unlock it first. I just reboot back into the USB drive right after installing Fedora & do it then.
 <br><br>
 
 <a name="konsole"></a>
