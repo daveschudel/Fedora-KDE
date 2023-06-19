@@ -59,15 +59,7 @@ I've run Fedora since Fedora 9. It's my choice for a Linux OS for a number of re
 Also, I just like the way Fedora does things. It may seem more complicated that Ubuntu but it gave me the opportunity to learn much more about what's happening inside. Linus Torvalis uses Fedora. The prosecution rests. :)
 
 I've spent a lot of time just playing with Fedora and KDE, learning how it works. KDE is very configurable. You can pretty much set it up however you want. This is going to be a work in progress. As I find (or remember) more I'll add it. I hope it helps you. 
-<br><br>
-
-## Fedora 38 Beta
-*IF* you feel daring, you can try Fedora 38 Beta. The Beta Spins are [here](https://spins.fedoraproject.org/prerelease). NOTE: RPM Fusion for 
-Fedora 38 isn't available yet. It's under Rawhide (the Fedora beta builds). You can get the proper one by downloading the RPM directly 
-from the RPM Fusion site. [https://rpmfusion.org/Configuration](https://rpmfusion.org/Configuration)
-
-Of course you'll have to upgrade once 38 is officially released near the end of April.
-<br><br>
+<br>
 
 ## Other Fedora options
 
@@ -82,9 +74,12 @@ The primary Fedora release comes with the GNOME desktop environment. Fedora also
 * [Security Lab](https://labs.fedoraproject.org/en/security/)
 * [Robotics Suite](https://labs.fedoraproject.org/en/robotics/)
 * [Scientific](https://labs.fedoraproject.org/en/scientific/)
-
 <br>
-<hr>
+
+## Comments on this Guide
+
+All of the commands I've listed assume you are **not** logged in as the root user so I've added 'sudo' to all of them. You **can** login at root but that can break your system with a mistyped command. It's safer to stay logged in as you and sudo everything you need to.
+
 <a name="install"></a>
 
 # 2) Installation
@@ -95,21 +90,21 @@ The primary Fedora release comes with the GNOME desktop environment. Fedora also
 
 
 * Import Fedora's GPG key(s) <br>
-```bash
+```
 curl https://getfedora.org/static/fedora.gpg | gpg --import
 ```
 
-* Verify the checksum is valid 
-  
-```bash
+* Verify the checksum is valid <br>
+```
 gpg --verify-files CHECKSUM_FILENAME
 ```
- * Verify the download's checksum matches 
-```bash
+
+* Verify the download's checksum matches <br>
+```
 sha256sum -c CHECKSUM_FILE
 ```
 
-Unless I'm installing Fedora in a VM I ***always*** encrypt the drive. I use the standard install options and leave the root user disabled. Obviously if you need a specific partition layout set it up here. I'd be wary of playing with it for the sake of playing with it. The Fedora engineers have done a great job of optimizing everything for the desktop and it would be very easy to *optimize* your system so it runs worse. I used to make the swap partition larger but there was no need for it. Enlarge it if you want to be able to hibernate.
+Unless I'm installing Fedora in a VM I ***always*** encrypt the drive. I use the standard install options and leave the root user disabled. Obviously if you need a specific partition layout set it up here. I'd be wary of playing with it for the sake of playing with it. The Fedora engineers have done a great job of optimizing everything for the desktop and it would be very easy to *optimize* your system so it runs worse. I used to make the swap partition larger but there was no need for it. Enlarge it if you want to be able to hibernate. 
 
 Fedora switched to the Btvfs file system from Ext4. I'd leave it alone. There are discussions/arguments all over the web about the problems & benefits of Btvfs but like for partitioning, you're best just to leave it alone.
 
@@ -117,12 +112,12 @@ The Fedora installer looks different depending on what Spin you're installing. F
 
 After installing Fedora you'll want to update everything before adding to your system. See the [DNF](#dnf) section for more information. 
 
-```bash
+```
 sudo dnf update -y
 ```
 
 The '-y' parameter suppresses the 'yes/no' prompts.
-<br><br>
+<br>
 
 <a name="shells"></a>
 ## X11 vs Wayland
@@ -132,33 +127,14 @@ Wayland is the default display manager for the Fedora KDE spin. Here are the Fed
 I still have odd problems cropping up from time to time using Wayland so I'm still using X11. Wayland didn't work well at all in a VM on an M1 Mac.
 <br><br>
 
-## My Post-Installation Scripts
-
-I have a few scripts I use for setting up my Fedora installations that are in the Files directory. I use the following directory structure for these scripts:
-
-Fedora (where the scripts are)
-* ../User for user files (.zshrc, etc)
-* ../User/.ssh
-* Grub/theme name
-* Repos
-
-I use these scripts
-
-* [post-fedora-install.sh](Files/post-fedora-install.sh) uses [setup-remove-apps.cfg](Files/setup-remove-apps.cfg) and [setup-install-apps.cfg](Files/setup-install-apps.cfg) to configure Fedora and remove & install apps & groups. It also has options to setup Grub, laptop power management & Plymouth themes.
-
-* [install-zsh.sh](Files/install-zsh.sh) installs zsh & sets the default shell
-
-* [personal-setup.sh](Files/personal-setup.sh) copies .bashrc & .zshrc, my oh-my-zsh theme, my ssh keys, .gitconfigure, .dircolors & removes all of those annoying .DS_Store files from the Mac.
-
-<br>
-<hr>
   
 # 3) Shells
 
 I use **<code>exa</code>** to replace **<code>ls</code>**. See [https://github.com/ogham/exa](https://github.com/ogham/exa) for more information. It formats things really well. I don't know why the timestamps are so dark. There's no setting in exa that sets colors for columns. Might be somewhere in <code>LS_COLORS</code>. I found if I use a theme in Konsole that has a dark, but not black, background it works pretty well.
 
 I love the octal file attributes and Git status.<br>
-```bash
+
+```
 alias ls='exa -lah --group-directories-first -F --git --no-permissions --octal-permissions 
 ```
 <br>
@@ -172,7 +148,7 @@ I'm starting to use zsh but still have Bash configured on my system. Zsh gives y
 I also recommend Oh-My-Zsh. It adds lots of features that will make your life easier, along with themes. Check it out at [https://github.com/ohmyzsh/ohmyzsh](https://github.com/ohmyzsh/ohmyzsh)  
 
 To install Oh-My-Zsh
-```bash
+```
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
 
@@ -476,7 +452,6 @@ The KDE Store [https://store.kde.org](https://store.kde.org) has a complete list
 * Use QuickLaunches to group applications<br>
 * Use Latte Seperator to put nice seperators between the QuickLaunches, clocks, etc. It's available from "Get New Widgets" in the Add Widgets window.
   
-<br>
 
 Once it's done it looks like this
 <img src="Images/taskbar.png"/>
@@ -500,7 +475,7 @@ from the command line install tlp, then you can set power management this way<br
 cpupower frequency-set --governor conservative
 ```
 Read the man page for cpupower for more options
-<br><br>
+<br>
 <a name="desktops"></a>
 ## Multiple Desktops
 
@@ -510,12 +485,7 @@ There are some great transitions available where your desktops can slide over on
 
 If you wanted the spinning cube, however, they removed it. The code wasn't compatible with the way the KDE team is setting up the rest of the system. Hopefully it will come back. 
 <br><br>
-<a name="pagers"></a>
-## Pagers
-KDE comes with a basic pager Plasmoid that works, but I think it takes up too much space on the toolbar, especially when you have 4 or more desktops configured. I use AllJavi's [Virtual Desktop Bar](https://github.com/AllJavi/virtual-desktop-bar) It doesn't take up as much space if you have more desktops like I do (4).
 
-<br>
-<hr>
 <a name="other-apps"></a>
 
 # 6) Apps & Packages I'd Recommend
@@ -551,7 +521,6 @@ This will install the repo and key
 
 ```
 sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
-
 sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
 ```
 
@@ -588,7 +557,7 @@ rpm -i --quiet https://downloads.sourceforge.net/project/mscorefonts2/rpms/msttc
 ```
 
 You'll need <code>cabextract</code> and <code>xorg-x11-font-utils</code> to install the fonts.
-<br><br>
+<br><br>****
 
 <a name="onedrive"></a>
 
@@ -623,7 +592,13 @@ ex: chmod 600 id_rsa
 <br><br>
 
 ## VPN
-I use NordVPN on Windows, MacOS and Linux. For info, see [https://nordvpn.com/download/linux/](https://nordvpn.com/download/linux/). Select 'install the rpm package'.
+I use NordVPN on Windows, MacOS and Linux. For info, see [https://support.nordvpn.com/Connectivity/Linux/1325529112/Installing-and-using-NordVPN-on-Fedora-and-QubesOS-Linux.htm/](https://support.nordvpn.com/Connectivity/Linux/1325529112/Installing-and-using-NordVPN-on-Fedora-and-QubesOS-Linux.htm/). <br>
+
+Then install it using their script
+
+```
+sh <(curl -sSf https://downloads.nordcdn.com/apps/linux/install.sh)
+```
 
 I ran into some strange problems using their NordLynx protocol so I switched to OpenVPN. That fixed everything.
 
