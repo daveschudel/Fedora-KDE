@@ -545,19 +545,20 @@ sudo dnf install yakuake
 
 ### Using the Microsoft repository
 
-At this point (Fedora 37) VSCode isn't in the Fedora or RPM Fusion repositories. You can download it but I like having it installed from a repo so it stays up to date.
+At this point (Fedora 38) VSCode isn't in the Fedora or RPM Fusion repositories. You can download it but I like having it installed from a repo so it stays up to date.
 
 This will install the repo and key
-```
 
+```
 sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
 
 sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
 ```
 
 Then<br>
+
 ```
-dnf check-update 
+sudo dnf check-update
 sudo dnf install code
 ```
 
@@ -589,8 +590,18 @@ rpm -i --quiet https://downloads.sourceforge.net/project/mscorefonts2/rpms/msttc
 You'll need <code>cabextract</code> and <code>xorg-x11-font-utils</code> to install the fonts.
 <br><br>
 
-<hr>
-<a name="linux"></a>
+<a name="onedrive"></a>
+
+## OneDrive
+
+I still do a lot over in Microsoft 365 and the OneDrive client for Linux is way, way better than it used to be. I use it with a 365 Business account but it should work the same for the personal version. It doesn't default to files-on-demand like the Windows & Mac clients do so it just syncs everything the way you'd expect.
+
+After adding the RPM Fusion repos,
+
+```
+dnf install onedrive 
+```
+
 
 # 7) General Linux Information
 
