@@ -1,13 +1,19 @@
 - [1) Introduction](#1-introduction)
+  - [Fedora 38 Beta](#fedora-38-beta)
+  - [Other Fedora options](#other-fedora-options)
 - [2) Installation](#2-installation)
+  - [X11 vs Wayland](#x11-vs-wayland)
+  - [My Post-Installation Scripts](#my-post-installation-scripts)
 - [3) Shells](#3-shells)
   - [Zsh](#zsh)
+    - [Zsh Tweaks](#zsh-tweaks)
     - [Themes](#themes)
   - [Bash](#bash)
 - [4) DNF](#4-dnf)
   - [DNF Options](#dnf-options)
   - [RPM Fusion](#rpm-fusion)
-- [5) My Fedora KDE settings & tweaks](#5-my-fedora-kde-settings--tweaks)
+- [5) My Fedora KDE settings \& tweaks](#5-my-fedora-kde-settings--tweaks)
+  - [Backup \& Restore](#backup--restore)
   - [Changing The Volume Name](#changing-the-volume-name)
   - [Konsole](#konsole)
   - [Dolphin](#dolphin)
@@ -15,10 +21,11 @@
     - [Startup/SDDM](#startupsddm)
     - [Appearance](#appearance)
     - [KDE Taskbar](#kde-taskbar)
+    - [KDE Desktop Effects](#kde-desktop-effects)
   - [Laptop Power Management](#laptop-power-management)
   - [Multiple Desktops](#multiple-desktops)
-    - [Pagers](#pagers)
-- [6) Apps I'd Recommend](#6-apps-id-recommend)
+  - [Pagers](#pagers)
+- [6) Apps \& Packages I'd Recommend](#6-apps--packages-id-recommend)
   - [Yakuake](#yakuake)
   - [Visual Studio Code](#visual-studio-code)
     - [Using the Microsoft repository](#using-the-microsoft-repository)
@@ -29,7 +36,7 @@
   - [Backups](#backups)
   - [VPN](#vpn)
 - [8) SELinux](#8-selinux)
-- [9) Advanced Tweaking](#9-advanced-tweaking)
+- [9) Advanced Topics](#9-advanced-topics)
   - [Grub](#grub)
     - [Grub Menu Customization](#grub-menu-customization)
     - [Grub Configuration Files](#grub-configuration-files)
@@ -37,7 +44,11 @@
   - [Customizing the DNF repository list](#customizing-the-dnf-repository-list)
     - [Structure of a .repo file.](#structure-of-a-repo-file)
   - [Fedora inside Parallels on an M1](#fedora-inside-parallels-on-an-m1)
+  - [Fedora Beta versions](#fedora-beta-versions)
+  - [Upgrading Fedora](#upgrading-fedora)
 - [10) KDE Development](#10-kde-development)
+
+<br>
 <hr>
 <a name="intro"></a>
 
@@ -48,8 +59,31 @@ I've run Fedora since Fedora 9. It's my choice for a Linux OS for a number of re
 Also, I just like the way Fedora does things. It may seem more complicated that Ubuntu but it gave me the opportunity to learn much more about what's happening inside. Linus Torvalis uses Fedora. The prosecution rests. :)
 
 I've spent a lot of time just playing with Fedora and KDE, learning how it works. KDE is very configurable. You can pretty much set it up however you want. This is going to be a work in progress. As I find (or remember) more I'll add it. I hope it helps you. 
+<br><br>
 
+## Fedora 38 Beta
+*IF* you feel daring, you can try Fedora 38 Beta. The Beta Spins are [here](https://spins.fedoraproject.org/prerelease). NOTE: RPM Fusion for 
+Fedora 38 isn't available yet. It's under Rawhide (the Fedora beta builds). You can get the proper one by downloading the RPM directly 
+from the RPM Fusion site. [https://rpmfusion.org/Configuration](https://rpmfusion.org/Configuration)
 
+Of course you'll have to upgrade once 38 is officially released near the end of April.
+<br><br>
+
+## Other Fedora options
+
+The primary Fedora release comes with the GNOME desktop environment. Fedora also releases 'spins' and 'labs'. Spins are distros focused on a desktop environment; e.g. KDE, LXDE, i3. Spins can be found [here](https://spins.fedoraproject.org/). Fedora Labs are distros designed for a specific purpose. These include
+
+* [Astronomy](https://labs.fedoraproject.org/en/astronomy/)
+* [Comp Neuro](https://labs.fedoraproject.org/en/comp-neuro/) for computational modelling tools for neuroscience
+* [Design Suite](https://labs.fedoraproject.org/en/design-suite/) for multimedia production & design
+* [Games](https://labs.fedoraproject.org/en/games/)
+* [Jam](https://labs.fedoraproject.org/en/games/) for music production
+* [Python Classroom](https://labs.fedoraproject.org/en/python-classroom/)
+* [Security Lab](https://labs.fedoraproject.org/en/security/)
+* [Robotics Suite](https://labs.fedoraproject.org/en/robotics/)
+* [Scientific](https://labs.fedoraproject.org/en/scientific/)
+
+<br>
 <hr>
 <a name="install"></a>
 
@@ -75,7 +109,7 @@ gpg --verify-files CHECKSUM_FILENAME
 sha256sum -c CHECKSUM_FILE
 ```
 
-Unless I'm installing Fedora in a VM I ***always*** encrypt the drive. I use the standard install options and leave the root user disabled. Obviously if you need a specific partition layout set it up here. I'd be wary of playing with it for the sake of playing with it. The Fedora engineers have done a great job of optimizing everything for the desktop and it would be very easy to *optimize* your system so it runs worse. I used to make the swap partition larger but there was no need for it.
+Unless I'm installing Fedora in a VM I ***always*** encrypt the drive. I use the standard install options and leave the root user disabled. Obviously if you need a specific partition layout set it up here. I'd be wary of playing with it for the sake of playing with it. The Fedora engineers have done a great job of optimizing everything for the desktop and it would be very easy to *optimize* your system so it runs worse. I used to make the swap partition larger but there was no need for it. Enlarge it if you want to be able to hibernate.
 
 Fedora switched to the Btvfs file system from Ext4. I'd leave it alone. There are discussions/arguments all over the web about the problems & benefits of Btvfs but like for partitioning, you're best just to leave it alone.
 
@@ -88,13 +122,40 @@ sudo dnf update -y
 ```
 
 The '-y' parameter suppresses the 'yes/no' prompts.
+<br><br>
 
 <a name="shells"></a>
+## X11 vs Wayland
 
+Wayland is the default display manager for the Fedora KDE spin. Here are the Fedora [Wayland](https://docs.fedoraproject.org/en-US/fedora/latest/system-administrators-guide/Wayland/) docs. 
 
+I still have odd problems cropping up from time to time using Wayland so I'm still using X11. Wayland didn't work well at all in a VM on an M1 Mac.
+<br><br>
+
+## My Post-Installation Scripts
+
+I have a few scripts I use for setting up my Fedora installations that are in the Files directory. I use the following directory structure for these scripts:
+
+Fedora (where the scripts are)
+* ../User for user files (.zshrc, etc)
+* ../User/.ssh
+* Grub/theme name
+* Repos
+
+I use these scripts
+
+* [post-fedora-install.sh](Files/post-fedora-install.sh) uses [setup-remove-apps.cfg](Files/setup-remove-apps.cfg) and [setup-install-apps.cfg](Files/setup-install-apps.cfg) to configure Fedora and remove & install apps & groups. It also has options to setup Grub, laptop power management & Plymouth themes.
+
+* [install-zsh.sh](Files/install-zsh.sh) installs zsh & sets the default shell
+
+* [personal-setup.sh](Files/personal-setup.sh) copies .bashrc & .zshrc, my oh-my-zsh theme, my ssh keys, .gitconfigure, .dircolors & removes all of those annoying .DS_Store files from the Mac.
+
+<br>
+<hr>
+  
 # 3) Shells
 
-I use **<code>exa</code>** to replace **<code>ls</code>**. See [https://github.com/ogham/exa](https://github.com/ogham/exa) for more information. It formats things really well. I don't know why the timestamps are so dark. There's no setting in exa that sets colors for columns. Might be somewhere in <code>LS_COLORS</code>.  
+I use **<code>exa</code>** to replace **<code>ls</code>**. See [https://github.com/ogham/exa](https://github.com/ogham/exa) for more information. It formats things really well. I don't know why the timestamps are so dark. There's no setting in exa that sets colors for columns. Might be somewhere in <code>LS_COLORS</code>. I found if I use a theme in Konsole that has a dark, but not black, background it works pretty well.
 
 I love the octal file attributes and Git status.<br>
 ```bash
@@ -116,8 +177,21 @@ sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.
 ```
 
 It will create <code>~/.oh-my-zsh</code> in your home directory. Themes are in <code>~/.oh-my-zsh/themes</code>.
+<br><br>
 
 <a name="zsh-themes"></a>
+
+### Zsh Tweaks
+
+Zsh left those zcompdump files all over my home directory. Open ```./oh-my-zsh/oh-my-zsh.sh``` and look 
+for the line
+
+```ZSH_COMPDUMP="${ZDOTDIR:-$HOME}/.zcompdump-${SHORT_HOST}-${ZSH_VERSION}"```
+
+and change it to something like this. (I put mine in .config)
+
+```ZSH_COMPDUMP="${ZDOTDIR:-$HOME}/.config/.zcompdump-${SHORT_HOST}-${ZSH_VERSION}"```
+<br><br>
 
 ### Themes
 
@@ -190,7 +264,7 @@ My theme is based on the nanotech.zshtheme found in <code>~/.oh-my.zsh/themes</c
   ZSH_THEME_GIT_PROMPT_CLEAN=""    
 
 ```
-And looks like this
+And looks like this on a black background.
 
 ![title](Images/zsh-theme.png)
 
@@ -226,6 +300,7 @@ and looks like this.
 
 ![title](Images/bash.png)
 
+<br>
 <hr>
 
 <a name="dnf"></a>
@@ -257,23 +332,42 @@ There are a lot of dnf groups to choose from. See a list of groups by running
 ```
 dnf group list
 ```
+You can get the short names for each group - useful if you're using batch files to install them - by running dnf with the -v (verbose) option. It will also tell you the metadata date/time for each repo.
 
-You can see what's in each group by running <code>dnf group info GROUP_NAME</code> I generally install *Development Tools*, *Development Libraries* and *X Software Development* but take a look at the ones that sound like they might fit your needs. 
- 
- 
- Groups are by far the easiest way to install the big desktop environments. For example, if for some unknown reason you wanted to install Gnome you'd use
+```
+dnf -v group list
+...
+repo: using cache for: fedora
+fedora: using metadata from Sat 05 Nov 2022 03:04:38 AM CDT.
+repo: using cache for: updates
+updates: using metadata from Fri 17 Mar 2023 11:49:31 PM CDT.
+repo: using cache for: fedora-modular
+...
+
+...
+Network Servers (network-server)
+Neuron Modelling Simulators (neuron-modelling-simulators)
+Office/Productivity (office)
+Python Classroom (python-classroom)
+Python Science (python-science)
+Robotics (robotics-suite)
+...
+```
+
+You can see what's in each group by running <code>dnf group info GROUP_NAME</code> I generally install *Development Tools* and *X Software Development* but take a look at the ones that sound like they might fit your needs. 
+
+Groups are by far the easiest way to install the big desktop environments. For example, if for some unknown reason you wanted to install Gnome you'd use
 ```
 sudo dnf -y group install "GNOME Desktop Environment 
-sudo dnf -y group install "Cinnamon Desktop"
 ```
 
-(IMHO Gnome looks like what you'd get if Crayola wrote a window manager :sunglasses: )
+(IMHO Gnome looks like what you'd get if Crayola wrote a window manager 😎
 
 Smaller DE's are just installed as packages; e.g. 
 ```
 sudo dnf install fluxbox
 ```
-
+<br><br>
 <a name="rpmfusion"></a>
 
 ## RPM Fusion
@@ -301,17 +395,26 @@ If you want something other than what's in the Fedora & RPM Fusion repos, check 
 
 [https://copr.fedorainfracloud.org/coprs/](https://copr.fedorainfracloud.org/coprs/)
 
+<br>
 <hr>
 
 <a name="various-kde-settings"></a>
 
 # 5) My Fedora KDE settings & tweaks
 
+## Backup & Restore
+
+I haven't found a reliable way to restore all of my KDE settings when installing a new Fedora build. If you back up
+./local & ./config that will take care of your personal settings but it will miss anything installed as the superuser. 
+All of that lives down in /usr. I'll keep trying until I get it right.
+<br><br>
+
 <a name="change-volume-name"></a>
 
 ## Changing The Volume Name
 
-Launch KDE Disk Editor from the Live CD. Rename your home volume to whatever you want. You can't change the name of a volume when booting from it.
+Launch KDE Disk Editor from the Live CD. Rename your home volume to whatever you want. You can't change the name of a volume when booting from it. If your disk in encrypted you'll have to unlock it first. I just reboot back into the USB drive right after installing Fedora & do it then.
+<br><br>
 
 <a name="konsole"></a>
 
@@ -323,7 +426,8 @@ Launch KDE Disk Editor from the Live CD. Rename your home volume to whatever you
 * Scrolling to Unlimited
 
 
-Set your new profile to the default profile. Then I disable all of toolbars under the Konsole Settings menu and hide the Menubar.
+Set your new profile to the default profile. Then I disable all of toolbars under the Konsole Settings menu and hide the Menubar. Make sure you exit the Konsole session or it won't save your profile properly.
+<br><br>
 
 <a name="dolphin"></a>
 
@@ -335,8 +439,11 @@ I setup Dolphin like this: In Settings<br>
 * General/Previews - Select the types you want displayed. I generally turn off everything but images & ebooks
 * Context Menu - take everything out I don't need or want. There are additional services you can download. 
 
+To change the icons for file types, go into System Settings/Applications and create a file type for what you want. For example, I created a type Text/x-shell, set the icon, and added .bashrc, .zshrc, etc. as filename patterns.
+
 
 <img src="Images/dolphin.png"/>
+<br><br>
 
 <a name="system-settings"></a>
 
@@ -345,7 +452,7 @@ I setup Dolphin like this: In Settings<br>
 
 ### Startup/SDDM
 I set it to automatically log in. Yes, I know this is bad security but if you set the machine up with an encrypted drive you have to login with that before continuing. I don't worry about it on a VM either. Obviously if this machine might be at risk don't do this. I use mine for playing around and learning about Fedora. 
-
+<br><br>
 <a name="appearance"></a>
 
 ### Appearance
@@ -357,7 +464,8 @@ I set it to automatically log in. Yes, I know this is bad security but if you se
 * Window Decorations - Breeze, but I change the window title so it's on the right.
 * Splash Screen - Breeze
 
-The KDE Store [https://store.kde.org](https://store.kde.org) has a complete list of Plasma widgets, fonts, colors, themes and other addons.
+The KDE Store [https://store.kde.org](https://store.kde.org) has a complete list of Plasma widgets, fonts, colors, themes and other addons. They can also be found in Discover under Plasma Addons.
+<br><br>
 <a name="taskbar"></a>
 
 ### KDE Taskbar
@@ -366,12 +474,20 @@ The KDE Store [https://store.kde.org](https://store.kde.org) has a complete list
 * Install Latte Seperator<br>
 * Add another digital clock & set it to UTC<br>
 * Use QuickLaunches to group applications<br>
-* Use Latte Seperator to put nice seperators between the QuickLaunches, clocks, etc.<br>
+* Use Latte Seperator to put nice seperators between the QuickLaunches, clocks, etc. It's available from "Get New Widgets" in the Add Widgets window.
+  
+<br>
 
 Once it's done it looks like this
-
 <img src="Images/taskbar.png"/>
-<br>
+
+<br><br>
+### KDE Desktop Effects
+
+I started using a Desktop Effect called Energize B [Burn-My-Windows] available on the KDE Store [https://www.pling.com/p/1884311It]. It makes opening & closing windows look like they're beaming in and out with a transporter. But I miss the spinning cube. I hope the KDE developers bring it back. I had an image of an open Stargate at the top & bottom.
+
+KDE is great if you want to show off :)
+<br><br>
 
 <a name="power"></a>
 
@@ -384,7 +500,7 @@ from the command line install tlp, then you can set power management this way<br
 cpupower frequency-set --governor conservative
 ```
 Read the man page for cpupower for more options
-
+<br><br>
 <a name="desktops"></a>
 ## Multiple Desktops
 
@@ -393,22 +509,23 @@ KDE, like most desktop environments will use multiple desktops. Set them up in S
 There are some great transitions available where your desktops can slide over one another and that sort of thing. Those are in Desktop Effects.
 
 If you wanted the spinning cube, however, they removed it. The code wasn't compatible with the way the KDE team is setting up the rest of the system. Hopefully it will come back. 
-
+<br><br>
 <a name="pagers"></a>
-### Pagers
-KDE comes with a basic pager Plasmoid that works, but I think it takes up too much space on the toolbar, especially when you have 4 or more desktops configured. I use Virtual Desktop Bar. [https://github.com/wsdfhjxc/virtual-desktop-bar](https://github.com/wsdfhjxc/virtual-desktop-bar) It has many options to configure the pager.
+## Pagers
+KDE comes with a basic pager Plasmoid that works, but I think it takes up too much space on the toolbar, especially when you have 4 or more desktops configured. I use AllJavi's [Virtual Desktop Bar](https://github.com/AllJavi/virtual-desktop-bar) It doesn't take up as much space if you have more desktops like I do (4).
 
+<br>
 <hr>
 <a name="other-apps"></a>
 
-# 6) Apps I'd Recommend
+# 6) Apps & Packages I'd Recommend
 
 A list of other applications can be found at [https://apps.kde.org](https://apps.kde.org) but these are the ones I use the most.
 
 <a name="yakuake"></a>
 
 ## Yakuake
-Yakuake is a great drop-down terminal. You hit a hotkey and a terminal drops down from the top of the screen. It's themeable and new themes can be downloaded.
+Yakuake is a great drop-down terminal. You hit a hotkey and a terminal drops down from the top of the screen. It's themeable and new themes can be downloaded. I use the Breeze Transparent theme.
 
 
 <img src="Images/yakuake.png"/>
@@ -428,7 +545,7 @@ sudo dnf install yakuake
 
 ### Using the Microsoft repository
 
-At this point (Fedora 36) VSCode isn't in the Fedora or RPM Fusion repositories. You can download it but I like having it installed from a repo so it stays up to date.
+At this point (Fedora 37) VSCode isn't in the Fedora or RPM Fusion repositories. You can download it but I like having it installed from a repo so it stays up to date.
 
 This will install the repo and key
 ```
@@ -453,7 +570,7 @@ flatpak install https://flathub.org/repo/appstream/com.visualstudio.code.flatpak
 ```
 
 See [https://code.visualstudio.com/docs/setup/linux](https://code.visualstudio.com/docs/setup/linux) or their GitHub page [Microsoft's Visual Studio Code GitHub page](https://github.com/Microsoft/vscode) for more information.
-
+<br><br>
 
 
 <a name="microsoft-open-fonts"></a>
@@ -470,6 +587,7 @@ rpm -i --quiet https://downloads.sourceforge.net/project/mscorefonts2/rpms/msttc
 ```
 
 You'll need <code>cabextract</code> and <code>xorg-x11-font-utils</code> to install the fonts.
+<br><br>
 
 <hr>
 <a name="linux"></a>
@@ -486,16 +604,20 @@ Public key    644
 
 ex: chmod 600 id_rsa
 ```
+
 ## Backups
 ***Always*** do backups. Have more than one if possible. It can be as simple and copying everything to an external USB drive to using a tool like rsync. Here's a good list of suggestions. 
 
 [https://linuxhint.com/11_best_backup_tools_linux/](https://linuxhint.com/11_best_backup_tools_linux/)
+<br><br>
 
 ## VPN
 I use NordVPN on Windows, MacOS and Linux. For info, see [https://nordvpn.com/download/linux/](https://nordvpn.com/download/linux/). Select 'install the rpm package'.
 
 I ran into some strange problems using their NordLynx protocol so I switched to OpenVPN. That fixed everything.
-<hr>
+
+There's a nice NordVPN Plasma Widget in Discover that puts a icon in the tray for controlling it.
+<br><br>
 
 <a name="selinux"></a>
 
@@ -509,10 +631,11 @@ I've never seen anything installed from the Fedora or RPMFusion repositories tha
 Here is a good overview of SELinux for Fedora.
 [https://docs.fedoraproject.org/en-US/quick-docs/getting-started-with-selinux/](https://docs.fedoraproject.org/en-US/quick-docs/getting-started-with-selinux/)
 
+<br>
 <hr>
 <a name = "advanced"></a>
 
-# 9) Advanced Tweaking
+# 9) Advanced Topics
 
 <a name="grub"></a>
 
@@ -553,12 +676,13 @@ For legacy systems run
 sudo grub2-mkconfig -o /boot/grub2/grub.cfg
 ```
 You can edit grub.cfg directly for testing, but it will work until grub2-mkconfig overwrites it.
+<br><br>
 
 <a name="custom-grub"></a>
 
 ### Grub Configuration Files
 
-The Grub menu is built from config files in <code>/etc/grub.d</code>. You'll need root privileges; sudo doesn't work very well so enable the root account, shell into it, make the changes you want, then log out and disable the root user.
+The Grub menu is built from config files in <code>/etc/grub.d</code>. You'll need root privileges.
 
 There is a file that adds other OSs, like Windows. That's in <code>30_os-prober</code>. Open it and find the <code>menuentry</code> immediately after searching for 'Windows' and change the first part to <code>menuentry '$(echo "Windows")'</code>Make sure you get that last single quote. This way it just says 'Windows' and not all the stuff about what partition it's on.
 
@@ -576,8 +700,7 @@ You can download Grub themes from gnome-look.org or the KDE store. Depending on 
 
 [Here's a good article explaining how to do it](https://www.bleepingcomputer.com/forums/t/743402/how-to-change-font-size-in-grub-menu/)<br>
 [There are some nice Grub themes here](https://www.gnome-look.org/browse?cat=109)
-
-
+<br><br>
 <a name="custom-repo-list"></a>
 
 ## Customizing the DNF repository list
@@ -626,18 +749,31 @@ If you want them in order, rename each repo file; e.g.
 to make it look like this
 
 <img src="Images/dnf.png"/>
-<br>
+<br><br>
 
 <a name="parallels"></a>
 
 ## Fedora inside Parallels on an M1
 
-I run Fedora now in a VM on my MacBook. I do development mainly in Swift but still enjoy learning more about Fedora.  
+I've run Fedora in a VM on my MacBook but it was klunky at best. I have a dedicated laptop for it now.
 
 There is a problem with the Parallels tools running inside Parallels on an M1 Mac. It looks like running with Linux kernel 5.18.13-200 causes the tools & integration to fail, but running 5.17.5-300 it works fine. 
 
 I'm waiting to see if a kernel or software update fixes it.
+<br><br>
 
+## Fedora Beta versions
+
+The only problem I've had running betas are with the RPM Fusion repos not being set up yet. If you feel adventurous go for it. You'll have to update to the release version when it comes out. 
+<br><br>
+
+## Upgrading Fedora
+
+I've been leery about doing a full update of an OS since the Windows 3.1 days. Fedora is ***way*** more stable than Windows ever was but my phobia remains. 😎 I always back everything up and do a fresh install.
+
+Here's Fedora's instructions on how to do it. [Upgrading to a new release of Fedora](https://docs.fedoraproject.org/en-US/quick-docs/upgrading/)
+
+<br>
 <hr>
 <a name="kdedev"></a>
 
