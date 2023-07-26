@@ -1,9 +1,7 @@
 - [1) Introduction](#1-introduction)
-  - [Fedora 38 Beta](#fedora-38-beta)
   - [Other Fedora options](#other-fedora-options)
 - [2) Installation](#2-installation)
   - [X11 vs Wayland](#x11-vs-wayland)
-  - [My Post-Installation Scripts](#my-post-installation-scripts)
 - [3) Shells](#3-shells)
   - [Zsh](#zsh)
     - [Zsh Tweaks](#zsh-tweaks)
@@ -54,12 +52,12 @@
 
 # 1) Introduction
 
-I've run Fedora since Fedora 9. It's my choice for a Linux OS for a number of reasons. When I first started with Linux my college used Scientific Linux, based on CentOS which itself is based on RedHat. Other students used Ubuntu, but I found it difficult to use since the development tools & other things don't match. Think Ubuntu's Build Essentials vs Fedora's Development Tools group. Everything I did on my machine matched what was used on the servers.  
+I've run Fedora since Fedora 9. It's my choice for a Linux OS for a number of reasons. When I first started with Linux my college used Scientific Linux, based on CentOS which is based on RedHat. Other students used Ubuntu, but I found it difficult to use since the development tools & other things don't match. Think Ubuntu's Build Essentials vs Fedora's Development Tools group. Everything I did on my machine matched what was used on the servers.  
 
 Also, I just like the way Fedora does things. It may seem more complicated that Ubuntu but it gave me the opportunity to learn much more about what's happening inside. Linus Torvalis uses Fedora. The prosecution rests. :)
 
 I've spent a lot of time just playing with Fedora and KDE, learning how it works. KDE is very configurable. You can pretty much set it up however you want. This is going to be a work in progress. As I find (or remember) more I'll add it. I hope it helps you. 
-<br>
+<br><br>
 
 ## Other Fedora options
 
@@ -74,37 +72,32 @@ The primary Fedora release comes with the GNOME desktop environment. Fedora also
 * [Security Lab](https://labs.fedoraproject.org/en/security/)
 * [Robotics Suite](https://labs.fedoraproject.org/en/robotics/)
 * [Scientific](https://labs.fedoraproject.org/en/scientific/)
-<br>
 
-## Comments on this Guide
-
-All of the commands I've listed assume you are **not** logged in as the root user so I've added 'sudo' to all of them. You **can** login at root but that can break your system with a mistyped command. It's safer to stay logged in as you and sudo everything you need to.
-
-<a name="install"></a>
+<br><br>
 
 # 2) Installation
 
 
-* Download the Fedora KDE Spin [https://spins.fedoraproject.org/en/kde/](https://spins.fedoraproject.org/en/kde/)
+* Download the [Fedora KDE Spin](https://spins.fedoraproject.org/en/kde/)
 <br>
 
 
 * Import Fedora's GPG key(s) <br>
-```
+```bash
 curl https://getfedora.org/static/fedora.gpg | gpg --import
 ```
 
-* Verify the checksum is valid <br>
-```
+* Verify the checksum is valid 
+  
+```bash
 gpg --verify-files CHECKSUM_FILENAME
 ```
-
-* Verify the download's checksum matches <br>
-```
+ * Verify the download's checksum matches 
+```bash
 sha256sum -c CHECKSUM_FILE
 ```
 
-Unless I'm installing Fedora in a VM I ***always*** encrypt the drive. I use the standard install options and leave the root user disabled. Obviously if you need a specific partition layout set it up here. I'd be wary of playing with it for the sake of playing with it. The Fedora engineers have done a great job of optimizing everything for the desktop and it would be very easy to *optimize* your system so it runs worse. I used to make the swap partition larger but there was no need for it. Enlarge it if you want to be able to hibernate. 
+Unless I'm installing Fedora in a VM I ***always*** encrypt the drive. I use the standard install options and leave the root user disabled. Obviously if you need a specific partition layout set it up here. I'd be wary of playing with it for the sake of playing with it. The Fedora engineers have done a great job of optimizing everything for the desktop and it would be very easy to *optimize* your system so it runs worse. I used to make the swap partition larger but there was no need for it. Enlarge it if you want to be able to hibernate.
 
 Fedora switched to the Btvfs file system from Ext4. I'd leave it alone. There are discussions/arguments all over the web about the problems & benefits of Btvfs but like for partitioning, you're best just to leave it alone.
 
@@ -112,12 +105,12 @@ The Fedora installer looks different depending on what Spin you're installing. F
 
 After installing Fedora you'll want to update everything before adding to your system. See the [DNF](#dnf) section for more information. 
 
-```
+```bash
 sudo dnf update -y
 ```
 
 The '-y' parameter suppresses the 'yes/no' prompts.
-<br>
+<br><br>
 
 <a name="shells"></a>
 ## X11 vs Wayland
@@ -127,14 +120,14 @@ Wayland is the default display manager for the Fedora KDE spin. Here are the Fed
 I still have odd problems cropping up from time to time using Wayland so I'm still using X11. Wayland didn't work well at all in a VM on an M1 Mac.
 <br><br>
 
+<hr>
   
 # 3) Shells
 
-I use **<code>exa</code>** to replace **<code>ls</code>**. See [https://github.com/ogham/exa](https://github.com/ogham/exa) for more information. It formats things really well. I don't know why the timestamps are so dark. There's no setting in exa that sets colors for columns. Might be somewhere in <code>LS_COLORS</code>. I found if I use a theme in Konsole that has a dark, but not black, background it works pretty well.
+I use **<code>exa</code>** to replace **<code>ls</code>**. See [here](https://github.com/ogham/exa) for more information. It formats things really well. I don't know why the timestamps are so dark. There's no setting in exa that sets colors for columns. Might be somewhere in <code>LS_COLORS</code>. I found if I use a theme in Konsole that has a dark, but not black, background it works pretty well.
 
 I love the octal file attributes and Git status.<br>
-
-```
+```bash
 alias ls='exa -lah --group-directories-first -F --git --no-permissions --octal-permissions 
 ```
 <br>
@@ -143,12 +136,12 @@ alias ls='exa -lah --group-directories-first -F --git --no-permissions --octal-p
 <a name="zsh"></a>
 
 ## Zsh
-I'm starting to use zsh but still have Bash configured on my system. Zsh gives you a LOT of features over what Bash has. Read more at [https://zsh.sourceforge.io/Intro/intro_toc.html](https://zsh.sourceforge.io/Intro/intro_toc.html)
+I'm starting to use zsh but still have Bash configured on my system. Zsh gives you a LOT of features over what Bash has. Read more at [An Introduction to the Z shell](https://zsh.sourceforge.io/Intro/intro_toc.html)
 
-I also recommend Oh-My-Zsh. It adds lots of features that will make your life easier, along with themes. Check it out at [https://github.com/ohmyzsh/ohmyzsh](https://github.com/ohmyzsh/ohmyzsh)  
+I also recommend [Oh-My-Zsh](https://github.com/ohmyzsh/ohmyzsh). It adds lots of features that will make your life easier, along with themes. 
 
 To install Oh-My-Zsh
-```
+```bash
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
 
@@ -304,6 +297,9 @@ You can set this in <code>/etc/dnf/dnf.conf</code> by using <code>assumeyes=1</c
 
 DNF can take a long to update itself because it downloads the repository data often. A [discussion](https://ask.fedoraproject.org/t/why-is-dnf-so-slow/6316) on the Fedora Project site suggested setting <code>metadata_expire=2d</code> in <code>/etc/dnf/dnf.conf</code>. If you use the -q parameter (quiet) like in my install scripts it will look like the process hangs. 
 
+I found if I call dnf with the <code>--refresh</code> parameter it seems to update the repository metadata faster than if it does it 
+based on it's schedule. I'm not sure why. So I run <code>sudo dnf update -y --refresh</code>
+
 There are a lot of dnf groups to choose from. See a list of groups by running 
 ```
 dnf group list
@@ -347,9 +343,9 @@ sudo dnf install fluxbox
 <a name="rpmfusion"></a>
 
 ## RPM Fusion
-You'll probably want to enable RPM Fusion. RPM Fusion is a repository that contains software that doesn't meet the Fedora licensing. The base Fedora distro is FOSS-Only.
+You'll probably want to enable [RPM Fusion](https://rpmfusion.org). RPM Fusion is a repository that contains software that doesn't meet the Fedora licensing. The base Fedora distro is FOSS-Only.
 
-[RPM Fusion Site](https://rpmfusion.org)
+
 
 You can install it from your browser but I think it's easier to do it from the command line.
 
@@ -365,11 +361,11 @@ rpmfusion-free-appstream-data
 rpmfusion-nonfree-appstream-data
 ```
 
-Many of the options in dnf are actually plugins. You can install additional plugins, like the one you'll need for updating Fedora itself. See the plugins section at [https://docs.fedoraproject.org/en-US/quick-docs/dnf/](https://docs.fedoraproject.org/en-US/quick-docs/dnf/)
+Many of the options in dnf are actually plugins. You can install additional plugins, like the one you'll need for updating Fedora itself. See the plugins section at [Using the DNF software package manager](https://docs.fedoraproject.org/en-US/quick-docs/dnf/)
 
-If you want something other than what's in the Fedora & RPM Fusion repos, check out Fedora's COPR repositories. They're user-created repos with their projects. There are nightly builds of software as well. Some of them are personal repos and say 'do not use'. Don't use them. :)
+If you want something other than what's in the Fedora & RPM Fusion repos, check out the [COPR Repositories](https://copr.fedorainfracloud.org/coprs/). They're user-created repos with their projects. There are nightly builds of software as well. Some of them are personal repos and say 'do not use'. Don't use them. :)
 
-[https://copr.fedorainfracloud.org/coprs/](https://copr.fedorainfracloud.org/coprs/)
+
 
 <br>
 <hr>
@@ -440,7 +436,7 @@ I set it to automatically log in. Yes, I know this is bad security but if you se
 * Window Decorations - Breeze, but I change the window title so it's on the right.
 * Splash Screen - Breeze
 
-The KDE Store [https://store.kde.org](https://store.kde.org) has a complete list of Plasma widgets, fonts, colors, themes and other addons. They can also be found in Discover under Plasma Addons.
+The [KDE Store](https://store.kde.org) has a complete list of Plasma widgets, fonts, colors, themes and other addons. They can also be found in Discover under Plasma Addons.
 <br><br>
 <a name="taskbar"></a>
 
@@ -452,6 +448,7 @@ The KDE Store [https://store.kde.org](https://store.kde.org) has a complete list
 * Use QuickLaunches to group applications<br>
 * Use Latte Seperator to put nice seperators between the QuickLaunches, clocks, etc. It's available from "Get New Widgets" in the Add Widgets window.
   
+<br>
 
 Once it's done it looks like this
 <img src="Images/taskbar.png"/>
@@ -459,7 +456,7 @@ Once it's done it looks like this
 <br><br>
 ### KDE Desktop Effects
 
-I started using a Desktop Effect called Energize B [Burn-My-Windows] available on the KDE Store [https://www.pling.com/p/1884311It]. It makes opening & closing windows look like they're beaming in and out with a transporter. But I miss the spinning cube. I hope the KDE developers bring it back. I had an image of an open Stargate at the top & bottom.
+I started using a Desktop Effect called Energize B [Burn-My-Windows] available on the KDE Store or [here](https://www.pling.com/p/1884311It). It makes opening & closing windows look like they're beaming in and out with a transporter. But I miss the spinning cube. I hope the KDE developers bring it back. I had an image of an open Stargate at the top & bottom.
 
 KDE is great if you want to show off :)
 <br><br>
@@ -475,7 +472,7 @@ from the command line install tlp, then you can set power management this way<br
 cpupower frequency-set --governor conservative
 ```
 Read the man page for cpupower for more options
-<br>
+<br><br>
 <a name="desktops"></a>
 ## Multiple Desktops
 
@@ -485,12 +482,17 @@ There are some great transitions available where your desktops can slide over on
 
 If you wanted the spinning cube, however, they removed it. The code wasn't compatible with the way the KDE team is setting up the rest of the system. Hopefully it will come back. 
 <br><br>
+<a name="pagers"></a>
+## Pagers
+KDE comes with a basic pager Plasmoid that works, but I think it takes up too much space on the toolbar, especially when you have 4 or more desktops configured. I use AllJavi's [Virtual Desktop Bar](https://github.com/AllJavi/virtual-desktop-bar) It doesn't take up as much space if you have more desktops like I do, but it only runs in X11.
 
+<br>
+<hr>
 <a name="other-apps"></a>
 
 # 6) Apps & Packages I'd Recommend
 
-A list of other applications can be found at [https://apps.kde.org](https://apps.kde.org) but these are the ones I use the most.
+A list of other applications can be found at the [KDE Apps](https://apps.kde.org) page at kde.org, but these are the ones I use the most.
 
 <a name="yakuake"></a>
 
@@ -501,7 +503,7 @@ Yakuake is a great drop-down terminal. You hit a hotkey and a terminal drops dow
 <img src="Images/yakuake.png"/>
 <br>
 
-See at [https://apps.kde.org/yakuake/])https://apps.kde.org/yakuake/) or install with dnf. 
+See [Yakuake](https://apps.kde.org/yakuake/) or install with dnf. 
 ```
 sudo dnf install yakuake
 ```
@@ -518,16 +520,15 @@ sudo dnf install yakuake
 At this point (Fedora 38) VSCode isn't in the Fedora or RPM Fusion repositories. You can download it but I like having it installed from a repo so it stays up to date.
 
 This will install the repo and key
-
 ```
 sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
+
 sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
 ```
 
 Then<br>
-
 ```
-sudo dnf check-update
+dnf check-update 
 sudo dnf install code
 ```
 
@@ -539,7 +540,7 @@ If you prefer Flatpaks<br>
 flatpak install https://flathub.org/repo/appstream/com.visualstudio.code.flatpakref
 ```
 
-See [https://code.visualstudio.com/docs/setup/linux](https://code.visualstudio.com/docs/setup/linux) or their GitHub page [Microsoft's Visual Studio Code GitHub page](https://github.com/Microsoft/vscode) for more information.
+See [Visual Studio Code on Linux](https://code.visualstudio.com/docs/setup/linux) or [Microsoft's Visual Studio Code GitHub page](https://github.com/Microsoft/vscode) for more information.
 <br><br>
 
 
@@ -557,20 +558,10 @@ rpm -i --quiet https://downloads.sourceforge.net/project/mscorefonts2/rpms/msttc
 ```
 
 You'll need <code>cabextract</code> and <code>xorg-x11-font-utils</code> to install the fonts.
-<br><br>****
+<br><br>
 
-<a name="onedrive"></a>
-
-## OneDrive
-
-I still do a lot over in Microsoft 365 and the OneDrive client for Linux is way, way better than it used to be. I use it with a 365 Business account but it should work the same for the personal version. It doesn't default to files-on-demand like the Windows & Mac clients do so it just syncs everything the way you'd expect.
-
-After adding the RPM Fusion repos,
-
-```
-dnf install onedrive 
-```
-
+<hr>
+<a name="linux"></a>
 
 # 7) General Linux Information
 
@@ -586,23 +577,16 @@ ex: chmod 600 id_rsa
 ```
 
 ## Backups
-***Always*** do backups. Have more than one if possible. It can be as simple and copying everything to an external USB drive to using a tool like rsync. Here's a good list of suggestions. 
-
-[https://linuxhint.com/11_best_backup_tools_linux/](https://linuxhint.com/11_best_backup_tools_linux/)
+Here's a good 
+[List of suggestions](https://linuxhint.com/11_best_backup_tools_linux/) from LinuxHint.com.
 <br><br>
 
 ## VPN
-I use NordVPN on Windows, MacOS and Linux. For info, see [https://support.nordvpn.com/Connectivity/Linux/1325529112/Installing-and-using-NordVPN-on-Fedora-and-QubesOS-Linux.htm/](https://support.nordvpn.com/Connectivity/Linux/1325529112/Installing-and-using-NordVPN-on-Fedora-and-QubesOS-Linux.htm/). <br>
-
-Then install it using their script
-
-```
-sh <(curl -sSf https://downloads.nordcdn.com/apps/linux/install.sh)
-```
+I use NordVPN on Windows, MacOS and Linux. For info, see [NordVPN](https://nordvpn.com/download/linux/)'s Linux page. You'll have to sign up to get there.
 
 I ran into some strange problems using their NordLynx protocol so I switched to OpenVPN. That fixed everything.
 
-There's a nice NordVPN Plasma Widget in Discover that puts a icon in the tray for controlling it.
+There's a nice plasmoid in Discover that puts a icon in the tray for controlling it. Note: there are two plasmoids in Discover: [NordVPN Plasma Widget](https://store.kde.org/p/1689651) and the [NordVPN Status Plasmoid](https://store.kde.org/p/1509103). I use the NordVPN Plasmoid.
 <br><br>
 
 <a name="selinux"></a>
@@ -614,8 +598,7 @@ I've never seen anything installed from the Fedora or RPMFusion repositories tha
 
  If you install <code>setroubleshoot</code> (I recommend it) it will give you a detailed description of what the problem is. If you get an SELinux alert something is trying to write where it doesn't have permission. If the app should be able to write there you can tell SELinux to allow that app to access that file.
 
-Here is a good overview of SELinux for Fedora.
-[https://docs.fedoraproject.org/en-US/quick-docs/getting-started-with-selinux/](https://docs.fedoraproject.org/en-US/quick-docs/getting-started-with-selinux/)
+Here is a good [overview of SELinux for Fedora.](https://docs.fedoraproject.org/en-US/quick-docs/getting-started-with-selinux/)
 
 <br>
 <hr>
@@ -692,7 +675,7 @@ You can download Grub themes from gnome-look.org or the KDE store. Depending on 
 ## Customizing the DNF repository list
 
 ### Structure of a .repo file.
-Fedora's repository files are located in <code>/etc/yum.repos.d</code>. This is a section of a .repo. There can be other sections, like for debug or source packages. These are usually disabled.
+Fedora's repository files are located in <code>/etc/yum.repos.d</code>. This is a section of a repo file. There can be other sections, like for debug or source packages. These are usually disabled.
 
 ```
 [fedora]
@@ -708,7 +691,7 @@ gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-$releasever-$basearch
 skip_if_unavailable=False
 ```
 
-Fedora's Repository Docs are here - [https://docs.fedoraproject.org/en-US/quick-docs/repositories/](https://docs.fedoraproject.org/en-US/quick-docs/repositories/)
+[Fedora's Repository Docs](https://docs.fedoraproject.org/en-US/quick-docs/repositories/)
 
 
 To change what the repo looks like when running dnf change the 2nd line of the .repo file.
@@ -778,5 +761,4 @@ sudo dnf -y install builddep plasma-desktop plasma-workspace kwin
 
 Obviously, if you're using zsh change your <code>.zshrc</code> accordingly.
 
-If you're interested in working on KDE itself check out the Fedora KDE SIG
-at [https://fedoraproject.org/wiki/SIGs/KDE](https://fedoraproject.org/wiki/SIGs/KDE)<br><br>
+If you're interested in working on KDE itself check out the [Fedora KDE Sig](https://fedoraproject.org/wiki/SIGs/KDE).<br><br>
