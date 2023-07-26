@@ -8,7 +8,6 @@
     - [Themes](#themes)
   - [Bash](#bash)
 - [4) DNF](#4-dnf)
-  - [DNF Options](#dnf-options)
   - [RPM Fusion](#rpm-fusion)
 - [5) My Fedora KDE settings \& tweaks](#5-my-fedora-kde-settings--tweaks)
   - [Backup \& Restore](#backup--restore)
@@ -76,7 +75,6 @@ The primary Fedora release comes with the GNOME desktop environment. Fedora also
 
 # 2) Installation
 
-
 * Download the [Fedora KDE Spin](https://spins.fedoraproject.org/en/kde/)
 <br>
 
@@ -111,16 +109,15 @@ sudo dnf update -y
 The '-y' parameter suppresses the 'yes/no' prompts.
 <br><br>
 
-<a name="shells"></a>
+
 ## X11 vs Wayland
 
 Wayland is the default display manager for the Fedora KDE spin. Here are the Fedora [Wayland](https://docs.fedoraproject.org/en-US/fedora/latest/system-administrators-guide/Wayland/) docs. 
 
 I still have odd problems cropping up from time to time using Wayland so I'm still using X11. Wayland didn't work well at all in a VM on an M1 Mac.
 <br><br>
-
-<hr>
   
+<a name="shells"></a>
 # 3) Shells
 
 I use **<code>exa</code>** to replace **<code>ls</code>**. See [here](https://github.com/ogham/exa) for more information. It formats things really well. I don't know why the timestamps are so dark. There's no setting in exa that sets colors for columns. Might be somewhere in <code>LS_COLORS</code>. I found if I use a theme in Konsole that has a dark, but not black, background it works pretty well.
@@ -267,16 +264,10 @@ Here's the prompt for my colored bar in Bash
 and looks like this. 
 
 ![title](Images/bash.png)
-
-<br>
-<hr>
+<br><br>
 
 <a name="dnf"></a>
-
 # 4) DNF
-<a name="dnf-config"></a>
-
-## DNF Options
 
 There are many options for DNF from getting through proxies, security settings, and more. Look at the official [Fedora DNF Reference](https://docs.fedoraproject.org/en-US/fedora/latest/system-administrators-guide/package-management/DNF/), the [Fedora DNF Quickdocs](https://docs.fedoraproject.org/en-US/quick-docs/dnf/) and the [DNF GitHub page](https://github.com/rpm-software-management/dnf) for more information.
 
@@ -334,13 +325,12 @@ sudo dnf -y group install "GNOME Desktop Environment
 
 (IMHO Gnome looks like what you'd get if Crayola wrote a window manager 😎
 
-Smaller DE's are just installed as packages; e.g. 
-```
-sudo dnf install fluxbox
-```
+Smaller DE's are just installed as packages.
+Here's a good article on [Switching Desktop Environments](
+https://docs.fedoraproject.org/en-US/quick-docs/switching-desktop-environments/)
 <br><br>
-<a name="rpmfusion"></a>
 
+<a name="rpmfusion"></a>
 ## RPM Fusion
 You'll probably want to enable [RPM Fusion](https://rpmfusion.org). RPM Fusion is a repository that contains software that doesn't meet the Fedora licensing. The base Fedora distro is FOSS-Only.
 
@@ -364,13 +354,9 @@ Many of the options in dnf are actually plugins. You can install additional plug
 
 If you want something other than what's in the Fedora & RPM Fusion repos, check out the [COPR Repositories](https://copr.fedorainfracloud.org/coprs/). They're user-created repos with their projects. There are nightly builds of software as well. Some of them are personal repos and say 'do not use'. Don't use them. :)
 
-
-
-<br>
-<hr>
+<br><br>
 
 <a name="various-kde-settings"></a>
-
 # 5) My Fedora KDE settings & tweaks
 
 ## Backup & Restore
@@ -486,7 +472,7 @@ If you wanted the spinning cube, however, they removed it. The code wasn't compa
 KDE comes with a basic pager Plasmoid that works, but I think it takes up too much space on the toolbar, especially when you have 4 or more desktops configured. I use AllJavi's [Virtual Desktop Bar](https://github.com/AllJavi/virtual-desktop-bar) It doesn't take up as much space if you have more desktops like I do, but it only runs in X11.
 
 <br>
-<hr>
+
 <a name="other-apps"></a>
 
 # 6) Apps & Packages I'd Recommend
@@ -600,11 +586,10 @@ I've never seen anything installed from the Fedora or RPMFusion repositories tha
 Here is a good [overview of SELinux for Fedora.](https://docs.fedoraproject.org/en-US/quick-docs/getting-started-with-selinux/)
 
 <br>
-<hr>
+
 <a name = "advanced"></a>
 
 # 9) Advanced Topics
-
 <a name="grub"></a>
 
 ## Grub
@@ -742,7 +727,6 @@ I've been leery about doing a full update of an OS since the Windows 3.1 days. F
 Here's Fedora's instructions on how to do it. [Upgrading to a new release of Fedora](https://docs.fedoraproject.org/en-US/quick-docs/upgrading/)
 
 <br>
-<hr>
 <a name="kdedev"></a>
 
 # 10) KDE Development
