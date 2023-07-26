@@ -72,7 +72,6 @@ The primary Fedora release comes with the GNOME desktop environment. Fedora also
 * [Security Lab](https://labs.fedoraproject.org/en/security/)
 * [Robotics Suite](https://labs.fedoraproject.org/en/robotics/)
 * [Scientific](https://labs.fedoraproject.org/en/scientific/)
-
 <br><br>
 
 # 2) Installation
