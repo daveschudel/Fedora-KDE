@@ -114,7 +114,7 @@ The '-y' parameter suppresses the 'yes/no' prompts.
 
 Wayland is the default display manager for the Fedora KDE spin. Here are the Fedora [Wayland](https://docs.fedoraproject.org/en-US/fedora/latest/system-administrators-guide/Wayland/) docs. 
 
-I still have odd problems cropping up from time to time using Wayland so I'm still using X11. Wayland didn't work well at all in a VM on an M1 Mac.
+Wayland didn't work well at all in a VM on an M1 Mac.
 <br><br>
   
 <a name="shells"></a>
@@ -417,7 +417,7 @@ I set it to automatically log in. Yes, I know this is bad security but if you se
 * Icons - Miya (download from the Icons dialog)
 * Colors - Nord Light (download from the Colors dialog)
 * Fonts - Comfortaa
-* Plasma Style - Oxygen
+* Plasma Style - Breeze Alpha Black (allows for a transparent taskbar)
 * Window Decorations - Breeze, but I change the window title so it's on the right.
 * Splash Screen - Breeze
 
@@ -429,15 +429,14 @@ The [KDE Store](https://store.kde.org) has a complete list of Plasma widgets, fo
 * Change menu to Application Menu<br>
 * Application Menu Settings, check 'Flatten submenus' and uncheck Recent categories<br>
 * Install Latte Seperator<br>
+* Install Minimal Desktop Indicator (for Wayland)
 * Add another digital clock & set it to UTC<br>
 * Use QuickLaunches to group applications<br>
 * Use Latte Seperator to put nice seperators between the QuickLaunches, clocks, etc. It's available from "Get New Widgets" in the Add Widgets window.
   
 <br>
-
 Once it's done it looks like this
 <img src="Images/taskbar.png"/>
-
 <br><br>
 ### KDE Desktop Effects
 
@@ -469,7 +468,7 @@ If you wanted the spinning cube, however, they removed it. The code wasn't compa
 <br><br>
 <a name="pagers"></a>
 ## Pagers
-KDE comes with a basic pager Plasmoid that works, but I think it takes up too much space on the toolbar, especially when you have 4 or more desktops configured. I use AllJavi's [Virtual Desktop Bar](https://github.com/AllJavi/virtual-desktop-bar) It doesn't take up as much space if you have more desktops like I do, but it only runs in X11.
+KDE comes with a basic pager Plasmoid that works, but I think it takes up too much space on the toolbar, especially when you have 4 or more desktops configured. In X11 I use AllJavi's [Virtual Desktop Bar](https://github.com/AllJavi/virtual-desktop-bar) It doesn't take up as much space if you have more desktops like I do, but it only runs in X11. For Wayland I use the Minimal Desktop Indicator, available in Widgets/Download.
 
 <br>
 
@@ -599,7 +598,9 @@ Here is a good [overview of SELinux for Fedora.](https://docs.fedoraproject.org/
 
 The main config file is <code>/etc/default/grub.</code> I set mine up with these differences.<br>
 
-I add/change these lines to the grub config file
+I add/change these lines to the grub config file. I modified Andrei Shevchuk's poly-dark theme a bit.
+https://github.com/shvchk/poly-dark
+
 ```
 GRUB_THEME=/boot/grub2/themes/poly-dark/theme.txt 
 
@@ -640,8 +641,6 @@ The Grub menu is built from config files in <code>/etc/grub.d</code>. You'll nee
 There is a file that adds other OSs, like Windows. That's in <code>30_os-prober</code>. Open it and find the <code>menuentry</code> immediately after searching for 'Windows' and change the first part to <code>menuentry '$(echo "Windows")'</code>Make sure you get that last single quote. This way it just says 'Windows' and not all the stuff about what partition it's on.
 
 Or, you could change it to read 'Windoze, 'Help me God' or whatever you'd like :)
-
-This is what it looks like with the above options without the theme.
 
 ![title](Images/grub-options.jpg)
 <br>
