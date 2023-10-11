@@ -438,6 +438,7 @@ The [KDE Store](https://store.kde.org) has a complete list of Plasma widgets, fo
 Once it's done it looks like this
 <img src="Images/taskbar.png"/>
 <br><br>
+
 ### KDE Desktop Effects
 
 I started using a Desktop Effect called Energize B [Burn-My-Windows] available on the KDE Store or [here](https://www.pling.com/p/1884311It). It makes opening & closing windows look like they're beaming in and out with a transporter. But I miss the spinning cube. I hope the KDE developers bring it back. I had an image of an open Stargate at the top & bottom.
