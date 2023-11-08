@@ -1,16 +1,16 @@
 - [1) Introduction](#1-introduction)
-  - [Fedora 38 Beta](#fedora-38-beta)
+  - [Fedora 39](#fedora-39)
   - [Other Fedora options](#other-fedora-options)
+  - [Fedora Magazine](#fedora-magazine)
+  - [Fedora Laptops](#fedora-laptops)
 - [2) Installation](#2-installation)
   - [X11 vs Wayland](#x11-vs-wayland)
-  - [My Post-Installation Scripts](#my-post-installation-scripts)
 - [3) Shells](#3-shells)
   - [Zsh](#zsh)
     - [Zsh Tweaks](#zsh-tweaks)
     - [Themes](#themes)
   - [Bash](#bash)
 - [4) DNF](#4-dnf)
-  - [DNF Options](#dnf-options)
   - [RPM Fusion](#rpm-fusion)
 - [5) My Fedora KDE settings \& tweaks](#5-my-fedora-kde-settings--tweaks)
   - [Backup \& Restore](#backup--restore)
@@ -24,13 +24,13 @@
     - [KDE Desktop Effects](#kde-desktop-effects)
   - [Laptop Power Management](#laptop-power-management)
   - [Multiple Desktops](#multiple-desktops)
-  - [Pagers](#pagers)
 - [6) Apps \& Packages I'd Recommend](#6-apps--packages-id-recommend)
   - [Yakuake](#yakuake)
   - [Visual Studio Code](#visual-studio-code)
     - [Using the Microsoft repository](#using-the-microsoft-repository)
     - [Using a Flatpak](#using-a-flatpak)
   - [Microsoft Open Fonts](#microsoft-open-fonts)
+  - [OneDrive](#onedrive)
 - [7) General Linux Information](#7-general-linux-information)
   - [SSH](#ssh)
   - [Backups](#backups)
@@ -38,18 +38,17 @@
 - [8) SELinux](#8-selinux)
 - [9) Advanced Topics](#9-advanced-topics)
   - [Grub](#grub)
-    - [Grub Menu Customization](#grub-menu-customization)
     - [Grub Configuration Files](#grub-configuration-files)
     - [Themes](#themes-1)
   - [Customizing the DNF repository list](#customizing-the-dnf-repository-list)
     - [Structure of a .repo file.](#structure-of-a-repo-file)
-  - [Fedora inside Parallels on an M1](#fedora-inside-parallels-on-an-m1)
   - [Fedora Beta versions](#fedora-beta-versions)
   - [Upgrading Fedora](#upgrading-fedora)
 - [10) KDE Development](#10-kde-development)
 
+
 <br>
-<hr>
+
 <a name="intro"></a>
 
 # 1) Introduction
@@ -58,8 +57,21 @@ I've run Fedora since Fedora 9. It's my choice for a Linux OS for a number of re
 
 Also, I just like the way Fedora does things. It may seem more complicated that Ubuntu but it gave me the opportunity to learn much more about what's happening inside. Linus Torvalis uses Fedora. The prosecution rests. :)
 
-I've spent a lot of time just playing with Fedora and KDE, learning how it works. KDE is very configurable. You can pretty much set it up however you want. This is going to be a work in progress. As I find (or remember) more I'll add it. I hope it helps you. 
+I've spent a lot of time just playing with Fedora and KDE, learning how it works. KDE is very configurable. You can pretty much set it up however you want. This is going to be a work in progress. 
+
+Chapters 5 & 10 are the only one that here specific to the KDE spin so users of the base Fedora distro and other spins can get information that could help them too.
+
+As I find (or remember) more I'll add it. I hope it helps you. 
 <br>
+
+## Fedora 39
+
+Fedora 39 was released November 7. There are a number of changes to Gnome but the big one for all the spins & labs was eliminating the Modular repository. 
+
+I decided to use the upgrade option this time instead of wiping the machine & starting from scratch. 
+
+I only ran into one problem. The most recent kernel wouldn't start. Not sure why, but I had VirtualBox installed and it has a kernel mod, and I've played around with Grub so it was probably something I did. I just booted into the previous kernel, removed the most recent, reinstalled it and it works fine. See [Upgrading Fedora](#upgrading-fedora) for more information.
+
 
 ## Other Fedora options
 
@@ -74,16 +86,20 @@ The primary Fedora release comes with the GNOME desktop environment. Fedora also
 * [Security Lab](https://labs.fedoraproject.org/en/security/)
 * [Robotics Suite](https://labs.fedoraproject.org/en/robotics/)
 * [Scientific](https://labs.fedoraproject.org/en/scientific/)
-<br>
+<br><br>
 
-## Comments on this Guide
+## Fedora Magazine
+[Fedora Magazine](https://fedoramagazine.org/) has a lot of good information. They'll post articles on how-tos and new apps to try.
 
-All of the commands I've listed assume you are **not** logged in as the root user so I've added 'sudo' to all of them. You **can** login at root but that can break your system with a mistyped command. It's safer to stay logged in as you and sudo everything you need to.
+## Fedora Laptops
+Fedora Magazine had an article https://fedoramagazine.org/fedora-slimbook-available-now/ about a company called Slimbook that released a series of laptops with Fedora pre-installed. I went to their site and configured one. I don't need a portable workstation anymore but it was fun to see what I could get.
+
+16" Display, 64Gb RAM, Two 1TB Samsung SSDs setup for RAID 0, 2 USB 3 ports, 2 USB-C ports. It would *only* run me € 2593. :)
+<br><br>
 
 <a name="install"></a>
 
 # 2) Installation
-
 
 * Download the Fedora KDE Spin [https://spins.fedoraproject.org/en/kde/](https://spins.fedoraproject.org/en/kde/)
 <br>
@@ -123,8 +139,6 @@ The '-y' parameter suppresses the 'yes/no' prompts.
 ## X11 vs Wayland
 
 Wayland is the default display manager for the Fedora KDE spin. Here are the Fedora [Wayland](https://docs.fedoraproject.org/en-US/fedora/latest/system-administrators-guide/Wayland/) docs. 
-
-I still have odd problems cropping up from time to time using Wayland so I'm still using X11. Wayland didn't work well at all in a VM on an M1 Mac.
 <br><br>
 
   
@@ -143,7 +157,7 @@ alias ls='exa -lah --group-directories-first -F --git --no-permissions --octal-p
 <a name="zsh"></a>
 
 ## Zsh
-I'm starting to use zsh but still have Bash configured on my system. Zsh gives you a LOT of features over what Bash has. Read more at [https://zsh.sourceforge.io/Intro/intro_toc.html](https://zsh.sourceforge.io/Intro/intro_toc.html)
+I use Zsh but still have Bash configured on my system. Zsh gives you a LOT of features over what Bash has. Read more at [https://zsh.sourceforge.io/Intro/intro_toc.html](https://zsh.sourceforge.io/Intro/intro_toc.html)
 
 I also recommend Oh-My-Zsh. It adds lots of features that will make your life easier, along with themes. Check it out at [https://github.com/ohmyzsh/ohmyzsh](https://github.com/ohmyzsh/ohmyzsh)  
 
@@ -156,10 +170,9 @@ It will create <code>~/.oh-my-zsh</code> in your home directory. Themes are in <
 <br><br>
 
 <a name="zsh-themes"></a>
-
 ### Zsh Tweaks
 
-Zsh left those zcompdump files all over my home directory. Open ```./oh-my-zsh/oh-my-zsh.sh``` and look 
+Zsh left those ```zcompdump``` files all over my home directory. Open ```./oh-my-zsh/oh-my-zsh.sh``` and look 
 for the line
 
 ```ZSH_COMPDUMP="${ZDOTDIR:-$HOME}/.zcompdump-${SHORT_HOST}-${ZSH_VERSION}"```
@@ -277,14 +290,11 @@ and looks like this.
 ![title](Images/bash.png)
 
 <br>
-<hr>
 
 <a name="dnf"></a>
 
 # 4) DNF
 <a name="dnf-config"></a>
-
-## DNF Options
 
 There are many options for DNF from getting through proxies, security settings, and more. Look at the official [Fedora DNF Reference](https://docs.fedoraproject.org/en-US/fedora/latest/system-administrators-guide/package-management/DNF/), the [Fedora DNF Quickdocs](https://docs.fedoraproject.org/en-US/quick-docs/dnf/) and the [DNF GitHub page](https://github.com/rpm-software-management/dnf) for more information.
 
@@ -303,6 +313,10 @@ You can set this in <code>/etc/dnf/dnf.conf</code> by using <code>assumeyes=1</c
 
 
 DNF can take a long to update itself because it downloads the repository data often. A [discussion](https://ask.fedoraproject.org/t/why-is-dnf-so-slow/6316) on the Fedora Project site suggested setting <code>metadata_expire=2d</code> in <code>/etc/dnf/dnf.conf</code>. If you use the -q parameter (quiet) like in my install scripts it will look like the process hangs. 
+
+I noticed that not all repositories I installed had the <code>metadata_expire</code> set. I went through all my .repo files and set them all to 1d. That seems to have fixed it.
+
+It appears that if you run dnf with the ```--refresh``` option it updates the repository data much faster than if you let Fedora handle it. I'm not sure why, it just seems that way. 
 
 There are a lot of dnf groups to choose from. See a list of groups by running 
 ```
@@ -330,20 +344,20 @@ Robotics (robotics-suite)
 ...
 ```
 
-You can see what's in each group by running <code>dnf group info GROUP_NAME</code> I generally install *Development Tools* and *X Software Development* but take a look at the ones that sound like they might fit your needs. 
+You can see what's in each group by running <code>dnf group info GROUP_NAME</code>. I generally install *Development Tools* and *X Software Development* but take a look at the ones that sound like they might fit your needs. 
 
-Groups are by far the easiest way to install the big desktop environments. For example, if for some unknown reason you wanted to install Gnome you'd use
+Groups are by far the easiest way to install the big desktop environments. For example, if for some unknown reason you wanted to install Gnome 😎 you'd use
 ```
 sudo dnf -y group install "GNOME Desktop Environment 
 ```
 
-(IMHO Gnome looks like what you'd get if Crayola wrote a window manager 😎
+(IMHO Gnome looks like what you'd get if Crayola wrote a window manager) 😎
 
 Smaller DE's are just installed as packages; e.g. 
 ```
 sudo dnf install fluxbox
 ```
-<br><br>
+<br>
 <a name="rpmfusion"></a>
 
 ## RPM Fusion
@@ -370,9 +384,8 @@ Many of the options in dnf are actually plugins. You can install additional plug
 If you want something other than what's in the Fedora & RPM Fusion repos, check out Fedora's COPR repositories. They're user-created repos with their projects. There are nightly builds of software as well. Some of them are personal repos and say 'do not use'. Don't use them. :)
 
 [https://copr.fedorainfracloud.org/coprs/](https://copr.fedorainfracloud.org/coprs/)
+<br><br>
 
-<br>
-<hr>
 
 <a name="various-kde-settings"></a>
 
@@ -402,7 +415,7 @@ Launch KDE Disk Editor from the Live CD. Rename your home volume to whatever you
 * Scrolling to Unlimited
 
 
-Set your new profile to the default profile. Then I disable all of toolbars under the Konsole Settings menu and hide the Menubar. Make sure you exit the Konsole session or it won't save your profile properly.
+Set your new profile to the default profile. Then I disable all of toolbars under the Konsole Settings menu and hide the Menubar. Make sure you exit the Konsole session or it may not save your profile properly.
 <br><br>
 
 <a name="dolphin"></a>
@@ -433,10 +446,10 @@ I set it to automatically log in. Yes, I know this is bad security but if you se
 
 ### Appearance
 
-* Icons - Miya (download from the Icons dialog)
-* Colors - Nord Light (download from the Colors dialog)
+* Icons - Gradient Light
+* Colors - Nord Light 
 * Fonts - Comfortaa
-* Plasma Style - Oxygen
+* Plasma Style - Breeze AlphaBlack. It gives you the ability to have a transparent panel.
 * Window Decorations - Breeze, but I change the window title so it's on the right.
 * Splash Screen - Breeze
 
@@ -445,12 +458,13 @@ The KDE Store [https://store.kde.org](https://store.kde.org) has a complete list
 <a name="taskbar"></a>
 
 ### KDE Taskbar
-* Change menu to Application Menu<br>
+* Change menu to Application Menu. Right-click on any widget and it will give you a list of alternatives.<br>
 * Application Menu Settings, check 'Flatten submenus' and uncheck Recent categories<br>
 * Install Latte Seperator<br>
+* Install Latte Spacer
 * Add another digital clock & set it to UTC<br>
 * Use QuickLaunches to group applications<br>
-* Use Latte Seperator to put nice seperators between the QuickLaunches, clocks, etc. It's available from "Get New Widgets" in the Add Widgets window.
+* Use Latte Seperator to put nice seperators between the QuickLaunches, clocks, etc., and a Latte Spacer to put a little space between the last QuickLaunch and the Task Manager. It's available from "Get New Widgets" in the Add Widgets window.
   
 
 Once it's done it looks like this
@@ -557,7 +571,7 @@ rpm -i --quiet https://downloads.sourceforge.net/project/mscorefonts2/rpms/msttc
 ```
 
 You'll need <code>cabextract</code> and <code>xorg-x11-font-utils</code> to install the fonts.
-<br><br>****
+<br><br>
 
 <a name="onedrive"></a>
 
@@ -570,12 +584,12 @@ After adding the RPM Fusion repos,
 ```
 dnf install onedrive 
 ```
-
+<br>
 
 # 7) General Linux Information
 
 ## SSH
-I've created my private and public keys but the correct permissions are easy to forget. Just use <code>chmod <permissions> filename/directory</code>
+I've created my private and public keys but the correct permissions are easy to forget. Just use <code>chmod permissions filename/directory</code>
 
 ```
 SSH directory 700
@@ -586,7 +600,7 @@ ex: chmod 600 id_rsa
 ```
 
 ## Backups
-***Always*** do backups. Have more than one if possible. It can be as simple and copying everything to an external USB drive to using a tool like rsync. Here's a good list of suggestions. 
+Have more than one if possible. It can be as simple and copying everything to an external USB drive to using a tool like rsync. Here's a good list of suggestions. 
 
 [https://linuxhint.com/11_best_backup_tools_linux/](https://linuxhint.com/11_best_backup_tools_linux/)
 <br><br>
@@ -608,7 +622,9 @@ There's a nice NordVPN Plasma Widget in Discover that puts a icon in the tray fo
 <a name="selinux"></a>
 
 # 8) SELinux
-There are people out there who recommend disabling SELinux when alerts start popping up. ***Please*** don't do that. SELinux is a powerful security tool. It runs in three modes: *disabled*, *permissive* & *enforcing*. Fedora defaults to *enforcing*.
+There are people out there who recommend disabling SELinux when alerts start popping up. SELinux is a powerful security tool. It runs in three modes: *disabled*, *permissive* & *enforcing*. Fedora defaults to *enforcing*.
+
+Disable it at your own risk.
 
 I've never seen anything installed from the Fedora or RPMFusion repositories that caused an SELinux exception. For me it's always been something where I downloaded a binary or compiled from source.
 
@@ -619,17 +635,12 @@ Here is a good overview of SELinux for Fedora.
 
 <br>
 <hr>
+
 <a name = "advanced"></a>
-
 # 9) Advanced Topics
-
-<a name="grub"></a>
 
 ## Grub
 <a name="grub-config"></a>
-
-### Grub Menu Customization
-
 The main config file is <code>/etc/default/grub.</code> I set mine up with these differences.<br>
 
 I add/change these lines to the grub config file
@@ -653,7 +664,7 @@ GRUB_DEFAULT=0
 GRUB_GFXMODE=auto  
 ```
 
-This will set your grub options. To save changes and write the Grub menu to disk. If you're running an UEFI run
+This will set your grub options. To save changes and write the Grub menu to disk. If you're running on a UEFI system run
 ```
 sudo grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg
 ```
@@ -670,15 +681,10 @@ You can edit grub.cfg directly for testing, but it will work until grub2-mkconfi
 
 The Grub menu is built from config files in <code>/etc/grub.d</code>. You'll need root privileges.
 
-There is a file that adds other OSs, like Windows. That's in <code>30_os-prober</code>. Open it and find the <code>menuentry</code> immediately after searching for 'Windows' and change the first part to <code>menuentry '$(echo "Windows")'</code>Make sure you get that last single quote. This way it just says 'Windows' and not all the stuff about what partition it's on.
+There is a file that adds other OSs, like Windows. That's in <code>30_os-prober</code>. Open it and find the <code>menuentry</code> immediately after searching for 'Windows' and change the first part to <code>menuentry '$(echo "Windows")'</code>Make sure you get that last single quote. This way it just says 'Windows' and not all of the other stuff.
 
 Or, you could change it to read 'Windoze, 'Help me God' or whatever you'd like :)
-
-This is what it looks like with the above options without the theme.
-
-![title](Images/grub-options.jpg)
-<br>
-![title](Images/grub.jpg)
+<br><br>
 <a name="grub-themes"></a>
 
 ### Themes
@@ -738,15 +744,6 @@ to make it look like this
 <br><br>
 
 <a name="parallels"></a>
-
-## Fedora inside Parallels on an M1
-
-I've run Fedora in a VM on my MacBook but it was klunky at best. I have a dedicated laptop for it now.
-
-There is a problem with the Parallels tools running inside Parallels on an M1 Mac. It looks like running with Linux kernel 5.18.13-200 causes the tools & integration to fail, but running 5.17.5-300 it works fine. 
-
-I'm waiting to see if a kernel or software update fixes it.
-<br><br>
 
 ## Fedora Beta versions
 
