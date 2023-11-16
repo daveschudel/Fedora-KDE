@@ -6,6 +6,7 @@
 - [2) Installation](#2-installation)
   - [X11 vs Wayland](#x11-vs-wayland)
 - [3) Shells](#3-shells)
+    - [Eza Colors](#eza-colors)
   - [Zsh](#zsh)
     - [Zsh Tweaks](#zsh-tweaks)
     - [Themes](#themes)
@@ -144,16 +145,33 @@ Wayland is the default display manager for the Fedora KDE spin. Here are the Fed
   
 # 3) Shells
 
-I use **<code>exa</code>** to replace **<code>ls</code>**. See [https://github.com/ogham/exa](https://github.com/ogham/exa) for more information. It formats things really well. I don't know why the timestamps are so dark. There's no setting in exa that sets colors for columns. Might be somewhere in <code>LS_COLORS</code>. I found if I use a theme in Konsole that has a dark, but not black, background it works pretty well.
-
-I love the octal file attributes and Git status.<br>
+I learned that exa isn't being maintained anymore so I switched to **<code>eza</code>** to replace **<code>ls</code>**. See [https://github.com/eza-community/eza](https://github.com/eza-community/eza) for more information. It formats things really well. 
 
 ```
-alias ls='exa -lah --group-directories-first -F --git --no-permissions --octal-permissions 
+alias ls='eza -lao --group-directories-first --no-permissions --time-style "+%m/%d/%y %H:%M" --git'
 ```
+Many of the switches are straight from **<code>ls</code>** but there are a few new ones.
+
+-l : Long directory format<br>
+-a : All files & directories, including . and ..<br>
+-o : Octal permissions<br>
+--group-directories-first
+--no-permissions : This one removes the standard wide permissions column<br>
+--time-style : Allows you to format the time & date column<br>
+--git : Adds the git status for each file
+
+### Eza Colors
+There's a very good man page on ArchLinux [https://man.archlinux.org/man/eza_colors.5.en](https://man.archlinux.org/man/eza_colors.5.en) that documents how to set various colors. I changed two<br>
+```
+export EZA_COLORS="di=33:da=36"
+```
+
+*di* sets the directory color<br>
+*da* sets the date color
+
 <br>
-<img src="Images/exa.png"/>
-
+<img src="Images/eza.png"/>
+This screen capture is from my Mac; I'll replace it with a Fedora shot later. :)
 <a name="zsh"></a>
 
 ## Zsh
