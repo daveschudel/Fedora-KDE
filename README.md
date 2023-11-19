@@ -146,7 +146,7 @@ Wayland is the default display manager for the Fedora KDE spin. Here are the Fed
   
 # 3) Shells
 
-I learned that exa isn't being maintained anymore so I switched to **<code>eza</code>** to replace **<code>ls</code>**. See [https://github.com/eza-community/eza](https://github.com/eza-community/eza) for more information. It formats things really well. 
+I learned that **<code>exa</code>** isn't being maintained anymore so I switched to **<code>eza</code>** to replace **<code>ls</code>**. See [https://github.com/eza-community/eza](https://github.com/eza-community/eza) for more information. It formats things really well.
 
 ```
 alias ls='eza -lao --group-directories-first --no-permissions --time-style "+%m/%d/%y %H:%M" --git'
@@ -156,7 +156,7 @@ Many of the switches are straight from **<code>ls</code>** but there are a few n
 -l : Long directory format<br>
 -a : All files & directories, including . and ..<br>
 -o : Octal permissions<br>
---group-directories-first
+--group-directories-first<br>
 --no-permissions : This one removes the standard wide permissions column<br>
 --time-style : Allows you to format the time & date column<br>
 --git : Adds the git status for each file
@@ -178,14 +178,14 @@ This screen capture is from my Mac; I'll replace it with a Fedora shot later. :)
 ## Zsh
 I use Zsh but still have Bash configured on my system. Zsh gives you a LOT of features over what Bash has. Read more at [https://zsh.sourceforge.io/Intro/intro_toc.html](https://zsh.sourceforge.io/Intro/intro_toc.html)
 
-I also recommend Oh-My-Zsh. It adds lots of features that will make your life easier, along with themes. Check it out at [https://github.com/ohmyzsh/ohmyzsh](https://github.com/ohmyzsh/ohmyzsh)  
+I also recommend Oh-My-Zsh. It adds lots of features that will make your life easier, along with themes. Check it out at [https://github.com/ohmyzsh/ohmyzsh](https://github.com/ohmyzsh/ohmyzsh)
 
 To install Oh-My-Zsh
 ```
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
 
-It will create <code>~/.oh-my-zsh</code> in your home directory. Themes are in <code>~/.oh-my-zsh/themes</code>.
+It will create <code>~/.oh-my-zsh/</code> in your home directory. Themes are in <code>~/.oh-my-zsh/themes</code>.
 <br><br>
 
 <a name="zsh-themes"></a>
@@ -283,7 +283,7 @@ And looks like this on a black background.
 Here's the prompt for my colored bar in Bash
 
 ```
-# Definitions for the color variant bar in the prompt. Doesn't have anything for Git.<br>
+# Definitions for the color variant bar in the prompt. Doesn't have anything for Git.
 
   BAR1="\\[\e[48;5;117m\] "  
   BAR2="\\[\e[48;5;73m\] "  
@@ -333,7 +333,7 @@ You can set this in <code>/etc/dnf/dnf.conf</code> by using <code>assumeyes=1</c
 
 DNF can take a long to update itself because it downloads the repository data often. A [discussion](https://ask.fedoraproject.org/t/why-is-dnf-so-slow/6316) on the Fedora Project site suggested setting <code>metadata_expire=2d</code> in <code>/etc/dnf/dnf.conf</code>. If you use the -q parameter (quiet) like in my install scripts it will look like the process hangs. 
 
-I noticed that not all repositories I installed had the <code>metadata_expire</code> set. I went through all my .repo files and set them all to 1d. That seems to have fixed it.
+Then I noticed that not all repositories I installed had the <code>metadata_expire</code> set. I went through all my .repo files and set them all to 1d. That seems to have fixed it.
 
 It appears that if you run dnf with the ```--refresh``` option it updates the repository data much faster than if you let Fedora handle it. I'm not sure why, it just seems that way. 
 
@@ -367,7 +367,7 @@ You can see what's in each group by running <code>dnf group info GROUP_NAME</cod
 
 Groups are by far the easiest way to install the big desktop environments. For example, if for some unknown reason you wanted to install Gnome 😎 you'd use
 ```
-sudo dnf -y group install "GNOME Desktop Environment 
+sudo dnf -y group install @gnome-desktop
 ```
 
 (IMHO Gnome looks like what you'd get if Crayola wrote a window manager) 😎
@@ -382,7 +382,7 @@ sudo dnf install fluxbox
 ## RPM Fusion
 You'll probably want to enable RPM Fusion. RPM Fusion is a repository that contains software that doesn't meet the Fedora licensing. The base Fedora distro is FOSS-Only.
 
-[RPM Fusion Site](https://rpmfusion.org)
+[https://rpmfusion.org](https://rpmfusion.org)
 
 You can install it from your browser but I think it's easier to do it from the command line.
 
@@ -449,10 +449,8 @@ I setup Dolphin like this: In Settings<br>
 
 To change the icons for file types, go into System Settings/Applications and create a file type for what you want. For example, I created a type Text/x-shell, set the icon, and added .bashrc, .zshrc, etc. as filename patterns.
 
-
 <img src="Images/dolphin.png"/>
 <br><br>
-
 <a name="system-settings"></a>
 
 ## KDE System Settings
@@ -534,7 +532,7 @@ Yakuake is a great drop-down terminal. You hit a hotkey and a terminal drops dow
 <img src="Images/yakuake.png"/>
 <br>
 
-See at [https://apps.kde.org/yakuake/])https://apps.kde.org/yakuake/) or install with dnf. 
+See at [https://apps.kde.org/yakuake/](https://apps.kde.org/yakuake/) or install with dnf.
 ```
 sudo dnf install yakuake
 ```
@@ -572,7 +570,7 @@ If you prefer Flatpaks<br>
 flatpak install https://flathub.org/repo/appstream/com.visualstudio.code.flatpakref
 ```
 
-See [https://code.visualstudio.com/docs/setup/linux](https://code.visualstudio.com/docs/setup/linux) or their GitHub page [Microsoft's Visual Studio Code GitHub page](https://github.com/Microsoft/vscode) for more information.
+See [https://code.visualstudio.com/docs/setup/linux](https://code.visualstudio.com/docs/setup/linux) or [Microsoft's Visual Studio Code GitHub page](https://github.com/Microsoft/vscode) for more information.
 <br><br>
 
 
@@ -700,7 +698,7 @@ You can edit grub.cfg directly for testing, but it will work until grub2-mkconfi
 
 The Grub menu is built from config files in <code>/etc/grub.d</code>. You'll need root privileges.
 
-There is a file that adds other OSs, like Windows. That's in <code>30_os-prober</code>. Open it and find the <code>menuentry</code> immediately after searching for 'Windows' and change the first part to <code>menuentry '$(echo "Windows")'</code>Make sure you get that last single quote. This way it just says 'Windows' and not all of the other stuff.
+<code>30_os-prober</code> handles menu entries for other OSs. Open it and find the <code>menuentry</code> immediately after searching for 'Windows' and change the first part to <code>menuentry '$(echo "Windows")'</code>Make sure you get that last single quote. This way it just says 'Windows' and not all of the other stuff.
 
 Or, you could change it to read 'Windoze, 'Help me God' or whatever you'd like :)
 <br><br>
