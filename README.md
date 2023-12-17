@@ -1,7 +1,7 @@
 - [1) Introduction](#1-introduction)
   - [Fedora 39](#fedora-39)
   - [Other Fedora options](#other-fedora-options)
-  - [Fedora Magazine](#fedora-magazine)
+  - [Fedora Documentation](#fedora-documentation)
   - [Fedora Laptops](#fedora-laptops)
 - [2) Installation](#2-installation)
   - [X11 vs Wayland](#x11-vs-wayland)
@@ -23,7 +23,6 @@
     - [Appearance](#appearance)
     - [KDE Taskbar](#kde-taskbar)
     - [KDE Desktop Effects](#kde-desktop-effects)
-    - [KDE Splash Screen](#kde-splash-screen)
   - [Laptop Power Management](#laptop-power-management)
   - [Multiple Desktops](#multiple-desktops)
 - [6) Apps \& Packages I'd Recommend](#6-apps--packages-id-recommend)
@@ -42,12 +41,12 @@
   - [Grub](#grub)
     - [Grub Configuration Files](#grub-configuration-files)
     - [Themes](#themes-1)
-  - [Plymouth Splash](#plymouth-splash)
   - [Customizing the DNF repository list](#customizing-the-dnf-repository-list)
     - [Structure of a .repo file.](#structure-of-a-repo-file)
   - [Fedora Beta versions](#fedora-beta-versions)
   - [Upgrading Fedora](#upgrading-fedora)
 - [10) KDE Development](#10-kde-development)
+
 
 
 <br>
@@ -60,12 +59,12 @@ I've run Fedora since Fedora 9. It's my choice for a Linux OS for a number of re
 
 Also, I just like the way Fedora does things. It may seem more complicated that Ubuntu but it gave me the opportunity to learn much more about what's happening inside. Linus Torvalis uses Fedora. The prosecution rests. :)
 
-I've spent a lot of time just playing with Fedora and KDE, learning how it works. KDE is very configurable. You can pretty much set it up however you want. 
+I've spent a lot of time just playing with Fedora and KDE, learning how it works. KDE is very configurable. You can pretty much set it up however you want. This is going to be a work in progress. 
 
 Chapters 5 & 10 are the only one that here specific to the KDE spin so users of the base Fedora distro and other spins can get information that could help them too.
 
-As I find more I'll add it. I hope it helps you. 
-<br><br>
+As I find (or remember) more I'll add it. I hope it helps you. 
+<br>
 
 ## Fedora 39
 
@@ -74,7 +73,7 @@ Fedora 39 was released November 7. There are a number of changes to Gnome but th
 I decided to use the upgrade option this time instead of wiping the machine & starting from scratch. 
 
 I only ran into one problem. The most recent kernel wouldn't start. Not sure why, but I had VirtualBox installed and it has a kernel mod, and I've played around with Grub so it was probably something I did. I just booted into the previous kernel, removed the most recent, reinstalled it and it works fine. See [Upgrading Fedora](#upgrading-fedora) for more information.
-<br><br>
+
 
 ## Other Fedora options
 
@@ -85,15 +84,15 @@ The primary Fedora release comes with the GNOME desktop environment. Fedora also
 * [Design Suite](https://labs.fedoraproject.org/en/design-suite/) for multimedia production & design
 * [Games](https://labs.fedoraproject.org/en/games/)
 * [Jam](https://labs.fedoraproject.org/en/games/) for music production
-* [Python Classroom](https://labs.fedoraproject.org/en/python-classroom/)
+* [Python Classroom](https://labs.fedoraproject.org/en/python-classroom/) (which can be run as a desktop OS or within a Docker container)
 * [Security Lab](https://labs.fedoraproject.org/en/security/)
-* [Robotics Suite](https://labs.fedoraproject.org/en/robotics/)
 * [Scientific](https://labs.fedoraproject.org/en/scientific/)
 <br><br>
 
-## Fedora Magazine
-[Fedora Magazine](https://fedoramagazine.org/) has a lot of good information. They'll post articles on how-tos and new apps to try.
-<br><br>
+## Fedora Documentation
+[Fedora Magazine](https://fedoramagazine.org/) has a lot of good information. They'll post articles on how-tos and new apps to try.<br>
+[Fedora KDE Discussions](https://discussion.fedoraproject.org/tag/kde) is a good place to look for answers.
+
 ## Fedora Laptops
 Fedora Magazine had an article https://fedoramagazine.org/fedora-slimbook-available-now/ about a company called Slimbook that released a series of laptops with Fedora pre-installed. I went to their site and configured one. I don't need a portable workstation anymore but it was fun to see what I could get.
 
@@ -136,7 +135,7 @@ sudo dnf update -y
 ```
 
 The '-y' parameter suppresses the 'yes/no' prompts.
-<br><br>
+<br>
 
 <a name="shells"></a>
 ## X11 vs Wayland
@@ -152,6 +151,7 @@ I learned that **<code>exa</code>** isn't being maintained anymore so I switched
 ```
 alias ls='eza -lao --group-directories-first --no-permissions --time-style "+%m/%d/%y %H:%M" --git'
 ```
+(see picture below)<br><br>
 Many of the switches are straight from **<code>ls</code>** but there are a few new ones.
 
 -l : Long directory format<br>
@@ -161,7 +161,6 @@ Many of the switches are straight from **<code>ls</code>** but there are a few n
 --no-permissions : This one removes the standard wide permissions column<br>
 --time-style : Allows you to format the time & date column<br>
 --git : Adds the git status for each file
-<br><br>
 
 ### Eza Colors
 There's a very good man page on ArchLinux [https://man.archlinux.org/man/eza_colors.5.en](https://man.archlinux.org/man/eza_colors.5.en) that documents how to set various colors. I changed two<br>
@@ -174,7 +173,7 @@ export EZA_COLORS="di=33:da=36"
 
 <br>
 <img src="Images/eza.png"/>
-<br><br>
+
 <a name="zsh"></a>
 
 ## Zsh
@@ -423,7 +422,7 @@ All of that lives down in /usr. I'll keep trying until I get it right.
 
 ## Changing The Volume Name
 
-Launch KDE Disk Editor from the Live CD. Rename your home volume to whatever you want. You can't change the name of a volume when booting from it. If your disk is encrypted you'll have to unlock it first. I just reboot back into the USB drive right after installing Fedora & do it then.
+Launch KDE Disk Editor from the Live CD. Rename your home volume to whatever you want. You can't change the name of a volume when booting from it. If your disk in encrypted you'll have to unlock it first. I just reboot back into the USB drive right after installing Fedora & do it then.
 <br><br>
 
 <a name="konsole"></a>
@@ -470,7 +469,7 @@ I set it to automatically log in. Yes, I know this is bad security but if you se
 * Fonts - Comfortaa
 * Plasma Style - Breeze AlphaBlack. It gives you the ability to have a transparent panel.
 * Window Decorations - Breeze, but I change the window title so it's on the right.
-* [Plasma Splash Screen](#kde-splash-screen)
+* Splash Screen - Breeze
 
 The KDE Store [https://store.kde.org](https://store.kde.org) has a complete list of Plasma widgets, fonts, colors, themes and other addons. They can also be found in Discover under Plasma Addons.
 <br><br>
@@ -484,10 +483,12 @@ The KDE Store [https://store.kde.org](https://store.kde.org) has a complete list
 * Add another digital clock & set it to UTC<br>
 * Use QuickLaunches to group applications<br>
 * Use Latte Seperator to put nice seperators between the QuickLaunches, clocks, etc., and a Latte Spacer to put a little space between the last QuickLaunch and the Task Manager. It's available from "Get New Widgets" in the Add Widgets window.
-<br><br>
+  
 
-Once it's done it looks like this
+Once it's done it looks like this<br>
+
 <img src="Images/taskbar.png"/>
+
 <br><br>
 ### KDE Desktop Effects
 
@@ -496,13 +497,8 @@ I started using a Desktop Effect called Energize B [Burn-My-Windows] available o
 KDE is great if you want to show off :)
 <br><br>
 
-### KDE Splash Screen
-I modified [this](https://store.kde.org/p/2072224) theme and put my standard Stargate wallpaper in it so it matches my Grub, Plymouth, Login & Lock screens. 
-
-When you install a new splash screen from the Settings app it will put it in ~/.local/share/plasma/look-and-feel. I just went in and changed the wallpaper in contents/splash/images.
-
 <a name="power"></a>
-<br>
+
 ## Laptop Power Management
 
 It's easiest to do it in the settings app, but if you want to do it
@@ -512,7 +508,7 @@ from the command line install tlp, then you can set power management this way<br
 cpupower frequency-set --governor conservative
 ```
 Read the man page for cpupower for more options
-<br><br>
+<br>
 <a name="desktops"></a>
 ## Multiple Desktops
 
@@ -543,7 +539,7 @@ See at [https://apps.kde.org/yakuake/](https://apps.kde.org/yakuake/) or install
 sudo dnf install yakuake
 ```
 
-<br>
+
 <a name="vscode"></a>
 
 ## Visual Studio Code
@@ -568,7 +564,7 @@ Then<br>
 sudo dnf check-update
 sudo dnf install code
 ```
-<br>
+
 <a name="vscode-flatpak"></a>
 
 ### Using a Flatpak
@@ -622,7 +618,7 @@ Public key    644
 
 ex: chmod 600 id_rsa
 ```
-<br>
+
 ## Backups
 Have more than one if possible. It can be as simple and copying everything to an external USB drive to using a tool like rsync. Here's a good list of suggestions. 
 
@@ -658,6 +654,7 @@ Here is a good overview of SELinux for Fedora.
 [https://docs.fedoraproject.org/en-US/quick-docs/getting-started-with-selinux/](https://docs.fedoraproject.org/en-US/quick-docs/getting-started-with-selinux/)
 
 <br>
+<hr>
 
 <a name = "advanced"></a>
 # 9) Advanced Topics
@@ -711,18 +708,13 @@ Or, you could change it to read 'Windoze, 'Help me God' or whatever you'd like :
 <a name="grub-themes"></a>
 
 ### Themes
-You can download Grub themes from gnome-look.org or the KDE store. Depending on your monitor and/or resolution you may want to change the font sizes. 
+You can download Grub themes from gnome-look.org or the KDE store. Depending on your monitor and/or resolution you may want to change the font sizes. *Note: I have not been able to get Grub themes to work in a VM.*
 
 [Here's a good article explaining how to do it](https://www.bleepingcomputer.com/forums/t/743402/how-to-change-font-size-in-grub-menu/)<br>
 [There are some nice Grub themes here](https://www.gnome-look.org/browse?cat=109)
 <br><br>
-
-<a name="plymouth-splash"></a>
-## Plymouth Splash
-Plymouth splash screens are found in /usr/share/plymouth/themes. I went into the **spinner** theme and replaced background-tile.png with my standard splash wallpaper.
-<br><br>
-
 <a name="custom-repo-list"></a>
+
 ## Customizing the DNF repository list
 
 ### Structure of a .repo file.
@@ -753,18 +745,11 @@ The entries will look like this
 name=Fedora $releasever - $basearch
 ```
 <br>
-You can change them to something like this so the repo names and architecture are in columns.  
+You can change them to something like this so the repo names and architechure are in columns.  
 
 ```
 Fedora $releasever              - $basearch
 name=Fedora $releasever Updates - $basearch
-```
-<br>
-Or remove the architecture altogether
-
-```
-Fedora $releasever
-name=Fedora $releasever
 ```
 
 If you want them in order, rename each repo file; e.g.
@@ -774,8 +759,9 @@ If you want them in order, rename each repo file; e.g.
 02-Fedora-updates.repo
 ```
 to make it look like this
+
 <img src="Images/dnf.png"/>
-<br>
+<br><br>
 
 <a name="parallels"></a>
 
@@ -791,7 +777,7 @@ I've been leery about doing a full update of an OS since the Windows 3.1 days. F
 Here's Fedora's instructions on how to do it. [Upgrading to a new release of Fedora](https://docs.fedoraproject.org/en-US/quick-docs/upgrading/)
 
 <br>
-
+<hr>
 <a name="kdedev"></a>
 
 # 10) KDE Development
