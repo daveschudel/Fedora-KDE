@@ -45,9 +45,16 @@
   - [Plymouth Splash](#plymouth-splash)
   - [Customizing the DNF repository list](#customizing-the-dnf-repository-list)
     - [Structure of a .repo file.](#structure-of-a-repo-file)
-  - [Fedora Beta versions](#fedora-beta-versions)
+- [10 Upgrades and Beta versions](#10-upgrades-and-beta-versions)
   - [Upgrading Fedora](#upgrading-fedora)
-- [10) KDE Development](#10-kde-development)
+- [11) KDE Development](#11-kde-development)
+- [12) Ham Radio](#12-ham-radio)
+  - [Winlink](#winlink)
+  - [WSJT-X](#wsjt-x)
+  - [TQSL](#tqsl)
+  - [Serial over Bluetooth](#serial-over-bluetooth)
+  - [Logging Apps](#logging-apps)
+    - [N3FJP](#n3fjp)
 
 
 <br>
@@ -125,7 +132,7 @@ sha256sum -c CHECKSUM_FILE
 
 Unless I'm installing Fedora in a VM I ***always*** encrypt the drive. I use the standard install options and leave the root user disabled. Obviously if you need a specific partition layout set it up here. I'd be wary of playing with it for the sake of playing with it. The Fedora engineers have done a great job of optimizing everything for the desktop and it would be very easy to *optimize* your system so it runs worse. I used to make the swap partition larger but there was no need for it. Enlarge it if you want to be able to hibernate. 
 
-Fedora switched to the Btvfs file system from Ext4. I'd leave it alone. There are discussions/arguments all over the web about the problems & benefits of Btvfs but like for partitioning, you're best just to leave it alone.
+Fedora switched to the Btvfs file system from Ext4. I'd leave it alone. There are discussions and/or arguments all over the web about the problems & benefits of Btvfs but like for partitioning, you're best just to leave it alone.
 
 The Fedora installer looks different depending on what Spin you're installing. For example, the KDE Spin has you setup the user account before installing while the standard Fedora installation (Gnome) has you creating the user after installing. I'm not sure why.
 
@@ -142,12 +149,14 @@ The '-y' parameter suppresses the 'yes/no' prompts.
 ## X11 vs Wayland
 
 Wayland is the default display manager for the Fedora KDE spin. Here are the Fedora [Wayland](https://docs.fedoraproject.org/en-US/fedora/latest/system-administrators-guide/Wayland/) docs. 
+
+Fedora has decided to drop X11 support for Fedora 40 KDE. [Linuxiac](https://linuxiac.com/fedora-40-to-offer-plasma-6-drops-x11-entirely/) has a nice writeup on it with a link to the offical Fedora Wiki.
 <br><br>
 
   
 # 3) Shells
 
-I learned that **<code>exa</code>** isn't being maintained anymore so I switched to **<code>eza</code>** to replace **<code>ls</code>**. See [https://github.com/eza-community/eza](https://github.com/eza-community/eza) for more information. It formats things really well.
+I switched to **<code>eza</code>** to replace **<code>ls</code>**. See [https://github.com/eza-community/eza](https://github.com/eza-community/eza) for more information. It formats things really well.
 
 ```
 alias ls='eza -lao --group-directories-first --no-permissions --time-style "+%m/%d/%y %H:%M" --git'
@@ -161,7 +170,7 @@ Many of the switches are straight from **<code>ls</code>** but there are a few n
 --no-permissions : This one removes the standard wide permissions column<br>
 --time-style : Allows you to format the time & date column<br>
 --git : Adds the git status for each file
-<br><br>
+<br>
 
 ### Eza Colors
 There's a very good man page on ArchLinux [https://man.archlinux.org/man/eza_colors.5.en](https://man.archlinux.org/man/eza_colors.5.en) that documents how to set various colors. I changed two<br>
@@ -193,7 +202,7 @@ It will create <code>~/.oh-my-zsh/</code> in your home directory. Themes are in 
 <a name="zsh-themes"></a>
 ### Zsh Tweaks
 
-Zsh left those ```zcompdump``` files all over my home directory. Open ```./oh-my-zsh/oh-my-zsh.sh``` and look 
+OhMyZsh left those ```zcompdump``` files all over my home directory. Open ```./oh-my-zsh/oh-my-zsh.sh``` and look 
 for the line
 
 ```ZSH_COMPDUMP="${ZDOTDIR:-$HOME}/.zcompdump-${SHORT_HOST}-${ZSH_VERSION}"```
@@ -335,7 +344,7 @@ You can set this in <code>/etc/dnf/dnf.conf</code> by using <code>assumeyes=1</c
 
 DNF can take a long to update itself because it downloads the repository data often. A [discussion](https://ask.fedoraproject.org/t/why-is-dnf-so-slow/6316) on the Fedora Project site suggested setting <code>metadata_expire=2d</code> in <code>/etc/dnf/dnf.conf</code>. If you use the -q parameter (quiet) like in my install scripts it will look like the process hangs. 
 
-Then I noticed that not all repositories I installed had the <code>metadata_expire</code> set. I went through all my .repo files and set them all to 1d. That seems to have fixed it.
+I noticed that not all repositories I installed had the <code>metadata_expire</code> set. I went through all my .repo files and set them all to 1d. That seems to have fixed it.
 
 It appears that if you run dnf with the ```--refresh``` option it updates the repository data much faster than if you let Fedora handle it. I'm not sure why, it just seems that way. 
 
@@ -502,7 +511,7 @@ I modified [this](https://store.kde.org/p/2072224) theme and put my standard Sta
 When you install a new splash screen from the Settings app it will put it in ~/.local/share/plasma/look-and-feel. I just went in and changed the wallpaper in contents/splash/images.
 
 <a name="power"></a>
-<br>
+
 ## Laptop Power Management
 
 It's easiest to do it in the settings app, but if you want to do it
@@ -568,7 +577,7 @@ Then<br>
 sudo dnf check-update
 sudo dnf install code
 ```
-<br>
+
 <a name="vscode-flatpak"></a>
 
 ### Using a Flatpak
@@ -595,10 +604,9 @@ rpm -i --quiet https://downloads.sourceforge.net/project/mscorefonts2/rpms/msttc
 ```
 
 You'll need <code>cabextract</code> and <code>xorg-x11-font-utils</code> to install the fonts.
-<br><br>
+<br>
 
 <a name="onedrive"></a>
-
 ## OneDrive
 
 I still do a lot over in Microsoft 365 and the OneDrive client for Linux is way, way better than it used to be. I use it with a 365 Business account but it should work the same for the personal version. It doesn't default to files-on-demand like the Windows & Mac clients do so it just syncs everything the way you'd expect.
@@ -608,6 +616,9 @@ After adding the RPM Fusion repos,
 ```
 dnf install onedrive 
 ```
+
+I would still keep an eye on it just to make sure it doesn't do strange things. 
+<br>
 <br>
 
 # 7) General Linux Information
@@ -623,8 +634,9 @@ Public key    644
 ex: chmod 600 id_rsa
 ```
 <br>
+
 ## Backups
-Have more than one if possible. It can be as simple and copying everything to an external USB drive to using a tool like rsync. Here's a good list of suggestions. 
+This is probably obvious but have more than one if possible. It can be as simple and copying everything to an external USB drive to using a tool like rsync. Here's a good list of suggestions. 
 
 [https://linuxhint.com/11_best_backup_tools_linux/](https://linuxhint.com/11_best_backup_tools_linux/)
 <br><br>
@@ -779,7 +791,7 @@ to make it look like this
 
 <a name="parallels"></a>
 
-## Fedora Beta versions
+# 10 Upgrades and Beta versions
 
 The only problem I've had running betas are with the RPM Fusion repos not being set up yet. If you feel adventurous go for it. You'll have to update to the release version when it comes out. 
 <br><br>
@@ -794,20 +806,52 @@ Here's Fedora's instructions on how to do it. [Upgrading to a new release of Fed
 
 <a name="kdedev"></a>
 
-# 10) KDE Development
+# 11) KDE Development
 
-I usually start off with the 
-dnf groups <code>"Development Tools"</code> <code>"Development Libraries"</code>**, and <code>"X Software Development"</code>. Then install the list of packages in <code>setup-install-kdelibs.txt</code>. That gets you pretty close. Then you need to get the product source from KDE and create a build environment.
-```
-mkdir -p ~/kde/src
-git clone https://invent.kde.org/sdk/kdesrc-build.git
-cd kdesrc-build
-./kdesrc-build --initial-setup
-source ~/.bashrc
-sudo dnf -y install builddep plasma-desktop plasma-workspace kwin
-```
+I usually install the groups <code>"Development Tools"</code> <code>"Development Libraries"</code>**, and <code>"X Software Development"</code> by default since it seems like I'm always running into things I need. 
 
-Obviously, if you're using zsh change your <code>.zshrc</code> accordingly.
+Check out https://develop.kde.org/develop for a good introduction to KDE/Qt development.
 
 If you're interested in working on KDE itself check out the Fedora KDE SIG
 at [https://fedoraproject.org/wiki/SIGs/KDE](https://fedoraproject.org/wiki/SIGs/KDE)<br><br>
+
+# 12) Ham Radio
+
+I created a document with information about setting up Fedora to use with Ham Radio apps. (I'll seperate it out later) Several apps need Wine set up in a very specific way. Follow the instructions for Winlink and you should be good.
+<br><br>
+## Winlink
+[K6ETA](http://k6eta.com/linux/installing-rms-express-on-linux-with-wine) has a very good writeup on installing Winlink in Linux under Wine. 
+<br>
+
+## WSJT-X
+WSJT-X is in the Fedora repositories, so just install it.
+```
+sudo dnf install wsjtx
+```
+
+Depending on the sound card you're using it could be just about anything. It will probably show up as 'alsa..'
+
+You'll probably have a serial connection for rig control. It will probably be something like /dev/ttyUSB something.
+<br><br>
+The sound card selection is pretty stable but those USB to Serial converters can move COM ports depending on which USB port they're plugged in to. 
+<br>
+
+## TQSL
+TQSL is installed with
+```
+sudo dnf install tqsllib
+```
+Once it's installed go into the app and request a certificate.
+<br>
+
+## Serial over Bluetooth
+I use my Kenwood TH-D74 for Winlink and connect over Bluetooth. I couldn't get the KDE Bluetooth app to pair it properly so I installed Blueman and disabled the KDE Bluetooth app in the taskbar. Once you pair the D74 - it will show up as a mobile phone - you can right-click it's entry in Blueman and connect via Serial.
+
+
+
+## Logging Apps
+
+### N3FJP
+N3FJP is probably the closest you can get to a standard for a logging app. It can be run under Wine.
+
+
