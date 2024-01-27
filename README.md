@@ -49,12 +49,6 @@
   - [Upgrading Fedora](#upgrading-fedora)
 - [11) KDE Development](#11-kde-development)
 - [12) Ham Radio](#12-ham-radio)
-  - [Winlink](#winlink)
-  - [WSJT-X](#wsjt-x)
-  - [TQSL](#tqsl)
-  - [Serial over Bluetooth](#serial-over-bluetooth)
-  - [Logging Apps](#logging-apps)
-    - [N3FJP](#n3fjp)
 
 
 <br>
@@ -817,41 +811,6 @@ at [https://fedoraproject.org/wiki/SIGs/KDE](https://fedoraproject.org/wiki/SIGs
 
 # 12) Ham Radio
 
-I created a document with information about setting up Fedora to use with Ham Radio apps. (I'll seperate it out later) Several apps need Wine set up in a very specific way. Follow the instructions for Winlink and you should be good.
-<br><br>
-## Winlink
-[K6ETA](http://k6eta.com/linux/installing-rms-express-on-linux-with-wine) has a very good writeup on installing Winlink in Linux under Wine. 
-<br>
+I've been able to get most of the ham radio software I need to run working correctly in Fedora. Much of it runs under Wine.
 
-## WSJT-X
-WSJT-X is in the Fedora repositories, so just install it.
-```
-sudo dnf install wsjtx
-```
-
-Depending on the sound card you're using it could be just about anything. It will probably show up as 'alsa..'
-
-You'll probably have a serial connection for rig control. It will probably be something like /dev/ttyUSB something.
-<br><br>
-The sound card selection is pretty stable but those USB to Serial converters can move COM ports depending on which USB port they're plugged in to. 
-<br>
-
-## TQSL
-TQSL is installed with
-```
-sudo dnf install tqsllib
-```
-Once it's installed go into the app and request a certificate.
-<br>
-
-## Serial over Bluetooth
-I use my Kenwood TH-D74 for Winlink and connect over Bluetooth. I couldn't get the KDE Bluetooth app to pair it properly so I installed Blueman and disabled the KDE Bluetooth app in the taskbar. Once you pair the D74 - it will show up as a mobile phone - you can right-click it's entry in Blueman and connect via Serial.
-
-
-
-## Logging Apps
-
-### N3FJP
-N3FJP is probably the closest you can get to a standard for a logging app. It can be run under Wine.
-
-
+[Ham Radio Setup](./hamradio.md)
