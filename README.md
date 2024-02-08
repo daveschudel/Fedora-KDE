@@ -68,7 +68,7 @@ Also, I just like the way Fedora does things. It may seem more complicated that 
 I've spent a lot of time just playing with Fedora and KDE, learning how it works. KDE is very configurable. You can pretty much set it up however you want. 
 
 ## KDE Specific Information
-I originally wrote this for the Fedora KDE spin but Chapters 5 & 10 are the only one that here specific to the KDE so users of the base Fedora distro and other spins can use this document too.
+I originally wrote this for the Fedora KDE spin but Chapters 5 & 10 are the only ones that here specific to the KDE so users of the base Fedora distro and other spins can use this document too.
 
 As I find more I'll add it. I hope it helps you. 
 <br><br>
