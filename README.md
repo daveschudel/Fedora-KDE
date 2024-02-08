@@ -1,4 +1,5 @@
 - [1) Introduction](#1-introduction)
+  - [KDE Specific Information](#kde-specific-information)
   - [Fedora 39](#fedora-39)
   - [Other Fedora options](#other-fedora-options)
   - [Fedora Magazine](#fedora-magazine)
@@ -12,7 +13,13 @@
     - [Themes](#themes)
   - [Bash](#bash)
 - [4) DNF](#4-dnf)
+  - [DNF Options](#dnf-options)
   - [RPM Fusion](#rpm-fusion)
+  - [Customizing the Repo List](#customizing-the-repo-list)
+  - [DNF Fixes](#dnf-fixes)
+  - [Groups](#groups)
+  - [Installing Additional Desktop Environments](#installing-additional-desktop-environments)
+  - [COPR](#copr)
 - [5) My Fedora KDE settings \& tweaks](#5-my-fedora-kde-settings--tweaks)
   - [Backup \& Restore](#backup--restore)
   - [Changing The Volume Name](#changing-the-volume-name)
@@ -33,22 +40,19 @@
     - [Using a Flatpak](#using-a-flatpak)
   - [Microsoft Open Fonts](#microsoft-open-fonts)
   - [OneDrive](#onedrive)
-- [7) General Linux Information](#7-general-linux-information)
+- [7) Other Linux Information](#7-other-linux-information)
   - [SSH](#ssh)
   - [Backups](#backups)
   - [VPN](#vpn)
 - [8) SELinux](#8-selinux)
-- [9) Advanced Topics](#9-advanced-topics)
-  - [Grub](#grub)
-    - [Grub Configuration Files](#grub-configuration-files)
-    - [Themes](#themes-1)
-  - [Plymouth Splash](#plymouth-splash)
-  - [Customizing the DNF repository list](#customizing-the-dnf-repository-list)
-    - [Structure of a .repo file.](#structure-of-a-repo-file)
-- [10 Upgrades and Beta versions](#10-upgrades-and-beta-versions)
+- [9) Grub](#9-grub)
+  - [Grub Configuration Files](#grub-configuration-files)
+  - [Themes](#themes-1)
+- [10) Plymouth](#10-plymouth)
+- [11 Upgrades and Beta versions](#11-upgrades-and-beta-versions)
   - [Upgrading Fedora](#upgrading-fedora)
-- [11) KDE Development](#11-kde-development)
-- [12) Ham Radio](#12-ham-radio)
+- [12) KDE Development](#12-kde-development)
+- [13) Ham Radio](#13-ham-radio)
 
 
 <br>
@@ -63,14 +67,15 @@ Also, I just like the way Fedora does things. It may seem more complicated that 
 
 I've spent a lot of time just playing with Fedora and KDE, learning how it works. KDE is very configurable. You can pretty much set it up however you want. 
 
-Chapters 5 & 10 are the only one that here specific to the KDE spin so users of the base Fedora distro and other spins can get information that could help them too.
+## KDE Specific Information
+I originally wrote this for the Fedora KDE spin but Chapters 5 & 10 are the only one that here specific to the KDE so users of the base Fedora distro and other spins can use this document too.
 
 As I find more I'll add it. I hope it helps you. 
 <br><br>
 
 ## Fedora 39
 
-Fedora 39 was released November 7. There are a number of changes to Gnome but the big one for all the spins & labs was eliminating the Modular repository. 
+Fedora 39 was released November 7, 2023. There were a number of changes to Gnome but the big one for all the spins & labs was eliminating the Modular repository. 
 
 I decided to use the upgrade option this time instead of wiping the machine & starting from scratch. 
 
@@ -98,7 +103,7 @@ The primary Fedora release comes with the GNOME desktop environment. Fedora also
 ## Fedora Laptops
 Fedora Magazine had an article https://fedoramagazine.org/fedora-slimbook-available-now/ about a company called Slimbook that released a series of laptops with Fedora pre-installed. I went to their site and configured one. I don't need a portable workstation anymore but it was fun to see what I could get.
 
-16" Display, 64Gb RAM, Two 1TB Samsung SSDs setup for RAID 0, 2 USB 3 ports, 2 USB-C ports. It would *only* run me € 2593. :)
+16" Display, 64Gb RAM, Two 1TB Samsung SSDs setup for RAID 0, 2 USB 3 ports, 2 USB-C ports. It would *only* run me € 2593. 😎 
 <br><br>
 
 <a name="install"></a>
@@ -136,7 +141,7 @@ After installing Fedora you'll want to update everything before adding to your s
 sudo dnf update -y
 ```
 
-The '-y' parameter suppresses the 'yes/no' prompts.
+The '-y' parameter suppresses the 'yes/no' prompts. It can be disabled in ```\etc\dnf\dnf.cfg``` by adding ```assume_yes=True``` but that's not a good idea. I only use -y for updates.
 <br><br>
 
 <a name="shells"></a>
@@ -147,7 +152,7 @@ Wayland is the default display manager for the Fedora KDE spin. Here are the Fed
 Fedora has decided to drop X11 support for Fedora 40 KDE. [Linuxiac](https://linuxiac.com/fedora-40-to-offer-plasma-6-drops-x11-entirely/) has a nice writeup on it with a link to the offical Fedora Wiki.
 <br><br>
 
-  
+
 # 3) Shells
 
 I switched to **<code>eza</code>** to replace **<code>ls</code>**. See [https://github.com/eza-community/eza](https://github.com/eza-community/eza) for more information. It formats things really well.
@@ -322,25 +327,99 @@ and looks like this.
 
 There are many options for DNF from getting through proxies, security settings, and more. Look at the official [Fedora DNF Reference](https://docs.fedoraproject.org/en-US/fedora/latest/system-administrators-guide/package-management/DNF/), the [Fedora DNF Quickdocs](https://docs.fedoraproject.org/en-US/quick-docs/dnf/) and the [DNF GitHub page](https://github.com/rpm-software-management/dnf) for more information.
 
+## DNF Options
 I use one option for dnf, set in <code>/etc/dnf/dnf.conf</code>.
 
 ```
-fastestmirror=1  # The default setting is off. If you have problems after setting this revert back.
+fastestmirror=1
 ```
+The default setting is off.<br><br>
 
-I also use the -y parameter to suppress the 'Are you sure' messages.<br>
+I also use the -y parameter to suppress the 'Are you sure' messages when running an update.<br>
 
 ```
 sudo dnf -y update
 ```
-You can set this in <code>/etc/dnf/dnf.conf</code> by using <code>assumeyes=1</code> but I'd advise against it. I use -y for running updates but not to install individual packages so I can see what's actually getting installed.
+You can set this in <code>/etc/dnf/dnf.conf</code> by using <code>assumeyes=1</code> but I'd advise against it. I use -y for running updates but not to install individual packages so I can see what's actually getting installed.<br><br>
+For more information on configuring dnf see https://www.systutorials.com/docs/linux/man/5-dnf.conf/
 
+
+<a name="rpmfusion"></a>
+
+## RPM Fusion
+You'll probably want to enable RPM Fusion. RPM Fusion is a repository that contains software that doesn't meet the Fedora licensing. The base Fedora distro is FOSS-Only.
+
+It can be installed from here. [https://rpmfusion.org](https://rpmfusion.org)
+
+You can install it from your browser but I think it's easier to do it from the command line.
+
+```
+sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+```
+
+<a name="custom-repo-list"></a>
+
+## Customizing the Repo List
+Fedora's repository files are located in <code>/etc/yum.repos.d</code>. This is a section of a .repo. There can be other sections, like for debug or source packages. These are usually disabled.
+
+```
+[fedora]
+name=Fedora $releasever - $basearch
+metalink=https://mirrors.fedoraproject.org/metalink?repo=fedora-$releasever&arch=$basearch
+enabled=1
+countme=1
+metadata_expire=7d
+repo_gpgcheck=0
+type=rpm
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-$releasever-$basearch
+skip_if_unavailable=False
+```
+
+Fedora's Repository Docs are here - [https://docs.fedoraproject.org/en-US/quick-docs/repositories/](https://docs.fedoraproject.org/en-US/quick-docs/repositories/)
+
+
+To change what the repo looks like when running dnf change the 2nd line of the .repo file.
+
+The entries will look like this
+
+```
+name=Fedora $releasever - $basearch
+```
+<br>
+You can change them to something like this so the repo names and architecture are in columns.  
+
+```
+Fedora $releasever              - $basearch
+name=Fedora $releasever Updates - $basearch
+```
+<br>
+Or remove the architecture altogether
+
+```
+Fedora $releasever
+name=Fedora $releasever
+```
+
+If you want them in order, rename each repo file; e.g.
+
+```
+01-Fedora.repo 
+02-Fedora-updates.repo
+```
+to make it look like this
+<img src="Images/dnf.png"/>
+<br>
+
+## DNF Fixes
 
 DNF can take a long to update itself because it downloads the repository data often. A [discussion](https://ask.fedoraproject.org/t/why-is-dnf-so-slow/6316) on the Fedora Project site suggested setting <code>metadata_expire=2d</code> in <code>/etc/dnf/dnf.conf</code>. If you use the -q parameter (quiet) like in my install scripts it will look like the process hangs. 
 
 I noticed that not all repositories I installed had the <code>metadata_expire</code> set. I went through all my .repo files and set them all to 1d. That seems to have fixed it.
 
 It appears that if you run dnf with the ```--refresh``` option it updates the repository data much faster than if you let Fedora handle it. I'm not sure why, it just seems that way. 
+
+## Groups
 
 There are a lot of dnf groups to choose from. See a list of groups by running 
 ```
@@ -370,6 +449,8 @@ Robotics (robotics-suite)
 
 You can see what's in each group by running <code>dnf group info GROUP_NAME</code>. I generally install *Development Tools* and *X Software Development* but take a look at the ones that sound like they might fit your needs. 
 
+## Installing Additional Desktop Environments
+
 Groups are by far the easiest way to install the big desktop environments. For example, if for some unknown reason you wanted to install Gnome 😎 you'd use
 ```
 sudo dnf -y group install @gnome-desktop
@@ -381,19 +462,7 @@ Smaller DE's are just installed as packages; e.g.
 ```
 sudo dnf install fluxbox
 ```
-<br>
-<a name="rpmfusion"></a>
 
-## RPM Fusion
-You'll probably want to enable RPM Fusion. RPM Fusion is a repository that contains software that doesn't meet the Fedora licensing. The base Fedora distro is FOSS-Only.
-
-[https://rpmfusion.org](https://rpmfusion.org)
-
-You can install it from your browser but I think it's easier to do it from the command line.
-
-```
-sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-```
 
 Installing the appstream packages with dnf will enable showing apps from those repos in Discover.
 ```
@@ -405,7 +474,10 @@ rpmfusion-nonfree-appstream-data
 
 Many of the options in dnf are actually plugins. You can install additional plugins, like the one you'll need for updating Fedora itself. See the plugins section at [https://docs.fedoraproject.org/en-US/quick-docs/dnf/](https://docs.fedoraproject.org/en-US/quick-docs/dnf/)
 
-If you want something other than what's in the Fedora & RPM Fusion repos, check out Fedora's COPR repositories. They're user-created repos with their projects. There are nightly builds of software as well. Some of them are personal repos and say 'do not use'. Don't use them. :)
+## COPR
+If you want something other than what's in the Fedora & RPM Fusion repos, check out Fedora's COPR repositories. They're user-created repos with their projects. <br><br>
+I use one COPR repo for one of my ham radio apps that isn't available in the Fedora or RPM repos.<br><br>
+There are nightly builds of software as well. Some of them are personal repos and say 'do not use'. Don't use them. 😎
 
 [https://copr.fedorainfracloud.org/coprs/](https://copr.fedorainfracloud.org/coprs/)
 <br><br>
@@ -615,7 +687,7 @@ I would still keep an eye on it just to make sure it doesn't do strange things.
 <br>
 <br>
 
-# 7) General Linux Information
+# 7) Other Linux Information
 
 ## SSH
 I've created my private and public keys but the correct permissions are easy to forget. Just use <code>chmod permissions filename/directory</code>
@@ -625,7 +697,7 @@ SSH directory 700
 Private key   600
 Public key    644
 
-ex: chmod 600 id_rsa
+ex: chmod 600 $HOME/.ssh/id_rsa
 ```
 <br>
 
@@ -636,7 +708,7 @@ This is probably obvious but have more than one if possible. It can be as simple
 <br><br>
 
 ## VPN
-I use NordVPN on Windows, MacOS and Linux. For info, see [https://support.nordvpn.com/Connectivity/Linux/1325529112/Installing-and-using-NordVPN-on-Fedora-and-QubesOS-Linux.htm/](https://support.nordvpn.com/Connectivity/Linux/1325529112/Installing-and-using-NordVPN-on-Fedora-and-QubesOS-Linux.htm/). <br>
+I use NordVPN on MacOS and Linux. For info, see [https://support.nordvpn.com/Connectivity/Linux/1325529112/Installing-and-using-NordVPN-on-Fedora-and-QubesOS-Linux.htm/](https://support.nordvpn.com/Connectivity/Linux/1325529112/Installing-and-using-NordVPN-on-Fedora-and-QubesOS-Linux.htm/). <br>
 
 Then install it using their script
 
@@ -644,9 +716,7 @@ Then install it using their script
 sh <(curl -sSf https://downloads.nordcdn.com/apps/linux/install.sh)
 ```
 
-I ran into some strange problems using their NordLynx protocol so I switched to OpenVPN. That fixed everything.
-
-There's a nice NordVPN Plasma Widget in Discover that puts a icon in the tray for controlling it.
+There's a nice NordVPN Plasma Widget that puts a icon in the tray for controlling it. I use the one by korapp.
 <br><br>
 
 <a name="selinux"></a>
@@ -665,10 +735,7 @@ Here is a good overview of SELinux for Fedora.
 
 <br>
 
-<a name = "advanced"></a>
-# 9) Advanced Topics
-
-## Grub
+# 9) Grub
 <a name="grub-config"></a>
 The main config file is <code>/etc/default/grub.</code> I set mine up with these differences.<br>
 
@@ -706,7 +773,7 @@ You can edit grub.cfg directly for testing, but it will work until grub2-mkconfi
 
 <a name="custom-grub"></a>
 
-### Grub Configuration Files
+## Grub Configuration Files
 
 The Grub menu is built from config files in <code>/etc/grub.d</code>. You'll need root privileges.
 
@@ -714,9 +781,15 @@ The Grub menu is built from config files in <code>/etc/grub.d</code>. You'll nee
 
 Or, you could change it to read 'Windoze, 'Help me God' or whatever you'd like :)
 <br><br>
+
+10_Linux adds the Fedora kernels to the main menu. I modified this one so the primary Fedora menu entry just says 'Fedora' instead of with all of the kernel information added.<br><br>
+Look for ```menuentry '$(echo "$title" | grub_quote)'``` in the ```populate_menu()``` section and remove ``` | grub_quote)```
+<br><br>
+I disable BLS because I like having a single Grub config file so I *think* it will work with it enabled but try it to make sure. For more information on BLS see https://www.baeldung.com/linux/grub-menu-management
+
 <a name="grub-themes"></a>
 
-### Themes
+## Themes
 You can download Grub themes from gnome-look.org or the KDE store. Depending on your monitor and/or resolution you may want to change the font sizes. 
 
 [Here's a good article explaining how to do it](https://www.bleepingcomputer.com/forums/t/743402/how-to-change-font-size-in-grub-menu/)<br>
@@ -724,68 +797,23 @@ You can download Grub themes from gnome-look.org or the KDE store. Depending on 
 <br><br>
 
 <a name="plymouth-splash"></a>
-## Plymouth Splash
-Plymouth splash screens are found in /usr/share/plymouth/themes. I went into the **spinner** theme and replaced background-tile.png with my standard splash wallpaper.
+
+# 10) Plymouth
+
+The ```plymouth-kcm``` package can be installed to give a Plymouth section in the KDE Settings app.<br><br>
+Plymouth splash screens are found in /usr/share/plymouth/themes. I went into the **spinner** theme and added background-tile.png with my standard splash wallpaper. If the theme you want to modify doesn't have background-tile.png copy your wallpaper into the directory & reselect the Plymouth theme. Otherwise just replace it.
+
+```
+plymouth-set-default-theme -R <theme name>
+```
+
+The Arch Linux site has a good writeup on Plymouth https://wiki.archlinux.org/title/Plymouth
 <br><br>
 
-<a name="custom-repo-list"></a>
-## Customizing the DNF repository list
-
-### Structure of a .repo file.
-Fedora's repository files are located in <code>/etc/yum.repos.d</code>. This is a section of a .repo. There can be other sections, like for debug or source packages. These are usually disabled.
-
-```
-[fedora]
-name=Fedora $releasever - $basearch
-metalink=https://mirrors.fedoraproject.org/metalink?repo=fedora-$releasever&arch=$basearch
-enabled=1
-countme=1
-metadata_expire=7d
-repo_gpgcheck=0
-type=rpm
-gpgcheck=1
-gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-$releasever-$basearch
-skip_if_unavailable=False
-```
-
-Fedora's Repository Docs are here - [https://docs.fedoraproject.org/en-US/quick-docs/repositories/](https://docs.fedoraproject.org/en-US/quick-docs/repositories/)
-
-
-To change what the repo looks like when running dnf change the 2nd line of the .repo file.
-
-The entries will look like this
-
-```
-name=Fedora $releasever - $basearch
-```
-<br>
-You can change them to something like this so the repo names and architecture are in columns.  
-
-```
-Fedora $releasever              - $basearch
-name=Fedora $releasever Updates - $basearch
-```
-<br>
-Or remove the architecture altogether
-
-```
-Fedora $releasever
-name=Fedora $releasever
-```
-
-If you want them in order, rename each repo file; e.g.
-
-```
-01-Fedora.repo 
-02-Fedora-updates.repo
-```
-to make it look like this
-<img src="Images/dnf.png"/>
-<br>
 
 <a name="parallels"></a>
 
-# 10 Upgrades and Beta versions
+# 11 Upgrades and Beta versions
 
 The only problem I've had running betas are with the RPM Fusion repos not being set up yet. If you feel adventurous go for it. You'll have to update to the release version when it comes out. 
 <br><br>
@@ -800,7 +828,7 @@ Here's Fedora's instructions on how to do it. [Upgrading to a new release of Fed
 
 <a name="kdedev"></a>
 
-# 11) KDE Development
+# 12) KDE Development
 
 I usually install the groups <code>"Development Tools"</code> <code>"Development Libraries"</code>**, and <code>"X Software Development"</code> by default since it seems like I'm always running into things I need. 
 
@@ -809,8 +837,8 @@ Check out https://develop.kde.org/develop for a good introduction to KDE/Qt deve
 If you're interested in working on KDE itself check out the Fedora KDE SIG
 at [https://fedoraproject.org/wiki/SIGs/KDE](https://fedoraproject.org/wiki/SIGs/KDE)<br><br>
 
-# 12) Ham Radio
+# 13) Ham Radio
 
-I've been able to get most of the ham radio software I need to run working correctly in Fedora. Much of it runs under Wine.
+I'm a ham radio operator (K5SGC) and I've been able to get most of the ham radio software I need to run working correctly in Fedora. Much of it runs under Wine.
 
 [Ham Radio Setup](./hamradio.md)
