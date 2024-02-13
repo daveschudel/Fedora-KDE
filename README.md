@@ -1,6 +1,8 @@
 - [1) Introduction](#1-introduction)
   - [KDE Specific Information](#kde-specific-information)
   - [Fedora 39](#fedora-39)
+    - [Problems with latest kernels - February 13, 2024](#problems-with-latest-kernels---february-13-2024)
+    - [Fedora 39](#fedora-39-1)
   - [Other Fedora options](#other-fedora-options)
   - [Fedora Magazine](#fedora-magazine)
   - [Fedora Laptops](#fedora-laptops)
@@ -74,6 +76,14 @@ As I find more I'll add it. I hope it helps you.
 <br><br>
 
 ## Fedora 39
+
+### Problems with latest kernels - February 13, 2024
+
+I have had problems with kernels 6.7.3 and 6.7.4. I'm not sure what's going on but there are posts on the internet about it doing strange things. On my machine, it sometimes freezes before getting to the SDDM screen; other times it hangs and logs in a minute or two later. I can go back to 6.5.6 and it works fine.
+
+I also ran into a problem with the KDE Spin and VirtualBox. If I try to create a VM with the KDE spin the video goes haywire. It doesn't do that with the standard Workstation release. It is using kernel 6.5.6.
+
+### Fedora 39
 
 Fedora 39 was released November 7, 2023. There were a number of changes to Gnome but the big one for all the spins & labs was eliminating the Modular repository. 
 
