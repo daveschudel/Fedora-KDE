@@ -41,10 +41,9 @@ It paired with the D74 with no problems. It shows up as a cell phone. If you rig
 
 I followed K6ETA's instructions with a few changes.<br><br>
 <code>
-sudo usermod -aG audio <user><br>
-sudo usermod -aG tty<br>
-sudo usermod -aG dialout<br>
-sudo usermod -aG bluetooth</code> (added this)<br>
+sudo usermod -aG audio (userid)<br>
+sudo usermod -aG tty (userid)<br>
+sudo usermod -aG dialout (userid)<br>
 
 You'll need winetricks along with Wine itself<br>
 <code>
@@ -96,6 +95,7 @@ When SELinux throws up a security violation it will tell you how to fix the prob
 sudo ausearch -c 'ps' --raw | audit2allow -M my-ps<br>  
 sudo semodule -i my-ps.pp</code><br>
 <br>
+
 I don't know why it threw warnings. I feel *reasonably* confident that adding that policy isn't going to open my machine to some exploit but I'll investigate it further. Of course there's always the option of setting SELinux to 'Permissive' but I recommend you don't do that. SELinux is there for a reason. :)
 
 
