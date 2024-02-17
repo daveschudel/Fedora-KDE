@@ -35,7 +35,7 @@ The Bluetooth manager that somes with the Fedora KDE Spin wouldn't pair with the
 
 <code>sudo dnf install blueman</code><br>
 
-It paired with the D74 with no problems on my Asus Zenbook, but wouldn't pair on an older desktop with one of those Bluetooth USB adapters. When it pairs It shows up as a cell phone. If you right-click on the D74 in Blueman's dialog there's an option to connect serial. Do that and you'll get the message on the D74 that it's established a Bluetooth connection.
+It paired with the D74 with no problems on my Asus Zenbook, but wouldn't pair on an older desktop with one of those Bluetooth USB adapters. When it pairs it shows up as a cell phone. If you right-click on the D74 in Blueman's dialog there's an option to connect serial. Do that and you'll get the message on the D74 that it's established a Bluetooth connection.
 
 ## Setup Wine for WinLink
 
