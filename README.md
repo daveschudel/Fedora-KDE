@@ -81,7 +81,7 @@ As I find more I'll add it. I hope it helps you.
 
 ### Problems with latest kernels - February 13, 2024
 
-I have had problems with kernels 6.7.3 and 6.7.4. I'm not sure what's going on but there are posts on the internet about it doing strange things. On my machine, it sometimes freezes before getting to the SDDM screen; other times it hangs and logs in a minute or two later. I can go back to 6.5.6 and it works fine.
+I have had problems with kernels 6.7.3 and 6.7.4. I'm not sure what's going on but there are posts on the internet about it doing strange things. On my machine, it sometimes freezes before getting to the SDDM screen; other times it hangs and logs in a minute or two later. I can go back to 6.5.6 and it works fine. I'm currently running on an Asus Zenbook with a Ryzen 5. I don't know if that has anything to do with it or not.
 
 I also ran into a problem with the KDE Spin and VirtualBox. If I try to create a VM with the KDE spin the video goes haywire. It doesn't do that with the standard Workstation release. It is using kernel 6.5.6.
 
@@ -140,6 +140,7 @@ gpg --verify-files CHECKSUM_FILENAME
 ```
 sha256sum -c CHECKSUM_FILE
 ```
+<br>
 
 Unless I'm installing Fedora in a VM I ***always*** encrypt the drive. I use the standard install options and leave the root user disabled. Obviously if you need a specific partition layout set it up here. I'd be wary of playing with it for the sake of playing with it. The Fedora engineers have done a great job of optimizing everything for the desktop and it would be very easy to *optimize* your system so it runs worse. I used to make the swap partition larger but there was no need for it. Enlarge it if you want to be able to hibernate. 
 
@@ -345,7 +346,7 @@ I use one option for dnf, set in <code>/etc/dnf/dnf.conf</code>.
 ```
 fastestmirror=1
 ```
-The default setting is off.<br><br>
+The default setting is off.<br>
 
 I also use the -y parameter to suppress the 'Are you sure' messages when running an update.<br>
 
@@ -759,7 +760,7 @@ There are people out there who recommend disabling SELinux when alerts start pop
 
 Disable it at your own risk.
 
-I've never seen anything installed from the Fedora or RPMFusion repositories that caused an SELinux exception. For me it's always been something where I downloaded a binary or compiled from source.
+I've never seen anything installed from the Fedora or RPMFusion repositories that caused an SELinux exception, except for some stuff in Wine. For me it's always been something where I downloaded a binary or compiled from source.
 
  If you install <code>setroubleshoot</code> (I recommend it) it will give you a detailed description of what the problem is. If you get an SELinux alert something is trying to write where it doesn't have permission. If the app should be able to write there you can tell SELinux to allow that app to access that file.
 
