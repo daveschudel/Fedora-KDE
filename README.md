@@ -33,6 +33,7 @@
     - [KDE Taskbar](#kde-taskbar)
     - [KDE Desktop Effects](#kde-desktop-effects)
     - [KDE Splash Screen](#kde-splash-screen)
+    - [KDE Filetype Icons](#kde-filetype-icons)
   - [Laptop Power Management](#laptop-power-management)
   - [Multiple Desktops](#multiple-desktops)
 - [6) Apps \& Packages I'd Recommend](#6-apps--packages-id-recommend)
@@ -46,6 +47,7 @@
   - [SSH](#ssh)
   - [Backups](#backups)
   - [VPN](#vpn)
+  - [Laptop Power Management](#laptop-power-management-1)
 - [8) SELinux](#8-selinux)
 - [9) Grub](#9-grub)
   - [Grub Configuration Files](#grub-configuration-files)
@@ -586,6 +588,15 @@ I modified [this](https://store.kde.org/p/2072224) theme and put my standard Sta
 
 When you install a new splash screen from the Settings app it will put it in ~/.local/share/plasma/look-and-feel. I just went in and changed the wallpaper in contents/splash/images.
 
+### KDE Filetype Icons
+The icons for files like <code>.bashrc</code> and <code>.zshrc</code> will show up as plain text. You can't just change the icon from Dolphin. You need to go into KDE Settings/Applications/File Associations. There are a lot of them in there.<br><br>
+You can add one for <code>.zshrc</code> for example. Click Add and select the type category you want to use. For example, you could pick Application and create a new type called shell-config. Select the icon you want, and enter each filename pattern. I found it didn't work if you entered '*.zshrc' but '.zshrc' worked fine. Click apply, then open Dolphin. The icon for <code>.zshrc</code> should show with the new icon.<br>
+
+I went through and set application types for all sorts of things.
+<img src="Images/mime-types.png"/>
+
+
+
 <a name="power"></a>
 
 ## Laptop Power Management
@@ -598,6 +609,7 @@ cpupower frequency-set --governor conservative
 ```
 Read the man page for cpupower for more options
 <br><br>
+
 <a name="desktops"></a>
 ## Multiple Desktops
 
@@ -727,6 +739,17 @@ sh <(curl -sSf https://downloads.nordcdn.com/apps/linux/install.sh)
 ```
 
 There's a nice NordVPN Plasma Widget that puts a icon in the tray for controlling it. I use the one by korapp.
+<br><br>
+
+## Laptop Power Management
+
+It's easiest to do it in the settings app, but if you want to do it
+from the command line install tlp, then you can set power management this way<br>
+
+```
+cpupower frequency-set --governor conservative
+```
+Read the man page for cpupower for more options
 <br><br>
 
 <a name="selinux"></a>
