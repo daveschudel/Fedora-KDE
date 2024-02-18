@@ -138,7 +138,7 @@ GridTracker isn't in the Fedora or RPMFusion repositories, but can be installed 
 sudo dnf copr enable nr0q/GridTracker<br>
 sudo dnf install gridtracker
 </code>
-<br><br><br>
+<br><br>
 
 # 5) Logging
 

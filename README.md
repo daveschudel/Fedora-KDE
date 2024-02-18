@@ -539,6 +539,8 @@ I setup Dolphin like this: In Settings<br>
 
 To change the icons for file types, go into System Settings/Applications and create a file type for what you want. For example, I created a type Text/x-shell, set the icon, and added .bashrc, .zshrc, etc. as filename patterns.
 
+When you set icons for folders it does not change the small icon in the Dolphin 'Places' section. I had to change those seperately. Right click on the icon and select 'Edit'. Then you can change that icon.
+
 <img src="Images/dolphin.png"/>
 <br><br>
 <a name="system-settings"></a>
