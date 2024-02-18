@@ -9,6 +9,7 @@
 - [3) TQSL](#3-tqsl)
 - [4) WSJT-X](#4-wsjt-x)
   - [Sound Card Configuration](#sound-card-configuration)
+  - [GridTracker](#gridtracker)
 - [5) Logging](#5-logging)
     - [N3FJP](#n3fjp)
     - [Other logging apps](#other-logging-apps)
@@ -43,8 +44,8 @@ I followed K6ETA's instructions with a few changes.<br><br>
 <code>
 sudo usermod -aG audio (userid)<br>
 sudo usermod -aG tty (userid)<br>
-sudo usermod -aG dialout (userid)<br>
-
+sudo usermod -aG dialout (userid)<br><br>
+</code>
 You'll need winetricks along with Wine itself<br>
 <code>
 sudo dnf install wine winetricks</code>
@@ -129,6 +130,15 @@ sudo dnf install wsjtx</code><br><br>
 
 ## Sound Card Configuration
 If you're using a SignaLink the sound card will show up as an 'alsa' device so configure WSJT-X using that. I don't know how radios with built-in sound cards will show up but I'd assume it would be something similar.<br><br>
+
+## GridTracker
+GridTracker isn't in the Fedora or RPMFusion repositories, but can be installed from NR0Q's COPR repository. 
+
+<code>
+sudo dnf copr enable nr0q/GridTracker<br>
+sudo dnf install gridtracker
+</code>
+<br><br><br>
 
 # 5) Logging
 
