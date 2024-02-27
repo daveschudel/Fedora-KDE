@@ -1,7 +1,7 @@
 - [1) Introduction](#1-introduction)
   - [KDE Specific Information](#kde-specific-information)
   - [Fedora 39](#fedora-39)
-    - [Problems with latest kernels - February 13, 2024](#problems-with-latest-kernels---february-13-2024)
+    - [Problems with latest kernels - February 27, 2024](#problems-with-latest-kernels---february-27-2024)
     - [Fedora 39](#fedora-39-1)
   - [Other Fedora options](#other-fedora-options)
   - [Fedora Magazine](#fedora-magazine)
@@ -67,7 +67,7 @@
 
 I've run Fedora since Fedora 9. It's my choice for a Linux OS for a number of reasons. When I first started with Linux my college used Scientific Linux, based on CentOS which itself is based on RedHat. Other students used Ubuntu, but I found it difficult to use since the development tools & other things don't match. Think Ubuntu's Build Essentials vs Fedora's Development Tools group. Everything I did on my machine matched what was used on the servers.  
 
-Also, I just like the way Fedora does things. It may seem more complicated that Ubuntu but it gave me the opportunity to learn much more about what's happening inside. Linus Torvalis uses Fedora. The prosecution rests. :)
+Also, I just like the way Fedora does things. It may seem more complicated that Ubuntu but it gave me the opportunity to learn much more about what's happening inside. Linus Torvalis uses Fedora. The prosecution rests. 😎
 
 I've spent a lot of time just playing with Fedora and KDE, learning how it works. KDE is very configurable. You can pretty much set it up however you want. 
 
@@ -79,9 +79,11 @@ As I find more I'll add it. I hope it helps you.
 
 ## Fedora 39
 
-### Problems with latest kernels - February 13, 2024
+### Problems with latest kernels - February 27, 2024
 
 I have had problems with kernels 6.7.3 and 6.7.4. I'm not sure what's going on but there are posts on the internet about it doing strange things. On my machine, it sometimes freezes before getting to the SDDM screen; other times it hangs and logs in a minute or two later. I can go back to 6.5.6 and it works fine. I'm currently running on an Asus Zenbook with a Ryzen 5. I don't know if that has anything to do with it or not.
+
+If you're having problems too it might be a good idea to keep more than the three default kernels. Open <code>/etc/dnf/dnf.conf</code> and add <code>installonly_limit=5</code> or however many kernels you want to keep. Also, you can delete kernels you don't want. Run <code>rpm -qa | grep "kernel-core"</code> and get a list of the kernels installed. Then use <code>sudo dnf remove [kernel name]</code>
 
 I also ran into a problem with the KDE Spin and VirtualBox. If I try to create a VM with the KDE spin the video goes haywire. It doesn't do that with the standard Workstation release. It is using kernel 6.5.6.
 
@@ -144,9 +146,9 @@ sha256sum -c CHECKSUM_FILE
 
 Unless I'm installing Fedora in a VM I ***always*** encrypt the drive. I use the standard install options and leave the root user disabled. Obviously if you need a specific partition layout set it up here. I'd be wary of playing with it for the sake of playing with it. The Fedora engineers have done a great job of optimizing everything for the desktop and it would be very easy to *optimize* your system so it runs worse. I used to make the swap partition larger but there was no need for it. Enlarge it if you want to be able to hibernate. 
 
-Fedora switched to the Btvfs file system from Ext4. I'd leave it alone. There are discussions and/or arguments all over the web about the problems & benefits of Btvfs but like for partitioning, you're best just to leave it alone.
+Fedora uses the Btvfs file system instead of Ext4. I'd leave it alone. There are discussions and/or arguments all over the web about the problems & benefits of Btvfs but like for partitioning, you're best just to leave it alone.
 
-The Fedora installer looks different depending on what Spin you're installing. For example, the KDE Spin has you setup the user account before installing while the standard Fedora installation (Gnome) has you creating the user after installing. I'm not sure why.
+The Fedora installer looks different depending on what spin you're installing. For example, the KDE Spin has you setup the user account before installing while the standard Fedora installation (Gnome) has you creating the user after installing. I'm not sure why.
 
 After installing Fedora you'll want to update everything before adding to your system. See the [DNF](#dnf) section for more information. 
 
@@ -154,7 +156,7 @@ After installing Fedora you'll want to update everything before adding to your s
 sudo dnf update -y
 ```
 
-The '-y' parameter suppresses the 'yes/no' prompts. It can be disabled in ```\etc\dnf\dnf.cfg``` by adding ```assume_yes=True``` but that's not a good idea. I only use -y for updates.
+The '-y' parameter suppresses the 'yes/no' prompts. It can be disabled in ```\etc\dnf\dnf.cfg``` by adding ```assume_yes=True``` but that's not a good idea. I only use <code>-y</code> for updates.
 <br><br>
 
 <a name="shells"></a>
