@@ -33,7 +33,6 @@
     - [KDE Desktop Effects](#kde-desktop-effects)
     - [KDE Splash Screen](#kde-splash-screen)
     - [KDE Filetype Icons](#kde-filetype-icons)
-  - [Laptop Power Management](#laptop-power-management)
   - [Multiple Desktops](#multiple-desktops)
 - [6) Apps \& Packages I'd Recommend](#6-apps--packages-id-recommend)
   - [Yakuake](#yakuake)
@@ -46,7 +45,7 @@
   - [SSH](#ssh)
   - [Backups](#backups)
   - [VPN](#vpn)
-  - [Laptop Power Management](#laptop-power-management-1)
+  - [Laptop Power Management](#laptop-power-management)
 - [8) SELinux](#8-selinux)
 - [9) Grub](#9-grub)
   - [Grub Configuration Files](#grub-configuration-files)
@@ -590,20 +589,6 @@ You can add one for <code>.zshrc</code> for example. Click Add and select the ty
 I went through and set application types for all sorts of things.
 <img src="Images/mime-types.png"/>
 
-
-
-<a name="power"></a>
-
-## Laptop Power Management
-
-It's easiest to do it in the settings app, but if you want to do it
-from the command line install tlp, then you can set power management this way<br>
-
-```
-cpupower frequency-set --governor conservative
-```
-Read the man page for cpupower for more options
-<br><br>
 
 <a name="desktops"></a>
 ## Multiple Desktops
