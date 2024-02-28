@@ -1,13 +1,12 @@
 - [1) Introduction](#1-introduction)
-  - [KDE Specific Information](#kde-specific-information)
+  - [KDE-Specific Information](#kde-specific-information)
   - [Fedora 39](#fedora-39)
-    - [Problems with latest kernels - February 27, 2024](#problems-with-latest-kernels---february-27-2024)
-    - [Fedora 39](#fedora-39-1)
+    - [Problems with kernels 6.7.3 \& 6.7.4 - February 28, 2024](#problems-with-kernels-673--674---february-28-2024)
+    - [Fedora 39 Changes](#fedora-39-changes)
   - [Other Fedora options](#other-fedora-options)
   - [Fedora Magazine](#fedora-magazine)
   - [Fedora Laptops](#fedora-laptops)
 - [2) Installation](#2-installation)
-  - [X11 vs Wayland](#x11-vs-wayland)
 - [3) Shells](#3-shells)
     - [Eza Colors](#eza-colors)
   - [Zsh](#zsh)
@@ -18,7 +17,7 @@
   - [DNF Options](#dnf-options)
   - [RPM Fusion](#rpm-fusion)
   - [Customizing the Repo List](#customizing-the-repo-list)
-  - [DNF Fixes](#dnf-fixes)
+  - [DNF Running Slow](#dnf-running-slow)
   - [Groups](#groups)
   - [Installing Additional Desktop Environments](#installing-additional-desktop-environments)
   - [COPR](#copr)
@@ -43,7 +42,7 @@
     - [Using a Flatpak](#using-a-flatpak)
   - [Microsoft Open Fonts](#microsoft-open-fonts)
   - [OneDrive](#onedrive)
-- [7) Other Linux Information](#7-other-linux-information)
+- [7) Other System Topics](#7-other-system-topics)
   - [SSH](#ssh)
   - [Backups](#backups)
   - [VPN](#vpn)
@@ -71,7 +70,7 @@ Also, I just like the way Fedora does things. It may seem more complicated that 
 
 I've spent a lot of time just playing with Fedora and KDE, learning how it works. KDE is very configurable. You can pretty much set it up however you want. 
 
-## KDE Specific Information
+## KDE-Specific Information
 I originally wrote this for the Fedora KDE spin but Chapters 5 & 10 are the only ones here specific to KDE so users of the base Fedora distro and other spins can use this document too.
 
 As I find more I'll add it. I hope it helps you. 
@@ -79,21 +78,17 @@ As I find more I'll add it. I hope it helps you.
 
 ## Fedora 39
 
-### Problems with latest kernels - February 27, 2024
+### Problems with kernels 6.7.3 & 6.7.4 - February 28, 2024
+I had some problems with kernels 6.7.3 and 6.7.4. 6.7.5 seems to work fine. I wrote some notes [here](./kernels.md).
 
-I have had problems with kernels 6.7.3 and 6.7.4. I'm not sure what's going on but there are posts on the internet about it doing strange things. On my machine, it sometimes freezes before getting to the SDDM screen; other times it hangs and logs in a minute or two later. I can go back to 6.5.6 and it works fine. I'm currently running on an Asus Zenbook with a Ryzen 5. I don't know if that has anything to do with it or not.
-
-If you're having problems too it might be a good idea to keep more than the three default kernels. Open <code>/etc/dnf/dnf.conf</code> and add <code>installonly_limit=5</code> or however many kernels you want to keep. Also, you can delete kernels you don't want. Run <code>rpm -qa | grep "kernel-core"</code> and get a list of the kernels installed. Then use <code>sudo dnf remove [kernel name]</code>
-
-I also ran into a problem with the KDE Spin and VirtualBox. If I try to create a VM with the KDE spin the video goes haywire. It doesn't do that with the standard Workstation release. It is using kernel 6.5.6.
-
-### Fedora 39
+### Fedora 39 Changes
 
 Fedora 39 was released November 7, 2023. There were a number of changes to Gnome but the big one for all the spins & labs was eliminating the Modular repository. 
+<br>
 
-I decided to use the upgrade option this time instead of wiping the machine & starting from scratch. 
+Wayland is the default display manager for the Fedora KDE spin. Here are the Fedora [Wayland](https://docs.fedoraproject.org/en-US/fedora/latest/system-administrators-guide/Wayland/) docs. I haven't had any problems using Wayland except for an occasional VM with the graphics not set right. There are a few plasmoids that haven't been updated yet as well.
 
-I only ran into one problem. The most recent kernel wouldn't start. Not sure why, but I had VirtualBox installed and it has a kernel mod, and I've played around with Grub so it was probably something I did. I just booted into the previous kernel, removed the most recent, reinstalled it and it works fine. See [Upgrading Fedora](#upgrading-fedora) for more information.
+Fedora has decided to drop X11 support for Fedora 40 KDE. [Linuxiac](https://linuxiac.com/fedora-40-to-offer-plasma-6-drops-x11-entirely/) has a nice writeup on it with a link to the offical Fedora Wiki.
 <br><br>
 
 ## Other Fedora options
@@ -160,13 +155,6 @@ The '-y' parameter suppresses the 'yes/no' prompts. It can be disabled in ```\et
 <br><br>
 
 <a name="shells"></a>
-## X11 vs Wayland
-
-Wayland is the default display manager for the Fedora KDE spin. Here are the Fedora [Wayland](https://docs.fedoraproject.org/en-US/fedora/latest/system-administrators-guide/Wayland/) docs. 
-
-Fedora has decided to drop X11 support for Fedora 40 KDE. [Linuxiac](https://linuxiac.com/fedora-40-to-offer-plasma-6-drops-x11-entirely/) has a nice writeup on it with a link to the offical Fedora Wiki.
-<br><br>
-
 
 # 3) Shells
 
@@ -348,7 +336,7 @@ I use one option for dnf, set in <code>/etc/dnf/dnf.conf</code>.
 ```
 fastestmirror=1
 ```
-The default setting is off.<br>
+The default setting is off. I have read some people reported dnf actually running slower with this enabled. I haven't noticed anything but keep it in mind.<br>
 
 I also use the -y parameter to suppress the 'Are you sure' messages when running an update.<br>
 
@@ -426,11 +414,13 @@ to make it look like this
 <img src="Images/dnf.png"/>
 <br>
 
-## DNF Fixes
+## DNF Running Slow
 
-DNF can take a long to update itself because it downloads the repository data often. A [discussion](https://ask.fedoraproject.org/t/why-is-dnf-so-slow/6316) on the Fedora Project site suggested setting <code>metadata_expire=2d</code> in <code>/etc/dnf/dnf.conf</code>. If you use the -q parameter (quiet) like in my install scripts it will look like the process hangs. 
+DNF can take a long to update itself because it downloads the repository data often. A [discussion](https://ask.fedoraproject.org/t/why-is-dnf-so-slow/6316) on the Fedora Project site suggested setting <code>metadata_expire=2d</code> in <code>/etc/dnf/dnf.conf</code>. 
 
-I noticed that not all repositories I installed had the <code>metadata_expire</code> set. I went through all my .repo files and set them all to 1d. That seems to have fixed it.
+If you use the -q parameter (quiet) like in my install scripts it can look like the process hangs. 
+
+I noticed that not all repositories I installed had the <code>metadata_expire</code> set. I went through all my .repo files and set them all to **1d**. That seems to have fixed it.
 
 It appears that if you run dnf with the ```--refresh``` option it updates the repository data much faster than if you let Fedora handle it. I'm not sure why, it just seems that way. 
 
@@ -490,7 +480,7 @@ rpmfusion-nonfree-appstream-data
 Many of the options in dnf are actually plugins. You can install additional plugins, like the one you'll need for updating Fedora itself. See the plugins section at [https://docs.fedoraproject.org/en-US/quick-docs/dnf/](https://docs.fedoraproject.org/en-US/quick-docs/dnf/)
 
 ## COPR
-If you want something other than what's in the Fedora & RPM Fusion repos, check out Fedora's COPR repositories. They're user-created repos with their projects. <br><br>
+If you want something other than what's in the Fedora & RPM Fusion repos, check out Fedora's COPR (COmmunity PRojects) repositories. They're user-created repos with their projects. <br><br>
 I use one COPR repo for one of my ham radio apps that isn't available in the Fedora or RPM repos.<br><br>
 There are nightly builds of software as well. Some of them are personal repos and say 'do not use'. Don't use them. 😎
 
@@ -541,10 +531,10 @@ I setup Dolphin like this: In Settings<br>
 
 To change the icons for file types, go into System Settings/Applications and create a file type for what you want. For example, I created a type Text/x-shell, set the icon, and added .bashrc, .zshrc, etc. as filename patterns.
 
-When you set icons for folders it does not change the small icon in the Dolphin 'Places' section. I had to change those seperately. Right click on the icon and select 'Edit'. Then you can change that icon.
+When you set icons for folders it does not change the small icon in the Dolphin 'Places' section. I had to change those seperately. Right click on the icon and select 'Edit'. Then you can change that icon.<br>
 
 <img src="Images/dolphin.png"/>
-<br><br>
+<br>
 <a name="system-settings"></a>
 
 ## KDE System Settings
@@ -585,7 +575,7 @@ Once it's done it looks like this
 
 I started using a Desktop Effect called Energize B [Burn-My-Windows] available on the KDE Store [https://www.pling.com/p/1884311It]. It makes opening & closing windows look like they're beaming in and out with a transporter. But I miss the spinning cube. I hope the KDE developers bring it back. I had an image of an open Stargate at the top & bottom.
 
-KDE is great if you want to show off :)
+KDE is great if you want to show off 😎
 <br><br>
 
 ### KDE Splash Screen
@@ -654,8 +644,7 @@ sudo dnf install yakuake
 
 ### Using the Microsoft repository
 
-At this point (Fedora 39) VSCode isn't in the Fedora or RPM Fusion repositories. You can download it but I like having it installed from a repo so it stays up to date without having to run a seperate update
-command like <code>flatpak update</code>
+At this point (Fedora 39) VSCode isn't in the Fedora or RPM Fusion repositories. You can download it but I like having it installed from a repo so it stays up to date without having use a Flatpak.
 
 This will install the repo and key
 
@@ -714,7 +703,7 @@ I would still keep an eye on it just to make sure it doesn't do strange things.
 <br>
 <br>
 
-# 7) Other Linux Information
+# 7) Other System Topics
 
 ## SSH
 I've created my private and public keys but the correct permissions are easy to forget. Just use <code>chmod permissions filename/directory</code>
@@ -872,11 +861,11 @@ I usually install the groups <code>"Development Tools"</code> <code>"Development
 
 Check out https://develop.kde.org/develop for a good introduction to KDE/Qt development.
 
-If you're interested in working on KDE itself check out the Fedora KDE SIG
+If you're interested in working it check out the Fedora KDE SIG
 at [https://fedoraproject.org/wiki/SIGs/KDE](https://fedoraproject.org/wiki/SIGs/KDE)<br><br>
 
 # 13) Ham Radio
 
-I'm a ham radio operator (K5SGC) and I've been able to get most of the ham radio software I need to run working correctly in Fedora. Much of it runs under Wine.
+I'm a ham radio operator (K5SGC) and I've been able to get most of the ham radio software I need to run working correctly in Fedora. Much of it runs under Wine but there is a good amount that runs native in Linux.
 
 [Ham Radio Setup](./hamradio.md)
