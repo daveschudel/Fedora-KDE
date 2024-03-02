@@ -725,7 +725,7 @@ Flatpak support is enable in Fedora by default. To enable the Flathub repo
 
 <code>flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo</code>
 
-To enable the Fedora Flatpak repo <code>$ flatpak remote-add --if-not-exists fedora oci+https://registry.fedoraproject.org</code>
+To enable the Fedora Flatpak repo <code>flatpak remote-add --if-not-exists fedora oci+https://registry.fedoraproject.org</code>
 
 Discover will automatically list Flatpaks available and will note which apps are Flatpaks.
 
