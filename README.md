@@ -1,6 +1,8 @@
 - [1) Introduction](#1-introduction)
   - [KDE-Specific Information](#kde-specific-information)
-  - [Fedora 39](#fedora-39)
+  - [Latest Information](#latest-information)
+    - [KDE6 Release - March 1, 2023](#kde6-release---march-1-2023)
+    - [Additional software installers - March 1, 2023](#additional-software-installers---march-1-2023)
     - [Problems with kernels 6.7.3 \& 6.7.4 - February 28, 2024](#problems-with-kernels-673--674---february-28-2024)
     - [Fedora 39 Changes](#fedora-39-changes)
   - [Other Fedora options](#other-fedora-options)
@@ -41,20 +43,24 @@
     - [Using a Flatpak](#using-a-flatpak)
   - [Microsoft Open Fonts](#microsoft-open-fonts)
   - [OneDrive](#onedrive)
-- [7) Other System Topics](#7-other-system-topics)
+- [7) Additional Software Installers](#7-additional-software-installers)
+  - [Fedy](#fedy)
+  - [DNF Dragora](#dnf-dragora)
+  - [Flatpaks](#flatpaks)
+- [8) Other System Topics](#8-other-system-topics)
   - [SSH](#ssh)
   - [Backups](#backups)
   - [VPN](#vpn)
   - [Laptop Power Management](#laptop-power-management)
-- [8) SELinux](#8-selinux)
-- [9) Grub](#9-grub)
+- [9) SELinux](#9-selinux)
+- [10) Grub](#10-grub)
   - [Grub Configuration Files](#grub-configuration-files)
   - [Themes](#themes-1)
-- [10) Plymouth](#10-plymouth)
-- [11 Upgrades and Beta versions](#11-upgrades-and-beta-versions)
+- [11) Plymouth](#11-plymouth)
+- [12 Upgrades and Beta versions](#12-upgrades-and-beta-versions)
   - [Upgrading Fedora](#upgrading-fedora)
-- [12) KDE Development](#12-kde-development)
-- [13) Ham Radio](#13-ham-radio)
+- [13) KDE Development](#13-kde-development)
+- [14) Ham Radio](#14-ham-radio)
 
 
 <br>
@@ -75,7 +81,15 @@ I originally wrote this for the Fedora KDE spin but Chapters 5 & 10 are the only
 As I find more I'll add it. I hope it helps you. 
 <br><br>
 
-## Fedora 39
+## Latest Information
+
+### KDE6 Release - March 1, 2023
+KDE announced the release of KDE6, and one of the most requested features is back: the Cube. I'll definitely be enabling that. KDE6 has a LOT of new features and we should see it in Fedora 40.
+
+https://kde.org/announcements/megarelease/6/
+
+### Additional software installers - March 1, 2023
+I added a section that goes into other software installers [here](#7-additional-software-installers).
 
 ### Problems with kernels 6.7.3 & 6.7.4 - February 28, 2024
 I had some problems with kernels 6.7.3 and 6.7.4. 6.7.5 seems to work fine. I wrote some notes [here](./kernels.md).
@@ -688,7 +702,39 @@ I would still keep an eye on it just to make sure it doesn't do strange things.
 <br>
 <br>
 
-# 7) Other System Topics
+# 7) Additional Software Installers
+
+## Fedy
+Fedy is a utility from the people who provide RPM Fusion. It's a utility that lets you install utilities and codecs from a nice graphical interface.
+
+You can get it from their Github repo: https://github.com/rpmfusion-infra/fedy
+
+I found more than one fedy repo on Github so I'd use the one from the RPM Fusion team. 
+<br><br>
+
+## DNF Dragora
+DNF Dragora provides a graphical utility to install software. It gives a more package-centric way to install apps as opposed to Discover which is more app-centric. 
+
+Install it with <code>sudo dnf install dnfdragora</code>.
+
+<img src="Images/dnfdragora.png"/>
+
+## Flatpaks
+
+Flatpak support is enable in Fedora by default. To enable the Flathub repo
+
+<code>flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo</code>
+
+To enable the Fedora Flatpak repo <code>$ flatpak remote-add --if-not-exists fedora oci+https://registry.fedoraproject.org</code>
+
+Discover will automatically list Flatpaks available and will note which apps are Flatpaks.
+
+For more information, see the Fedora Developer page for Flatpaks https://developer.fedoraproject.org/deployment/flatpak/flatpak-usage.html
+
+You can see all available Flatpaks by going to https://www.flathub.org
+<br><br>
+
+# 8) Other System Topics
 
 ## SSH
 I've created my private and public keys but the correct permissions are easy to forget. Just use <code>chmod permissions filename/directory</code>
@@ -737,7 +783,7 @@ Read the man page for cpupower for more options
 
 <a name="selinux"></a>
 
-# 8) SELinux
+# 9) SELinux
 There are people out there who recommend disabling SELinux when alerts start popping up. SELinux is a powerful security tool. It runs in three modes: *disabled*, *permissive* & *enforcing*. Fedora defaults to *enforcing*.
 
 Disable it at your own risk.
@@ -751,7 +797,7 @@ Here is a good overview of SELinux for Fedora.
 
 <br>
 
-# 9) Grub
+# 10) Grub
 <a name="grub-config"></a>
 The main config file is <code>/etc/default/grub.</code> I set mine up with these differences.<br>
 
@@ -814,7 +860,7 @@ You can download Grub themes from gnome-look.org or the KDE store. Depending on 
 
 <a name="plymouth-splash"></a>
 
-# 10) Plymouth
+# 11) Plymouth
 
 The ```plymouth-kcm``` package can be installed to give a Plymouth section in the KDE Settings app.<br><br>
 Plymouth splash screens are found in /usr/share/plymouth/themes. I went into the **spinner** theme and added background-tile.png with my standard splash wallpaper. If the theme you want to modify doesn't have background-tile.png copy your wallpaper into the directory & reselect the Plymouth theme. Otherwise just replace it.
@@ -829,7 +875,7 @@ The Arch Linux site has a good writeup on Plymouth https://wiki.archlinux.org/ti
 
 <a name="parallels"></a>
 
-# 11 Upgrades and Beta versions
+# 12 Upgrades and Beta versions
 
 The only problem I've had running betas are with the RPM Fusion repos not being set up yet. If you feel adventurous go for it. You'll have to update to the release version when it comes out. 
 <br><br>
@@ -844,7 +890,7 @@ Here's Fedora's instructions on how to do it. [Upgrading to a new release of Fed
 
 <a name="kdedev"></a>
 
-# 12) KDE Development
+# 13) KDE Development
 
 I usually install the groups <code>"Development Tools"</code> <code>"Development Libraries"</code>**, and <code>"X Software Development"</code> by default since it seems like I'm always running into things I need. 
 
@@ -853,7 +899,7 @@ Check out https://develop.kde.org/develop for a good introduction to KDE/Qt deve
 If you're interested in working it check out the Fedora KDE SIG
 at [https://fedoraproject.org/wiki/SIGs/KDE](https://fedoraproject.org/wiki/SIGs/KDE)<br><br>
 
-# 13) Ham Radio
+# 14) Ham Radio
 
 I'm a ham radio operator (K5SGC) and I've been able to get most of the ham radio software I need to run working correctly in Fedora. Much of it runs under Wine but there is a good amount that runs native in Linux.
 
