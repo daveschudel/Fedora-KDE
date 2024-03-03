@@ -43,6 +43,7 @@
     - [Using a Flatpak](#using-a-flatpak)
   - [Microsoft Open Fonts](#microsoft-open-fonts)
   - [OneDrive](#onedrive)
+  - [Brave Browser](#brave-browser)
 - [7) Additional Software Installers](#7-additional-software-installers)
   - [Fedy](#fedy)
   - [DNF Dragora](#dnf-dragora)
@@ -58,6 +59,7 @@
   - [Themes](#themes-1)
 - [11) Plymouth](#11-plymouth)
 - [12 Upgrades and Beta versions](#12-upgrades-and-beta-versions)
+  - [RPM Fusion](#rpm-fusion-1)
   - [Upgrading Fedora](#upgrading-fedora)
 - [13) KDE Development](#13-kde-development)
 - [14) Ham Radio](#14-ham-radio)
@@ -702,6 +704,17 @@ I would still keep an eye on it just to make sure it doesn't do strange things.
 <br>
 <br>
 
+## Brave Browser
+[Brave](https://brave.com/) is a privacy-centric Chromium browser. You'll need the Brave repo to install it. 
+
+<code>
+sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc<br><br> 
+sudo dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/x86_64/<br><br>
+sudo dnf install brave-browser  
+</code>
+<br><br>
+<br>
+
 # 7) Additional Software Installers
 
 ## Fedy
@@ -877,7 +890,9 @@ The Arch Linux site has a good writeup on Plymouth https://wiki.archlinux.org/ti
 
 # 12 Upgrades and Beta versions
 
-The only problem I've had running betas are with the RPM Fusion repos not being set up yet. If you feel adventurous go for it. You'll have to update to the release version when it comes out. 
+## RPM Fusion
+
+The only problem I've had running betas are with the RPM Fusion repos not being up yet. If you feel adventurous go for it. You'll have to update to the release version when it comes out. 
 <br><br>
 
 ## Upgrading Fedora
@@ -896,7 +911,7 @@ I usually install the groups <code>"Development Tools"</code> <code>"Development
 
 Check out https://develop.kde.org/develop for a good introduction to KDE/Qt development.
 
-If you're interested in working it check out the Fedora KDE SIG
+If you're interested in working on it check out the Fedora KDE SIG
 at [https://fedoraproject.org/wiki/SIGs/KDE](https://fedoraproject.org/wiki/SIGs/KDE)<br><br>
 
 # 14) Ham Radio
