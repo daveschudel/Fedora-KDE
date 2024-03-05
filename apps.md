@@ -5,7 +5,7 @@
 
 
 ## Internet
-[Slack](https://slack.com/) (easiest to use a Flatpak<br>
+[Slack](https://slack.com/) (easiest to use a Flatpak)<br>
 <code>flatpak install flathub com.slack.Slack</code>
 
   
