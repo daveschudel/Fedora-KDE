@@ -38,8 +38,7 @@
 [Blueman](https://github.com/blueman-project/blueman) (I use this for Serial over Bluetooth; I couldn't get the KDE Bluetooth utility to work)<br><code>sudo dnf install blueman</code>
 
 [Visual Studio Code](https://code.visualstudio.com/)<br>
-  <code>
-sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
+  <code>sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
 sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'</code>
 
 
