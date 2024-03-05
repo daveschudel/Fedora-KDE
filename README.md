@@ -14,7 +14,7 @@
     - [Zsh Tweaks](#zsh-tweaks)
     - [Themes](#themes)
   - [Bash](#bash)
-- [4) DNF](#4-dnf)
+- [4) DNF \& Repositories](#4-dnf--repositories)
   - [DNF Options](#dnf-options)
   - [RPM Fusion](#rpm-fusion)
   - [Customizing the Repo List](#customizing-the-repo-list)
@@ -43,6 +43,7 @@
   - [Microsoft Open Fonts](#microsoft-open-fonts)
   - [OneDrive](#onedrive)
   - [Brave Browser](#brave-browser)
+  - [Other Apps](#other-apps)
 - [7) Additional Software Installers](#7-additional-software-installers)
   - [Fedy](#fedy)
   - [DNF Dragora](#dnf-dragora)
@@ -331,12 +332,12 @@ Here's the prompt for my colored bar in Bash
 and looks like this. 
 
 ![title](Images/bash.png)
-
+<br>
 <br>
 
 <a name="dnf"></a>
 
-# 4) DNF
+# 4) DNF & Repositories
 <a name="dnf-config"></a>
 
 There are many options for DNF from getting through proxies, security settings, and more. Look at the official [Fedora DNF Reference](https://docs.fedoraproject.org/en-US/fedora/latest/system-administrators-guide/package-management/DNF/), the [Fedora DNF Quickdocs](https://docs.fedoraproject.org/en-US/quick-docs/dnf/) and the [DNF GitHub page](https://github.com/rpm-software-management/dnf) for more information.
@@ -345,7 +346,7 @@ There are many options for DNF from getting through proxies, security settings, 
 I use three options for dnf, set in <code>/etc/dnf/dnf.conf</code>.
 
 ```
-fastestmirror=1<br>
+fastestmirror=1
 deltarpm=true
 max_parallel_downloads=10
 ```
@@ -588,7 +589,7 @@ Once it's done it looks like this
 <br><br>
 ### KDE Desktop Effects
 
-I started using a Desktop Effect called Energize B [Burn-My-Windows] available on the KDE Store [https://www.pling.com/p/1884311It]. It makes opening & closing windows look like they're beaming in and out with a transporter. But I miss the spinning cube. I hope the KDE developers bring it back. I had an image of an open Stargate at the top & bottom.
+I started using a Desktop Effect called Energize B [Burn-My-Windows] available on the KDE Store [https://www.pling.com/p/1884311It]. It makes opening & closing windows look like they're beaming in and out with a transporter. I miss the spinning cube, but the KDE6 announcement said they're bringing it back. 
 
 KDE is great if you want to show off 😎
 <br><br>
@@ -611,9 +612,7 @@ I went through and set application types for all sorts of things.
 
 KDE, like most desktop environments will use multiple desktops. Set them up in Settings/Workspace Behavior/Virtual desktops.
 
-There are some great transitions available where your desktops can slide over one another and that sort of thing. Those are in Desktop Effects.
-
-If you wanted the spinning cube, however, they removed it. The code wasn't compatible with the way the KDE team is setting up the rest of the system. Hopefully it will come back. 
+There are some great transitions available where your desktops can slide over one another and that sort of thing. Those are in Desktop Effects. 
 <br><br>
 
 <a name="other-apps"></a>
@@ -712,8 +711,11 @@ sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc<
 sudo dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/x86_64/<br><br>
 sudo dnf install brave-browser  
 </code>
+
+## Other Apps
+[Here](./apps.md) are some other apps I use.
 <br><br>
-<br>
+
 
 # 7) Additional Software Installers
 
@@ -801,7 +803,7 @@ There are people out there who recommend disabling SELinux when alerts start pop
 
 Disable it at your own risk.
 
-I've never seen anything installed from the Fedora or RPMFusion repositories that caused an SELinux exception, except for some stuff in Wine. For me it's always been something where I downloaded a binary or compiled from source.
+I've never seen anything installed from the Fedora or RPMFusion repositories that caused an SELinux exception, except for some stuff in Wine. For me it's mostly been something where I downloaded a binary or compiled from source.
 
  If you install <code>setroubleshoot</code> (I recommend it) it will give you a detailed description of what the problem is. If you get an SELinux alert something is trying to write where it doesn't have permission. If the app should be able to write there you can tell SELinux to allow that app to access that file.
 
@@ -892,7 +894,7 @@ The Arch Linux site has a good writeup on Plymouth https://wiki.archlinux.org/ti
 
 ## RPM Fusion
 
-The only problem I've had running betas are with the RPM Fusion repos not being up yet. If you feel adventurous go for it. You'll have to update to the release version when it comes out. 
+The only problem I've had running betas are with the RPM Fusion repos not being up yet. 
 <br><br>
 
 ## Upgrading Fedora
