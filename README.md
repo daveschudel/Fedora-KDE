@@ -3,7 +3,6 @@
   - [Latest Information](#latest-information)
     - [KDE6 Release - March 1, 2023](#kde6-release---march-1-2023)
     - [Additional software installers - March 1, 2023](#additional-software-installers---march-1-2023)
-    - [Problems with kernels 6.7.3 \& 6.7.4 - February 28, 2024](#problems-with-kernels-673--674---february-28-2024)
     - [Fedora 39 Changes](#fedora-39-changes)
   - [Other Fedora options](#other-fedora-options)
   - [Fedora Magazine](#fedora-magazine)
@@ -92,9 +91,6 @@ https://kde.org/announcements/megarelease/6/
 
 ### Additional software installers - March 1, 2023
 I added a section that goes into other software installers [here](#7-additional-software-installers).
-
-### Problems with kernels 6.7.3 & 6.7.4 - February 28, 2024
-I had some problems with kernels 6.7.3 and 6.7.4. 6.7.5 seems to work fine. I wrote some notes [here](./kernels.md).
 
 ### Fedora 39 Changes
 
@@ -346,12 +342,16 @@ and looks like this.
 There are many options for DNF from getting through proxies, security settings, and more. Look at the official [Fedora DNF Reference](https://docs.fedoraproject.org/en-US/fedora/latest/system-administrators-guide/package-management/DNF/), the [Fedora DNF Quickdocs](https://docs.fedoraproject.org/en-US/quick-docs/dnf/) and the [DNF GitHub page](https://github.com/rpm-software-management/dnf) for more information.
 
 ## DNF Options
-I use one option for dnf, set in <code>/etc/dnf/dnf.conf</code>.
+I use three options for dnf, set in <code>/etc/dnf/dnf.conf</code>.
 
 ```
-fastestmirror=1
+fastestmirror=1<br>
+deltarpm=true
+max_parallel_downloads=10
 ```
-The default setting is off. I have read some people reported dnf actually running slower with this enabled. I haven't noticed anything but keep it in mind.<br>
+The default setting for <code>fastestmirror</code> is off. I have read some people reported dnf actually running slower with this enabled. I haven't noticed anything but keep it in mind.<br><br>
+<code>deltarpm=true</code> allows dnf to save bandwidth.<br><br>
+<code>max_parallel_downloads=10</code> seems to give good performance.
 
 I also use the -y parameter to suppress the 'Are you sure' messages when running an update.<br>
 
