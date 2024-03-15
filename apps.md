@@ -8,11 +8,7 @@
 [Slack](https://slack.com/) (easiest to use a Flatpak)<br>
 <code>flatpak install flathub com.slack.Slack</code>
 
-  
-[Brave Browser](https://brave.com/)<br>
-  <code>sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc<br>
-  sudo dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/x86_64/<br>
-  sudo dnf install brave-browser  </code>
+
 
 [Vivaldi Browser](https://vivaldi.com/)<br>
   <code>dnf config-manager --add-repo https://repo.vivaldi.com/stable/vivaldi-fedora.repo

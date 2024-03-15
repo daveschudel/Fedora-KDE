@@ -1,12 +1,10 @@
 - [1) Introduction](#1-introduction)
-  - [KDE-Specific Information](#kde-specific-information)
   - [Latest Information](#latest-information)
-    - [KDE6 Release - March 1, 2023](#kde6-release---march-1-2023)
-    - [Additional software installers - March 1, 2023](#additional-software-installers---march-1-2023)
-    - [Fedora 39 Changes](#fedora-39-changes)
+    - [KDE6 Release](#kde6-release)
+    - [Fedora 40](#fedora-40)
+  - [Fedora 39 Changes](#fedora-39-changes)
   - [Other Fedora options](#other-fedora-options)
   - [Fedora Magazine](#fedora-magazine)
-  - [Fedora Laptops](#fedora-laptops)
 - [2) Installation](#2-installation)
 - [3) Shells](#3-shells)
     - [Eza Colors](#eza-colors)
@@ -61,8 +59,10 @@
 - [12 Upgrades and Beta versions](#12-upgrades-and-beta-versions)
   - [RPM Fusion](#rpm-fusion-1)
   - [Upgrading Fedora](#upgrading-fedora)
-- [13) KDE Development](#13-kde-development)
-- [14) Ham Radio](#14-ham-radio)
+- [13) Little Tips \& Tricks](#13-little-tips--tricks)
+  - [Updating Apps](#updating-apps)
+- [14) KDE Development](#14-kde-development)
+- [15) Ham Radio](#15-ham-radio)
 
 
 <br>
@@ -77,28 +77,15 @@ Also, I just like the way Fedora does things. It may seem more complicated that 
 
 I've spent a lot of time just playing with Fedora and KDE, learning how it works. KDE is very configurable. You can pretty much set it up however you want. 
 
-## KDE-Specific Information
-I originally wrote this for the Fedora KDE spin but Chapters 5 & 13 are the only ones here specific to KDE so users of the base Fedora distro and other spins can use this document too.
-
 As I find more I'll add it. I hope it helps you. 
 <br><br>
 
 ## Latest Information
 
-### KDE6 Release - March 1, 2023
+### KDE6 Release
 KDE announced the release of KDE6, and one of the most requested features is back: the Cube. I'll definitely be enabling that. KDE6 has a LOT of new features and we should see it in Fedora 40.
 
-https://kde.org/announcements/megarelease/6/
-
-### Additional software installers - March 1, 2023
-I added a section that goes into other software installers [here](#7-additional-software-installers).
-
-### Fedora 39 Changes
-
-Fedora 39 was released November 7, 2023. There were a number of changes to Gnome but the big one for all the spins & labs was eliminating the Modular repository. 
-<br>
-
-Wayland is the default display manager for the Fedora KDE spin. Here are the Fedora [Wayland](https://docs.fedoraproject.org/en-US/fedora/latest/system-administrators-guide/Wayland/) docs. I haven't had any problems using Wayland except for an occasional VM with the graphics not set right. There are a few plasmoids that haven't been updated yet as well.
+### Fedora 40
 
 Fedora has decided to drop X11 support for Fedora 40 KDE. [Linuxiac](https://linuxiac.com/fedora-40-to-offer-plasma-6-drops-x11-entirely/) has a nice writeup on it with a link to the offical Fedora Wiki.
 <br><br>
@@ -120,11 +107,6 @@ The primary Fedora release comes with the GNOME desktop environment. Fedora also
 
 ## Fedora Magazine
 [Fedora Magazine](https://fedoramagazine.org/) has a lot of good information. They'll post articles on how-tos and new apps to try.
-<br><br>
-## Fedora Laptops
-Fedora Magazine had an article https://fedoramagazine.org/fedora-slimbook-available-now/ about a company called Slimbook that released a series of laptops with Fedora pre-installed. I went to their site and configured one. I don't need a portable workstation anymore but it was fun to see what I could get.
-
-16" Display, 64Gb RAM, Two 1TB Samsung SSDs setup for RAID 0, 2 USB 3 ports, 2 USB-C ports. It would *only* run me € 2593. 😎 
 <br><br>
 
 <a name="install"></a>
@@ -351,7 +333,7 @@ deltarpm=true
 max_parallel_downloads=10
 ```
 The default setting for <code>fastestmirror</code> is off. I have read some people reported dnf actually running slower with this enabled. I haven't noticed anything but keep it in mind.<br><br>
-<code>deltarpm=true</code> allows dnf to save bandwidth.<br><br>
+<code>deltarpm=true</code> allows dnf to save bandwidth by just downloading deltas instead of the entire package.<br><br>
 <code>max_parallel_downloads=10</code> seems to give good performance.
 
 I also use the -y parameter to suppress the 'Are you sure' messages when running an update.<br>
@@ -686,9 +668,10 @@ rpm -i --quiet https://downloads.sourceforge.net/project/mscorefonts2/rpms/msttc
 ```
 
 You'll need <code>cabextract</code> and <code>xorg-x11-font-utils</code> to install the fonts.
-<br>
+<br><br>
 
 <a name="onedrive"></a>
+
 ## OneDrive
 
 I still do a lot over in Microsoft 365 and the OneDrive client for Linux is way, way better than it used to be. I use it with a 365 Business account but it should work the same for the personal version. It doesn't default to files-on-demand like the Windows & Mac clients do so it just syncs everything the way you'd expect.
@@ -703,14 +686,6 @@ I would still keep an eye on it just to make sure it doesn't do strange things.
 <br>
 <br>
 
-## Brave Browser
-[Brave](https://brave.com/) is a privacy-centric Chromium browser. You'll need the Brave repo to install it. 
-
-<code>
-sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc<br><br> 
-sudo dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/x86_64/<br><br>
-sudo dnf install brave-browser  
-</code>
 
 ## Other Apps
 [Here](./apps.md) are some other apps I use.
@@ -894,20 +869,35 @@ The Arch Linux site has a good writeup on Plymouth https://wiki.archlinux.org/ti
 
 ## RPM Fusion
 
-The only problem I've had running betas are with the RPM Fusion repos not being up yet. 
+The only problem I've had running betas are with the RPM Fusion repos sometimes not being up yet. 
 <br><br>
 
 ## Upgrading Fedora
 
 I've been leery about doing a full update of an OS since the Windows 3.1 days. Fedora is ***way*** more stable than Windows ever was but my phobia remains. 😎 I always back everything up and do a fresh install.
 
-Here's Fedora's instructions on how to do it. [Upgrading to a new release of Fedora](https://docs.fedoraproject.org/en-US/quick-docs/upgrading/)
+But if you want to upgrade your Fedora installation here's  instructions on how to do it. [Upgrading to a new release of Fedora](https://docs.fedoraproject.org/en-US/quick-docs/upgrading/)
 
 <br>
 
+<a name="tips"></a>
+# 13) Little Tips & Tricks
+
+## Updating Apps
+
+DNF doesn't update everything; it leaves out updates from PackageKit (some stuff in Discover) and Flatpaks. So I just use a little script to update everything.<br>
+
+<code>
+#!/bin/bash<br>
+sudo dnf update -y --refresh # (might as well update the repos)<br>
+sudo fwupdmgr get-updates<br>
+flatpak update -y<br>
+</code>
+
+<br><br>
 <a name="kdedev"></a>
 
-# 13) KDE Development
+# 14) KDE Development
 
 I usually install the groups <code>"Development Tools"</code> <code>"Development Libraries"</code>**, and <code>"X Software Development"</code> by default since it seems like I'm always running into things I need. 
 
@@ -916,7 +906,7 @@ Check out https://develop.kde.org/develop for a good introduction to KDE/Qt deve
 If you're interested in working on it check out the Fedora KDE SIG
 at [https://fedoraproject.org/wiki/SIGs/KDE](https://fedoraproject.org/wiki/SIGs/KDE)<br><br>
 
-# 14) Ham Radio
+# 15) Ham Radio
 
 I'm a ham radio operator (K5SGC) and I've been able to get most of the ham radio software I need to run working correctly in Fedora. Much of it runs under Wine but there is a good amount that runs native in Linux.
 
