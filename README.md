@@ -537,8 +537,23 @@ When you set icons for folders it does not change the small icon in the Dolphin 
 <a name="sddm"></a>
 
 ### Startup/SDDM
-I set it to automatically log in. Yes, I know this is bad security but if you set the machine up with an encrypted drive you have to login with that before continuing. I don't worry about it on a VM either. Obviously if this machine might be at risk don't do this. I use mine for playing around and learning about Fedora. 
-<br><br>
+I set it to automatically log in. Yes, I know this is bad security but if you set the machine up with an encrypted drive you have to login with that before continuing. I don't worry about it on a VM either. Obviously if this machine might be at risk don't do this. I use mine for playing around and learning about Fedora. <br>
+
+If you want to unblur the SDDM wallpaper, edit Main.qml in <code>/usr/share/sddm/themes/<theme name></code> and comment out the WallpaperFader section.
+
+<code>
+//        WallpaperFader {<br>
+//            visible: config.type === "image"<br>
+//            anchors.fill: parent<br>
+//            state: loginScreenRoot.uiVisible ? "on" : "off"<br>
+//            source: wallpaper<br>
+//            mainStack: mainStack<br>
+//            footer: footer<br>
+//            clock: clock<br>
+//        }<br>
+</code>
+
+<br>
 <a name="appearance"></a>
 
 ### Appearance
@@ -550,7 +565,7 @@ I set it to automatically log in. Yes, I know this is bad security but if you se
 * Window Decorations - Breeze, but I change the window title so it's on the right.
 * [Plasma Splash Screen](#kde-splash-screen)
 
-The KDE Store [https://store.kde.org](https://store.kde.org) has a complete list of Plasma widgets, fonts, colors, themes and other addons. They can also be found in Discover under Plasma Addons.
+The [KDE Store](https://store.kde.org) has a complete list of Plasma widgets, fonts, colors, themes and other addons. They can also be found in Discover under Plasma Addons.
 <br><br>
 <a name="taskbar"></a>
 
@@ -575,9 +590,9 @@ KDE is great if you want to show off 😎
 <br><br>
 
 ### KDE Splash Screen
-I modified [this](https://store.kde.org/p/2072224) theme and put my standard Stargate wallpaper in it so it matches my Grub, Plymouth, Login & Lock screens. 
+I modified [this theme](https://store.kde.org/p/2072224) and put my standard Stargate wallpaper in it so it matches my Grub, Plymouth, Login & Lock screens. 
 
-When you install a new splash screen from the Settings app it will put it in ~/.local/share/plasma/look-and-feel. I just went in and changed the wallpaper in contents/splash/images.
+When you install a new splash screen from the Settings app it will put it in <code>~/.local/share/plasma/look-and-feel</code>. I just went in and changed the wallpaper in contents/splash/images.
 
 ### KDE Filetype Icons
 The icons for files like <code>.bashrc</code> and <code>.zshrc</code> will show up as plain text. You can't just change the icon from Dolphin. You need to go into KDE Settings/Applications/File Associations. There are a lot of them in there.<br><br>
@@ -697,7 +712,7 @@ Fedy is a utility from the people who provide RPM Fusion. It's a utility that le
 
 You can get it from their Github repo: https://github.com/rpmfusion-infra/fedy
 
-I found more than one fedy repo on Github so I'd use the one from the RPM Fusion team. 
+I found more than one Fedy repo on Github so I'd use the one from the RPM Fusion team. 
 <br><br>
 
 ## DNF Dragora
