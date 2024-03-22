@@ -539,7 +539,7 @@ When you set icons for folders it does not change the small icon in the Dolphin 
 ### Startup/SDDM
 I set it to automatically log in. Yes, I know this is bad security but if you set the machine up with an encrypted drive you have to login with that before continuing. I don't worry about it on a VM either. Obviously if this machine might be at risk don't do this. I use mine for playing around and learning about Fedora. <br>
 
-If you want to unblur the SDDM wallpaper, edit Main.qml in <code>/usr/share/sddm/themes/<theme name></code> and comment out the WallpaperFader section.
+If you want to unblur the SDDM wallpaper, edit Main.qml in <code>/usr/share/sddm/themes/theme-name></code> and comment out the WallpaperFader section.
 
 <code>
 //        WallpaperFader {<br>
