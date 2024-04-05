@@ -22,7 +22,7 @@
 # 1) Introduction
 
 Here are some tips on using Fedora for ham radio. I use the KDE spin but most of this will apply to all spins.<br>
-Anyone using another type of distro (Debian, Arch, etc) will have to change commands accordingly.<br><br>
+<br>
 
 
 # 2) Winlink
@@ -38,11 +38,11 @@ The Bluetooth manager that somes with the Fedora KDE Spin wouldn't pair with the
 sudo dnf install blueman
 ```
 
-It paired with the D74 with no problems on my Asus Zenbook, but wouldn't pair on an older desktop with one of those Bluetooth USB adapters. When it pairs it shows up as a cell phone. If you right-click on the D74 in Blueman's dialog there's an option to connect serial. Do that and you'll get the message on the D74 that it's established a Bluetooth connection.
+It paired with the D74 with no problems on my Asus Zenbook (Ryzen 5, 8GB), but wouldn't pair on an older desktop with one of those Bluetooth USB adapters. When it pairs it shows up as a cell phone. If you right-click on the D74 in Blueman's dialog there's an option to connect serial. Do that and you'll get the message on the D74 that it's established a Bluetooth connection.
 
 ## Setup Wine for WinLink
 
-I followed K6ETA's instructions with a few changes.<br><br>
+I followed K6ETA's instructions with a few changes.
 ```
 sudo usermod -aG audio (userid)
 sudo usermod -aG tty (userid)
@@ -99,12 +99,10 @@ Sometimes the fonts on Wine apps are sized differently than in native apps. To f
 
 After I connected to the D74 Bluetooth SELinux displayed an access violation: <br><br>
 *SELinux is preventing ps from sys_ptrace access on the cap_userns labeled blueman_t* <br><br>I followed the instructions and created a policy file, then installed it. Make sure you have <code>setroubleshoot</code> installed.
-
 ```
 sudo dnf install setroubleshoot
 ```
-When SELinux throws up a security violation it will tell you how to fix the problem.<br><br>
-
+When SELinux throws up a security violation it will tell you how to fix the problem.<br>
 ```
 sudo ausearch -c 'ps' --raw | audit2allow -M my-ps 
 sudo semodule -i my-ps.pp
@@ -115,14 +113,12 @@ I don't know why it threw warnings. I feel *reasonably* confident that adding th
 
 ## Using the D74 for Winlink
 
-You need to put the D74 into TNC mode by pressing (F) then 5 twice. The first set puts the D74 into APRS mode, the second will put the TNC into KISS mode. Then open a Packet Winlink session and connect to the remote message server. If you close the connection window it will kick the D74 out of KISS mode. I'm not sure why. Just keep an eye on it.<br>
+You need to put the D74 into TNC mode by pressing (F) then 5, twice. The first set puts the D74 into APRS mode, the second will put the TNC into KISS mode. Then open a Packet Winlink session and connect to the remote message server. If you close the connection window it will kick the D74 out of KISS mode. I'm not sure why. Just keep an eye on it.<br>
 
 I've also seen it drop the Bluetooth connection. I'll check the logs and see if I can find anything. For now, I just keep an eye on it as well.<br><br>
 
 # 3) TQSL
-
 If you want to use TQSL for automatic uploading of logs it's in the Fedora repositories too.
-
 ```
 sudo dnf install trustedqsl
 ```
@@ -136,13 +132,11 @@ For some reason the version in the repository is 2.65 while the release version 
 # 4) WSJT-X
 
 WSJT-X is in the Fedora repositories so you can just install it.<br>
-
 ```
 sudo dnf install wsjtx
 ```
-
 ## Sound Card Configuration
-If you're using a SignaLink the sound card will show up as an 'alsa' device so configure WSJT-X using that. I don't know how radios with built-in sound cards will show up but I'd assume it would be something similar.<br><br>
+If you're using a SignaLink the sound card will show up as an 'alsa' device so configure WSJT-X using that. I don't know how radios with built-in sound cards will show up but I'd assume it would be something similar.<br>
 
 ## GridTracker
 GridTracker isn't in the Fedora or RPMFusion repositories, but can be installed from NR0Q's COPR repository. 
