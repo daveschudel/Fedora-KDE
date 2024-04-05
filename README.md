@@ -199,12 +199,15 @@ It will create <code>~/.oh-my-zsh/</code> in your home directory. Themes are in 
 OhMyZsh left those ```zcompdump``` files all over my home directory. Open ```./oh-my-zsh/oh-my-zsh.sh``` and look 
 for the line
 
-```ZSH_COMPDUMP="${ZDOTDIR:-$HOME}/.zcompdump-${SHORT_HOST}-${ZSH_VERSION}"```
+```
+ZSH_COMPDUMP="${ZDOTDIR:-$HOME}/.zcompdump-${SHORT_HOST}-${ZSH_VERSION}"
+```
 
 and change it to something like this. (I put mine in .config)
 
-```ZSH_COMPDUMP="${ZDOTDIR:-$HOME}/.config/.zcompdump-${SHORT_HOST}-${ZSH_VERSION}"```
-<br><br>
+```
+ZSH_COMPDUMP="${ZDOTDIR:-$HOME}/.config/.zcompdump-${SHORT_HOST}-${ZSH_VERSION}"
+```
 
 ### Themes
 
@@ -430,6 +433,8 @@ You can get the short names for each group - useful if you're using batch files 
 
 ```
 dnf -v group list
+```
+```
 ...
 repo: using cache for: fedora
 fedora: using metadata from Sat 05 Nov 2022 03:04:38 AM CDT.
@@ -448,7 +453,7 @@ Robotics (robotics-suite)
 ...
 ```
 
-You can see what's in each group by running <code>dnf group info GROUP_NAME</code>. I generally install *Development Tools* and *X Software Development* but take a look at the ones that sound like they might fit your needs. 
+You can see what's in each group by running <code>dnf group info GROUP_NAME</code>. I generally install *Development Tools* and *X Software Development* but take a look at the ones that sound like they might fit your needs. <br><br>
 
 ## Installing Additional Desktop Environments
 
@@ -540,8 +545,7 @@ When you set icons for folders it does not change the small icon in the Dolphin 
 I set it to automatically log in. Yes, I know this is bad security but if you set the machine up with an encrypted drive you have to login with that before continuing. I don't worry about it on a VM either. Obviously if this machine might be at risk don't do this. I use mine for playing around and learning about Fedora. <br>
 
 If you want to unblur the SDDM wallpaper, edit Main.qml in <code>/usr/share/sddm/themes/theme-name></code> and comment out the WallpaperFader section.
-
-<code>
+```
 //        WallpaperFader {<br>
 //            visible: config.type === "image"<br>
 //            anchors.fill: parent<br>
@@ -551,7 +555,7 @@ If you want to unblur the SDDM wallpaper, edit Main.qml in <code>/usr/share/sddm
 //            footer: footer<br>
 //            clock: clock<br>
 //        }<br>
-</code>
+```
 
 <br>
 <a name="appearance"></a>
@@ -718,7 +722,10 @@ I found more than one Fedy repo on Github so I'd use the one from the RPM Fusion
 ## DNF Dragora
 DNF Dragora provides a graphical utility to install software. It gives a more package-centric way to install apps as opposed to Discover which is more app-centric. 
 
-Install it with <code>sudo dnf install dnfdragora</code>.
+Install it with 
+```
+sudo dnf install dnfdragora
+```
 
 <img src="Images/dnfdragora.png"/>
 
@@ -726,9 +733,15 @@ Install it with <code>sudo dnf install dnfdragora</code>.
 
 Flatpak support is enable in Fedora by default. To enable the Flathub repo
 
-<code>flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo</code>
+```
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+```
 
-To enable the Fedora Flatpak repo <code>flatpak remote-add --if-not-exists fedora oci+https://registry.fedoraproject.org</code>
+To enable the Fedora Flatpak repo
+
+```
+flatpak remote-add --if-not-exists fedora oci+https://registry.fedoraproject.org
+```
 
 Discover will automatically list Flatpaks available and will note which apps are Flatpaks.
 
@@ -743,13 +756,10 @@ You can see all available Flatpaks by going to https://www.flathub.org
 I've created my private and public keys but the correct permissions are easy to forget. Just use <code>chmod permissions filename/directory</code>
 
 ```
-SSH directory 700
-Private key   600
-Public key    644
-
-ex: chmod 600 $HOME/.ssh/id_rsa
+chmod 700 ~/.ssh
+chmod 600 ~/.ssh/id_rsa
+chmod 644 ~/.ssh/id_rsa.pub
 ```
-<br>
 
 ## Backups
 This is probably obvious but have more than one if possible. It can be as simple and copying everything to an external USB drive to using a tool like rsync. Here's a good list of suggestions. 
@@ -900,19 +910,23 @@ But if you want to upgrade your Fedora installation here's  instructions on how 
 
 DNF doesn't update everything; it leaves out updates from PackageKit (some stuff in Discover) and Flatpaks. So I just use a little script to update everything.<br>
 
-<code>
-#!/bin/bash<br>
-sudo dnf update -y --refresh # (might as well update the repos)<br>
-sudo fwupdmgr get-updates<br>
-flatpak update -y<br>
-</code>
+```
+#!/bin/bash
+sudo dnf update -y --refresh # (might as well update the repos)
+sudo fwupdmgr get-updates
+flatpak update -y
+```
 
-<br><br>
 <a name="kdedev"></a>
 
 # 14) KDE Development
 
-I usually install the groups <code>"Development Tools"</code> <code>"Development Libraries"</code>**, and <code>"X Software Development"</code> by default since it seems like I'm always running into things I need. 
+I usually install the groups <code>"Development Tools"</code> and <code>"X Software Development"</code> by default since it seems like I'm always running into things I need. 
+
+```
+sudo dnf install @development-tools
+sudo dnf install @x-software-development
+```
 
 Check out https://develop.kde.org/develop for a good introduction to KDE/Qt development.
 
