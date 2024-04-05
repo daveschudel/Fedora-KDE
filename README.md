@@ -114,7 +114,6 @@ The primary Fedora release comes with the GNOME desktop environment. Fedora also
 * Download the Fedora KDE Spin [https://spins.fedoraproject.org/en/kde/](https://spins.fedoraproject.org/en/kde/)
 <br>
 
-
 * Import Fedora's GPG key(s) <br>
 ```
 curl https://getfedora.org/static/fedora.gpg | gpg --import
@@ -129,7 +128,6 @@ gpg --verify-files CHECKSUM_FILENAME
 ```
 sha256sum -c CHECKSUM_FILE
 ```
-<br>
 
 Unless I'm installing Fedora in a VM I ***always*** encrypt the drive. I use the standard install options and leave the root user disabled. Obviously if you need a specific partition layout set it up here. I'd be wary of playing with it for the sake of playing with it. The Fedora engineers have done a great job of optimizing everything for the desktop and it would be very easy to *optimize* your system so it runs worse. I used to make the swap partition larger but there was no need for it. Enlarge it if you want to be able to hibernate. 
 
@@ -177,7 +175,7 @@ export EZA_COLORS="di=33:da=36"
 
 <br>
 <img src="Images/eza.png"/>
-<br><br>
+
 <a name="zsh"></a>
 
 ## Zsh
@@ -190,8 +188,8 @@ To install Oh-My-Zsh
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
 
-It will create <code>~/.oh-my-zsh/</code> in your home directory. Themes are in <code>~/.oh-my-zsh/themes</code>.
-<br><br>
+It will create ```~/.oh-my-zsh/``` in your home directory. Themes are in ```~/.oh-my-zsh/themes```.
+<br>
 
 <a name="zsh-themes"></a>
 ### Zsh Tweaks
