@@ -34,49 +34,61 @@ K6ETA has a very good writeup on getting [Winlink running on Wine](http://k6eta.
 
 The Bluetooth manager that somes with the Fedora KDE Spin wouldn't pair with the D74. So I disabled it and install the GTK blueman app.<br>
 
-<code>sudo dnf install blueman</code><br>
+```
+sudo dnf install blueman
+```
 
 It paired with the D74 with no problems on my Asus Zenbook, but wouldn't pair on an older desktop with one of those Bluetooth USB adapters. When it pairs it shows up as a cell phone. If you right-click on the D74 in Blueman's dialog there's an option to connect serial. Do that and you'll get the message on the D74 that it's established a Bluetooth connection.
 
 ## Setup Wine for WinLink
 
 I followed K6ETA's instructions with a few changes.<br><br>
-<code>
-sudo usermod -aG audio (userid)<br>
-sudo usermod -aG tty (userid)<br>
-sudo usermod -aG dialout (userid)<br><br>
-</code>
-You'll need winetricks along with Wine itself<br>
-<code>
-sudo dnf install wine winetricks</code>
+```
+sudo usermod -aG audio (userid)
+sudo usermod -aG tty (userid)
+sudo usermod -aG dialout (userid)
+```
 
-Then<br> <code>
-export WINEARCH=win32</code>
+You'll need winetricks along with Wine itself<br>
+```
+sudo dnf install wine winetricks
+```
+Then
+```
+export WINEARCH=win32
+```
 
 Like K6ETA says, this part is very important. If you close the terminal you're working in you'll have to reenter it in the new session or things will get VERY messed up. Then<br>
 
-<code>winetricks winxp<br>
-winetricks sound=alsa<br>
-winetricks -q dotnet472<br>
-winetricks vb6run<br>
-winetricks vcrun2015</code><br>
+```
+winetricks winxp
+winetricks sound=alsa
+winetricks -q dotnet472
+winetricks vb6run
+winetricks vcrun2015
+```
 
 FYI: the .NET install takes a long time.<br><br>
-I got SELinux warnings all over the place when installing .NET so I made the appropriate adjustments. Install <code>setroubleshoot</code> and it will give you instructions on how to fix them.
+I got SELinux warnings all over the place when installing .NET so I made the appropriate adjustments. Install
+<code>setroubleshoot</code> and it will give you instructions on how to fix them.
+```
+sudo dnf install setroubleshoot
+```
 
 If you are using a USB-to-Serial cable follow K6ETA's instructions. Otherwise continue.
 
 ## Serial-over-Bluetooth
 
-The serial over Bluetooth connection shows up as <code>/dev/rfcomm0</code>. So make the following changes.<br><br>
-<code>
-ln -s /dev/rfcomm0 ~/.wine/dosdevices/com1</code><br>
+The serial over Bluetooth connection shows up as <code>/dev/rfcomm0</code>. So make the following changes.
+```
+ln -s /dev/rfcomm0 ~/.wine/dosdevices/com1
+```
 
-This maps rfcomm0 to COM1 in Wine. Then open <code>~/.wine/system.reg</code> and add these lines after #arch-win32<br><br>
-<code>
-[hardware\Devicemap\Serialcomm] 1131331688<br>
-“COM1″=”COM1”</code><br>
-
+This maps rfcomm0 to COM1 in Wine. Then open <code>~/.wine/system.reg</code> and add these lines after #arch-win32
+```
+[hardware\Devicemap\Serialcomm] 1131331688
+“COM1″=”COM1”
+```
 Then download & install Winlink and configure it to use COM1.<br>
 
 ## Wine Fonts
@@ -86,17 +98,17 @@ Sometimes the fonts on Wine apps are sized differently than in native apps. To f
 ## SELinux warnings
 
 After I connected to the D74 Bluetooth SELinux displayed an access violation: <br><br>
-*SELinux is preventing ps from sys_ptrace access on the cap_userns labeled blueman_t* <br><br>I followed the instructions and created a policy file, then installed it. Make sure you have setroubleshoot installed.<br>
+*SELinux is preventing ps from sys_ptrace access on the cap_userns labeled blueman_t* <br><br>I followed the instructions and created a policy file, then installed it. Make sure you have <code>setroubleshoot</code> installed.
 
-<code>
-sudo dnf install setroubleshoot</code></br> 
-<br>
+```
+sudo dnf install setroubleshoot
+```
 When SELinux throws up a security violation it will tell you how to fix the problem.<br><br>
 
-<code>
-sudo ausearch -c 'ps' --raw | audit2allow -M my-ps<br>  
-sudo semodule -i my-ps.pp</code><br>
-<br>
+```
+sudo ausearch -c 'ps' --raw | audit2allow -M my-ps 
+sudo semodule -i my-ps.pp
+```
 
 I don't know why it threw warnings. I feel *reasonably* confident that adding that policy isn't going to open my machine to some exploit but I'll investigate it further. Of course there's always the option of setting SELinux to 'Permissive' but I recommend you don't do that. SELinux is there for a reason. :)
 
@@ -125,8 +137,9 @@ For some reason the version in the repository is 2.65 while the release version 
 
 WSJT-X is in the Fedora repositories so you can just install it.<br>
 
-<code>
-sudo dnf install wsjtx</code><br><br>
+```
+sudo dnf install wsjtx
+```
 
 ## Sound Card Configuration
 If you're using a SignaLink the sound card will show up as an 'alsa' device so configure WSJT-X using that. I don't know how radios with built-in sound cards will show up but I'd assume it would be something similar.<br><br>
@@ -134,11 +147,10 @@ If you're using a SignaLink the sound card will show up as an 'alsa' device so c
 ## GridTracker
 GridTracker isn't in the Fedora or RPMFusion repositories, but can be installed from NR0Q's COPR repository. 
 
-<code>
-sudo dnf copr enable nr0q/GridTracker<br>
+```
+sudo dnf copr enable nr0q/GridTracker
 sudo dnf install gridtracker
-</code>
-<br><br>
+```
 
 # 5) Logging
 
@@ -162,9 +174,9 @@ I had to reboot for it to work.
 
 There are apps for PSK31, AX25, DXCC and many others. Chirp is there as well. Use<br>
 
-<code>
-dnf search ham radio</code><br><br>
-
+```
+dnf search ham radio
+```
 to see a list.<br><br>
 
 # 6) KDE Menu Entries
