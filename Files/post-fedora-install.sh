@@ -148,6 +148,7 @@ do
   dnf -y -q install $filename
 done < $APPSFILE
 
+# Check for that duplicate Vivaldi repo
 read -p "Debug: Check Vivaldi repo.." answer
 
 # [Install Microsoft fonts]
