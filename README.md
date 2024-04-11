@@ -858,7 +858,6 @@ Or, you could change it to read 'Windoze, 'Help me God' or whatever you'd like :
 10_Linux adds the Fedora kernels to the main menu. I modified this one so the primary Fedora menu entry just says 'Fedora' instead of with all of the kernel information added.<br><br>
 Look for ```menuentry '$(echo "$title" | grub_quote)'``` in the ```populate_menu()``` section and remove ``` | grub_quote)```
 <br><br>
-I disable BLS because I like having a single Grub config file so I *think* it will work with it enabled but try it to make sure. For more information on BLS see https://www.baeldung.com/linux/grub-menu-management
 
 <a name="grub-themes"></a>
 
