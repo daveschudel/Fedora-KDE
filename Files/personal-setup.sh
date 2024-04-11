@@ -1,30 +1,57 @@
-#!/usr/bin/zsh
-# Personal Setup - install zsh and ohmyzsh first
+#!/bin/zsh
+
+# Personal Setup
 
 source colors.sh
 
 USER_FILES_DIR=/home/dave/Setup/User
-HEADINGCOLOR=$CYAN_F              # Colors defined in color.sh
-INDENTEDCOLOR=$GREEN_F            #
+
+INSTALL_ZSH_FILES="True"            # Update zsh with user files
+INSTALL_BASH_FILES="True"           # Update bash with user files
+FLATPAKSFILE="setup-flatpaks.cfg"   # list of Flatpaks to install
+
+# [Text colors]
+HEADINGCOLOR=$YELLOW_F              # Some color aliases to make things easier (defined in colors.sh)
+SUBHEADINGCOLOR=$CYAN_F
+INDENTEDCOLOR=$GREEN_F
+
+# Convert True/False strings to uppercase
+string=$INSTALL_ZSH_FILES
+INSTALL_ZSH_FILES="${string^}"
+
+string=$INSTALL_BASH_FILES
+INSTALL_ZSH_FILES="${string^}"
+
+echo -e "${BOLD}${HEADINGCOLOR}Personal Config${NORM}"
+
+if [ $INSTALL_ZSH_FILES == "True" ];
+then
+  echo -e "${BOLD}${INDENTEDCOLOR}  Zsh${NORM}"
 
 # Copy my .zshrc & theme
-echo -e "${BOLD}${INDENTEDCOLOR}Shells${NORM}"
+  cp -p $USER_FILES_DIR/.zshrc $HOME
+  cp -p $USER_FILES_DIR/*.zsh-theme $HOME/.oh-my-zsh/themes
 
-sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-cp -v -p $USER_FILES_DIR/.zshrc $HOME
-cp -v -p $USER_FILES_DIR/*.zsh-theme $HOME/.oh-my-zsh/themes
-source $HOME/.zshrc
+# This one has the zcompdir set to ./cache instead of dumping zcompdir files
+# all over your home directory
+  cp -p $USER_FILES_DIR/*.zsh-theme $HOME/.oh-my-zsh/oh-my-zsh.sh
 
-# Copy Bash setup
-cp -v -p $USER_FILES_DIR/.dircolors $HOME
-cp -v -p $USER_FILES_DIR/.bashrc $HOME/
+  source $HOME/.zshrc
+fi
 
-echo -e "${BOLD}${INDENTEDCOLOR}ssh${NORM}"
-# My ssh files in ..Fedora/User already have the attributes set neecded for ssh
+if [ $INSTALL_BASH_FILES == "True" ];
+then
+  echo -e "${BOLD}${INDENTEDCOLOR}  Bash${NORM}"
+  cp -p $USER_FILES_DIR/.dircolors $HOME
+  cp -p $USER_FILES_DIR/.bashrc $HOME/
+fi
+
+echo -e "${BOLD}${INDENTEDCOLOR}  ssh${NORM}"
+# My ssh files in ..Fedora/User already have the attributes set needed for ssh
 # if yours don't, set them to:
-#   /./ssh      700
-#   private key 600
-#   public key  640
+#   ./ssh directory 700
+#   private key     600
+#   public key      640
 
 cp -r --preserve=all $USER_FILES_DIR/.ssh/ $HOME
 
@@ -33,11 +60,21 @@ rm -rf $HOME/Public
 rm -rf $HOME/Videos
 rm -rf $HOME/Templates
 
-echo -e "${BOLD}${HEADINGCOLOR}Git config${NORM}"
+echo -e "${BOLD}${INDENTEDCOLOR}  Git${NORM}"
 cp $USER_FILES_DIR/.gitconfig $HOME
+
+echo -e "${BOLD}${HEADINGCOLOR}Installing Flatpaks${NORM}"
+while IFS= read -r line
+do
+  filename="${line%%\#*}"
+  echo -e "  ${BOLD}${INDENTEDCOLOR}$filename${NORM}"
+  flatpak --noninteractive install $filename
+done < $FLATPAKSFILE
+
+# If I've edited these files on my Mac those .DS_Store files will pop up everywhere.
+# The Icon? files are the Mac's icon information (as opposed to .directory)
 
 echo -e "${BOLD}${HEADINGCOLOR}Removing MacOS files from Setup directory${NORM}"
 find $HOME/Setup -name '*.DS_STORE' -print0 | xargs -0 rm -f
 find $HOME/Setup -name 'Icon?' -print0 | xargs -0 rm -rf
-
 

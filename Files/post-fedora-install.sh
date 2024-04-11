@@ -1,61 +1,56 @@
 #!/bin/bash
-
 # Fedora KDE configuration script.
-# See install.md for more information
 
-source ./colors.sh   # Color codes
+# Installation directory structure
+#   ./          Main installation directory
+#   ./Repos     Formatted repository files
+#   ./Grub      Grub themes
+
+
+source ./colors.sh                  # Color codes used in this script
 
 # [General options]
-HOSTNAME="Lucy"                         # Set hostname (obviously..)
+HOSTNAME="Lucy"                     # Set hostname (obviously..)
+DEFAULT_USER="dave"                 # Used to set your default shell since this script is
+                                    #  run as sudo
 
-# [ Boot options]
-INSTALL_GRUB_THEME="True"               # Make changes to /etc/default/grub to use themes, and other options (see below)
-GRUB_LAPTOP="True"                      # Sets the Grub theme font size; Laptop or PC
-GRUB_THEME="poly-dark"                  # Theme inside ./GRUB
-GRUB_GFXMODE="1920x1080"                # Set Grub theme video mode
-GRUB_WINDOWS="True"                     # Copy a modified 30_os-prober file to /etc/grub.d so the menu entry for Windows
-INSTALL_PLYMOUTH_THEME="False"          # Install Plymouth theme
-PLYMOUTH_THEME="spinfinity"             #     the theme.. Make sure this theme will be installed. Add it to
-                                        #     APPSFILE if needed
-# [Repos & Applications]
-USE_CONFIGURED_REPO_FILES="True"        # Use pre-configured .repo files that look nicer
-REMOVEFILE="setup-remove-apps.txt"      # Apps to remove
-APPSFILE="setup-install-apps.txt"       # Individual apps to install (not in groups)
-GROUPSFILE="setup-install-groups.txt"   # Software groups to install
+# [Grub options]
+INSTALL_GRUB_THEME="True"           # Make changes to /etc/default/grub to use themes and
+                                    #  other options (see below)
+GRUB_THEME="poly-dark"              # Theme inside ./GRUB
+GRUB_GFXMODE="1920x1080"            # Set Grub theme video mode
+GRUB_NAMING="True"                  # Copy the modified 10_Linux & 30_os-prober files to 
+                                    #  /etc/grub.d to rename Fedora & Windows entries
 
-# [Config]
-NORDUSER="dave"                         # To add user to NordVPN groupd
+# [Plymouth options]
+INSTALL_PLYMOUTH_THEME="True"       # Install Plymouth theme
+PLYMOUTH_THEME="spinner"            #  the theme.. Make sure it's installed
+
+# [Applications]
+REMOVEFILE="setup-remove-apps.cfg"  # Apps to remove
+APPSFILE="setup-install-apps.cfg"   # Apps & software groups to install
+USE_CONFIGURED_REPO_FILES="True"    # Copy formatted repo files to /etc/yum.repos.d -
+                                    #  they're in ./Repos
 
 # [Text colors]
-HEADINGCOLOR=$YELLOW_F                  # Some color aliases to make things easier
-SUBHEADINGCOLOR=$CYAN_F                 #   see colors.sh
-INDENTEDCOLOR=$GREEN_F
+HEADINGCOLOR=$YELLOW_F              # Some color aliases to make things easier (defined
+INDENTEDCOLOR=$GREEN_F              #  in colors.sh)
+SUBHEADINGCOLOR=$CYAN_F
 
-# -----------------------------------------------------------------------------
-clear
-
-# Convert True/False strings to uppercase
-string=$SETUP_AS_VM
-SETUP_AS_VM="${string^}"
-
-string=$GRUB_LAPTOP
-GRUB_LAPTOP="${string^}"
-
-string=$USE_CONFIGURED_REPO_FILES
-USE_CONFIGURED_REPO_FILES="${string^}"
-
-string=$USE_CONFIGURED_REPO_FILES
-USE_CONFIGURED_REPO_FILES="${string^}"
-
+# Convert True/False strings to uppercased first letter
 string=$INSTALL_PLYMOUTH_THEME
 INSTALL_PLYMOUTH_THEME="${string^}"
+
+string=$USE_CONFIGURED_REPO_FILES
+USE_CONFIGURED_REPO_FILES="${string^}"
 
 string=$INSTALL_GRUB_THEME
 INSTALL_GRUB_THEME="${string^}"
 
-string=$GRUB_WINDOWS
-GRUB_WINDOWS="${string^}"
+string=$GRUB_NAMING
+GRUB_NAMING="${string^}"
 
+clear
 echo
 echo -e "${BOLD}${HEADINGCOLOR}Fedora Post-Install Setup ${BOLD}${NORM}"
 echo
@@ -66,15 +61,15 @@ fi
 
 echo -e "  ${BOLD}${SUBHEADINGCOLOR}Configuration${NORM}"
 echo -e "  ${BOLD}${INDENTEDCOLOR}  Set Hostname to:                ${BOLD}$HOSTNAME${NORM}"
-
 echo
 echo -e "  ${BOLD}${SUBHEADINGCOLOR}Boot Options${NORM}"
 echo -e "  ${BOLD}${INDENTEDCOLOR}  Install Grub Boot Theme?        ${BOLD}$INSTALL_GRUB_THEME${NORM}"
+
 if [ $INSTALL_GRUB_THEME == "True" ];
 then
-echo -e "  ${BOLD}${INDENTEDCOLOR}    Setup for Laptop?             ${BOLD}$GRUB_LAPTOP${NORM}"
 echo -e "  ${BOLD}${INDENTEDCOLOR}    Theme                         ${BOLD}$GRUB_THEME${NORM}"
 echo -e "  ${BOLD}${INDENTEDCOLOR}    GFXMODE                       ${BOLD}$GRUB_GFXMODE${NORM}"
+echo -e "  ${BOLD}${INDENTEDCOLOR}    Rename Grub Entries?          ${BOLD}$GRUB_NAMING${NORM}"
 fi
 
 echo -e "  ${BOLD}${INDENTEDCOLOR}  Install Plymouth Theme?         ${BOLD}$INSTALL_PLYMOUTH_THEME${NORM}"
@@ -85,73 +80,56 @@ fi
 echo
 echo -e "  ${BOLD}${SUBHEADINGCOLOR}Software${NORM}"
 echo -e "  ${BOLD}${INDENTEDCOLOR}  Use pre-configured repo files?  ${BOLD}$USE_CONFIGURED_REPO_FILES${NORM}"
-echo -e "  ${BOLD}${INDENTEDCOLOR}  List of apps to remove          ${BOLD}$REMOVEFILE${NORM}"
-echo -e "  ${BOLD}${INDENTEDCOLOR}  List of groups to install       ${BOLD}$GROUPSFILE${NORM}"
-echo -e "  ${BOLD}${INDENTEDCOLOR}  List of apps to install         ${BOLD}$APPSFILE${NORM}"
+echo -e "  ${BOLD}${INDENTEDCOLOR}  List of apps to remove:         ${BOLD}$REMOVEFILE${NORM}"
+echo -e "  ${BOLD}${INDENTEDCOLOR}  List of apps to install:        ${BOLD}$APPSFILE${NORM}"
 echo
-
-
-### Not working yet
-if [ -z "$NORDUSER" ]; then
-echo -e "  ${BOLD}${HEADINGCOLOR}  No user specified to add to NordVPN group${NORM}"
-else
-echo -e "  ${BOLD}${INDENTEDCOLOR}  Username for NordVPN            ${BOLD}$NORDUSER${NORM}"
-fi
-
-echo
-
 echo
 read -p "Options correct? Press any key to continue or CTRL-C to quit" answer
 
-# -----------------------------------------------------------------------------
+# [Basic system config]
 
 echo -e "${BOLD}${HEADINGCOLOR}Setting Hostname to $HOSTNAME${NORM}"
 hostnamectl set-hostname $HOSTNAME
 
-echo -e "${BOLD}${HEADINGCOLOR}Configuring DNF${NORM}"
+echo -e "${BOLD}${HEADINGCOLOR}Setting DNF options${NORM}"
 echo "fastestmirror=1" >> /etc/dnf/dnf.conf
 echo "max_parallel_downloads=10" >> /etc/dnf/dnf.conf
 echo "deltarpm=true" >> /etc/dnf/dnf.conf
 
-#------------------------------------------------------------------------------
+# Repositories
+
 echo -e "${BOLD}${HEADINGCOLOR}Installing repositories${NORM}"
 
-if [ $USE_CONFIGURED_REPO_FILES == "True" ];
-then
-  echo -e "${BOLD}${INDENTEDCOLOR}  Installing pre-configured repositories${NORM}"
-  mkdir /etc/yum.repos.d/old
-  mv /etc/yum.repos.d/*.repo /etc/yum.repos.d/old/
-  cp Repos/*.repo /etc/yum.repos.d/
-  chmod 644 /etc/yum.repos.d/*.repo
+# Add or remove these as desired, but RPM Fusion is really needed. It contains
+# software that isn't in the standard Fedora repos; those only contain FOSS
+# apps while RPM Fusion adds a lot.
 
-else
+# If you selected 'USE_CONFIGURED_REPO_FILES' they'll be copied at the end. This way
+# all of the keys get imported
 
-  echo -e "  ${BOLD}${INDENTEDCOLOR}RPM Fusion Free${BOLD}${NORM}"
-  dnf install -y -q https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
+echo -e "  ${BOLD}${INDENTEDCOLOR}  RPM Fusion${BOLD}${NORM}"
+dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
-  echo -e "  ${BOLD}${INDENTEDCOLOR}RPM Fusion Non-Free${BOLD}${NORM}"
-  dnf install -y -q https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+echo -e "  ${BOLD}${INDENTEDCOLOR}  VSCode${BOLD}${NORM}"
+rpm --import https://packages.microsoft.com/keys/microsoft.asc
+printf "[vscode]\nname=packages.microsoft.com\nbaseurl=https://packages.microsoft.com/yumrepos/vscode/\nenabled=1\ngpgcheck=1\nrepo_gpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc\nmetadata_expire=1h" | tee -a /etc/yum.repos.d/vscode.repo
 
-  # Add any other repos needed here
-  echo -e "  ${BOLD}${INDENTEDCOLOR}Vivaldi${BOLD}${NORM}"
-  dnf config-manager --add-repo https://repo.vivaldi.com/archive/vivaldi-fedora.repo
+# There is a little glitch with the Vivaldi repo. When it's installed it's named
+#   vivaldi-fedora.repo but after it's used to install Vivaldi it adds another one
+#   named vivaldi.repo. Not sure why, but I delete them both at the end of them
+#   script if USE_CONFIGURED_REPO_FILES is set. You'll get 'duplicate repo' warnings
+#   until then
 
-  echo -e "  ${BOLD}${INDENTEDCOLOR}Visual Studio Code${BOLD}${NORM}"
-  rpm --import https://packages.microsoft.com/keys/microsoft.asc
-  sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
-
-fi
+echo -e "  ${BOLD}${INDENTEDCOLOR}  Vivaldi${BOLD}${NORM}"
+dnf config-manager -y --add-repo https://repo.vivaldi.com/stable/vivaldi-fedora.repo
 
 echo -e "  ${BOLD}${INDENTEDCOLOR}  Flathub${BOLD}${NORM}"
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
-dnf update --refresh
-read -p "Options correct? Press any key to continue or CTRL-C to quit" answer
+echo -e "  ${BOLD}${INDENTEDCOLOR}  Updating repository list${BOLD}${NORM}"
+dnf groupupdate core -y
 
-
-# a kluge to fix the vivaldi repo being recreated
-rm /etc/yum.repos.d/viv*.repo
-#------------------------------------------------------------------------------
+# Add & Remove applications
 
 echo -e "${BOLD}${HEADINGCOLOR}Removing unwanted apps${NORM}"
 while IFS= read -r line
@@ -161,7 +139,7 @@ do
   dnf -y -q remove "$filename"
 done < $REMOVEFILE
 
-echo -e "${BOLD}${HEADINGCOLOR}Installing Individual Apps${NORM}"
+echo -e "${BOLD}${HEADINGCOLOR}Installing Groups & Apps${NORM}"
 
 while IFS= read -r line
 do
@@ -170,7 +148,10 @@ do
   dnf -y -q install $filename
 done < $APPSFILE
 
-#------------------------------------------------------------------------------
+read -p "Debug: Check Vivaldi repo.." answer
+
+# [Install Microsoft fonts]
+
 # These are the free/public Microsoft fonts. It makes life MUCH easier by not
 # mapping the general Microsoft fonts to something strange with files created
 # in Office.
@@ -178,54 +159,37 @@ done < $APPSFILE
 echo -e "${BOLD}${HEADINGCOLOR}Installing Microsoft Fonts${NORM}"
 rpm -i --quiet https://downloads.sourceforge.net/project/mscorefonts2/rpms/msttcore-fonts-installer-2.6-1.noarch.rpm
 
-#------------------------------------------------------------------------------
-if [ "$SETUP_AS_VM" == "False" ];
-then
-  echo -e "${BOLD}${HEADINGCOLOR}Enabling Laptop Power Management${NORM}"
-  systemctl enable tlp
-  cpupower frequency-set --governor conservative
-fi
-
-#------------------------------------------------------------------------------
 # GRUB
-
-# We need to determine which font to use in Grub. The smaller font looks better
-# on the laptop while the larger works on the desktop. Grub/theme-*.txt have the
-# desired fonts for that system. I put two theme files in the poly-dark directory:
-# theme-laptop.txt and theme-desktop.txt. Just copy the one you want to theme.txt
 
 # I use a theme called poly-dark I got from gnome-look.org and changed the
 # background & fonts
 
 # Also for Grub, if I have a multi-boot machine and Windows is one of the
-# OSs installed, I go into /etc/grub.d/30_os-prober as root and find the 
-# 'menuentry' immediately after searching for 'Windows' and change the 
+# OSs installed, I copy my modified 30_os-prober to /etc/grub.d/ To change your
+# own find the 'menuentry' immediately after searching for 'Windows' and change the
 # first part to menuentry '$(echo "Windows")'. That way it just says 'Windows'
 # and not all the stuff about what partition it's on.
 
 # Or, you could change it to read 'Windoze, 'Help me God' or whatever you'd like :)
 
+# It also copies a modified 10_Linux file, which modifies the 'Fedora' entry on
+# the main Grub screen so it just says 'Fedora' instead of with all the kernel info.
+
+if [ $GRUB_NAMING == "True" ];
+then
+  echo -e "${BOLD}${HEADINGCOLOR}Update Grub config files to rename entries${NORM}"
+  cp 30_os-prober /etc/grub.d/
+  cp 10_linux /etc/grub.d/
+fi
+
 if [ $INSTALL_GRUB_THEME == "True" ];
 then
-  echo -e "${BOLD}${HEADINGCOLOR}Setting up GRUB2, Theme & Config${NORM}"
+  echo -e "${BOLD}${HEADINGCOLOR}Setting up GRUB Theme & Config${NORM}"
 
   # Backup our grub config first
   cp -r /etc/default/grub /etc/default/grub.bak
+  cp -r ./Grub/poly-dark /boot/grub2/themes
 
-  # Copy the correct theme file to the default. I have two versions of the theme,
-  # one for a laptop & one for a desktop. I have different font sizes so they
-  # render at a readable size on each
-
-  if [ $GRUB_LAPTOP == "True" ];
-  then
-    cp Grub/poly-dark/theme-laptop.txt Grub/poly-dark/theme.txt
-  else
-    cp Grub/poly-dark/theme-desktop.txt Grub/poly-dark/theme.txt
-  fi
-
-  cp -r Grub/poly-dark/ /boot/grub2/themes/
-
-  echo "Making changes to /etc/default/grub"
   # Comment out the default settings
   sed -ie 's/GRUB_TERMINAL/#GRUB_TERMINAL/' /etc/default/grub
   sed -ie 's/GRUB_ENABLE_BLSCFG/#GRUB_ENABLE_BLSCFG/' /etc/default/grub
@@ -233,27 +197,27 @@ then
   sed -ie 's/GRUB_DISABLE_SUBMENU/#GRUB_DISABLE_SUBMENU/' /etc/default/grub
   sed -ie 's/GRUB_DISABLE_RECOVERY/#GRUB_DISABLE_RECOVERY/' /etc/default/grub
 
-  # Update with mine
+  # Update with ours
   echo "#-- Added by setup script, remove duplicates --" >> /etc/default/grub
   echo "GRUB_THEME=/boot/grub2/themes/poly-dark/theme.txt" >> /etc/default/grub
   echo "GRUB_DISABLE_SUBMENU=False" >> /etc/default/grub
   echo "GRUB_DISABLE_RECOVERY=False" >> /etc/default/grub
   echo "GRUB_DEFAULT=0" >> /etc/default/grub
   echo "GRUB_ENABLE_BLSCFG=False" >> /etc/default/grub
-  echo "GRUB_GFXMODE=1920x1080" >> /etc/default/grub
+  echo "GRUB_GFXMODE=$GRUB_GFXMODE" >> /etc/default/grub
 
   # Removing empty lines at the end of GRUB config
   sed -i -e :a -e '/^\n*$/{$d;N;};/\n$/ba' /etc/default/grub
 
   # Adding new line to GRUB config just in case
   echo | tee -a /etc/default/grub
+fi
 
-  # Copy the modified 30_os-prober file. See the file, it has the Grub
-  # menu entry set for "Windows" instead of "bootloader on /dev/sdb or whatever"
-  cp 30_os-prober /etc/grub.d/
-
-  # Important - for a UEFI machine this is how to rebuild grub.cfg.
-  # (For BIOS machines it needs to be: grub2-mkconfig -o /boot/grub2/grub.cfg)
+# Update Grub if changes were made
+if [ $GRUB_NAMING == "True" ] || [ $INSTALL_GRUB_THEME == "True" ];
+then
+# Important - for a UEFI machine this is how to rebuild grub.cfg.
+# (For BIOS machines it needs to be: grub2-mkconfig -o /boot/grub2/grub.cfg)
   grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg
 fi
 
@@ -264,9 +228,16 @@ if [ $INSTALL_PLYMOUTH_THEME == "True" ];
   plymouth-set-default-theme $PLYMOUTH_THEME -R
 fi
 
-echo -e "${BOLD}${HEADINGCOLOR}Adding user to NordVPN group${NORM}"
-usermod -aG nordvpn $USERNAME
-
+# I edited a set of repo files to make them look better. See them in the Repos directory
+if [ $USE_CONFIGURED_REPO_FILES == "True" ];
+then
+  echo -e "${BOLD}${HEADINGCOLOR}Copy modified repo files to /etc/yum.repos.d${NORM}"
+  mkdir /etc/yum.repos.d/old
+  mv /etc/yum.repos.d/*.repo /etc/yum.repos.d/old/
+  cp Repos/*.repo /etc/yum.repos.d/
+  chmod 644 /etc/yum.repos.d/*.repo
+  dnf update -y --refresh
+fi
 
 ENDTIME=$(date)
 echo -e "${BOLD}${HEADINGCOLOR_F}Completed at $ENDTIME${NORM}"

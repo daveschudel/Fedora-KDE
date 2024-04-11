@@ -138,9 +138,10 @@ EOF
 
 	EFIPATH=${DEVICE#*@}
 	DEVICE=${DEVICE%@*}
+LONGNAME="Windows"
 	onstr="$(gettext_printf "(on %s)" "${DEVICE}")"
       cat << EOF
-menuentry '$(echo "${LONGNAME} $onstr" | grub_quote)' $CLASS --class os \$menuentry_id_option 'osprober-efi-$(grub_get_device_id "${DEVICE}")' {
+menuentry '$(echo "${LONGNAME}")' $CLASS --class os \$menuentry_id_option 'osprober-efi-$(grub_get_device_id "${DEVICE}")' {
 EOF
       save_default_entry | sed -e "s/^/\t/"
       prepare_grub_to_access_device ${DEVICE} | sed -e "s/^/\t/"

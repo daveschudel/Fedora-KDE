@@ -5,7 +5,7 @@ ZSH_THEME="dave"
 case `uname` in
   Darwin)
     # MacOS
-      export PATH="/opt/homebrew/opt/zip/bin:/opt/homebrew/opt/coreutils/libexec/gnubin:/opt/homebrew/bin":$PATH
+      export PATH="/home/dave/Scripts:/opt/homebrew/opt/zip/bin:/opt/homebrew/opt/coreutils/libexec/gnubin:/opt/homebrew/bin":$PATH
       export MANPATH="/opt/homebrew/opt/coreutils/libexec/gnuman:${MANPATH}"
       export HOMEBREW_COLOR=1
       export HOMEBREW_NO_ENV_HINTS=1
@@ -26,7 +26,7 @@ case `uname` in
       source /opt/homebrew/Cellar/zsh-syntax-highlighting/0.7.1/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
   ;;
   Linux)
-    # commands for Linux go here
+    export PATH="/home/dave/Scripts:$PATH"
   ;;
   FreeBSD)
     # commands for FreeBSD go here
