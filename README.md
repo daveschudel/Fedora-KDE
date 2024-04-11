@@ -1,7 +1,7 @@
 - [1) Introduction](#1-introduction)
   - [Latest Information](#latest-information)
-    - [KDE6 Release](#kde6-release)
     - [Fedora 40](#fedora-40)
+    - [KDE6 Release](#kde6-release)
   - [Other Fedora options](#other-fedora-options)
   - [Fedora Magazine](#fedora-magazine)
 - [2) Installation](#2-installation)
@@ -80,12 +80,14 @@ As I find more I'll add it. I hope it helps you.
 
 ## Latest Information
 
-### KDE6 Release
-KDE announced the release of KDE6, and one of the most requested features is back: the Cube. I'll definitely be enabling that. KDE6 has a LOT of new features and we should see it in Fedora 40.
-
 ### Fedora 40
 
+Fedora 40 Beta is now out for testing.
+
 Fedora has decided to drop X11 support for Fedora 40 KDE. [Linuxiac](https://linuxiac.com/fedora-40-to-offer-plasma-6-drops-x11-entirely/) has a nice writeup on it with a link to the offical Fedora Wiki.
+
+### KDE 6
+KDE announced the release of KDE 6, and one of the most requested features is back: the Cube. I'll definitely be enabling that. KDE 6 has a LOT of new features and it's in Fedora 40.
 <br><br>
 
 ## Other Fedora options
@@ -855,7 +857,7 @@ The Grub menu is built from config files in <code>/etc/grub.d</code>. You'll nee
 Or, you could change it to read 'Windoze, 'Help me God' or whatever you'd like :)
 <br><br>
 
-10_Linux adds the Fedora kernels to the main menu. I modified this one so the primary Fedora menu entry just says 'Fedora' instead of with all of the kernel information added.<br><br>
+<code>10_Linux</code> adds the Fedora kernels to the main menu. I modified this one so the primary Fedora menu entry just says 'Fedora' instead of with all of the kernel information added.<br><br>
 Look for ```menuentry '$(echo "$title" | grub_quote)'``` in the ```populate_menu()``` section and remove ``` | grub_quote)```
 <br><br>
 
