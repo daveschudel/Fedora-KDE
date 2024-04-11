@@ -1,10 +1,11 @@
 - [1) Introduction](#1-introduction)
   - [Latest Information](#latest-information)
     - [Fedora 40](#fedora-40)
-    - [KDE6 Release](#kde6-release)
+    - [KDE 6](#kde-6)
   - [Other Fedora options](#other-fedora-options)
   - [Fedora Magazine](#fedora-magazine)
 - [2) Installation](#2-installation)
+  - [Installation Scripts](#installation-scripts)
 - [3) Shells](#3-shells)
     - [Eza Colors](#eza-colors)
   - [Zsh](#zsh)
@@ -144,6 +145,9 @@ sudo dnf update -y
 ```
 
 The '-y' parameter suppresses the 'yes/no' prompts. It can be disabled in ```\etc\dnf\dnf.cfg``` by adding ```assume_yes=True``` but that's not a good idea. I only use <code>-y</code> for updates.
+
+## Installation Scripts
+I have my post-installation scripts & config files in the Files directory. 
 <br><br>
 
 <a name="shells"></a>
