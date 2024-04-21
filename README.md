@@ -836,11 +836,16 @@ GRUB_DISABLE_RECOVERY=false
 GRUB_DEFAULT=0   
 
 # Sets the resolution of the Grub screen if you're using graphics
-GRUB_GFXMODE=auto  
+GRUB_GFXMODE=auto
+
+# Disables BLS - I don't know why, but if you leave BLS enabled none of the
+# changes made to the files in /etc/grub.d (10_linux and 30_os-prober) work. 
+GRUB_ENABLE_BLSCFG=false
+
 ```
 
 This will set your grub options. To save changes and write the Grub menu to disk. If you're running on a UEFI system run
-```
+```ss
 sudo grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg
 ```
 For legacy systems run
