@@ -87,6 +87,8 @@ Fedora 40 Beta is now out for testing.
 
 Fedora has decided to drop X11 support for Fedora 40 KDE. [Linuxiac](https://linuxiac.com/fedora-40-to-offer-plasma-6-drops-x11-entirely/) has a nice writeup on it with a link to the offical Fedora Wiki.
 
+I've seen a few programs not install correctly, like Kate and Yakuake, because of QT5 vs QT6 conflicts. Also, some of the plasmoids I used in Fedora 39 are not available yet.
+
 ### KDE 6
 KDE announced the release of KDE 6, and one of the most requested features is back: the Cube. I'll definitely be enabling that. KDE 6 has a LOT of new features and it's in Fedora 40.
 <br><br>
