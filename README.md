@@ -1,17 +1,16 @@
 - [1) Introduction](#1-introduction)
   - [Latest Information](#latest-information)
     - [Fedora 40](#fedora-40)
-    - [KDE 6](#kde-6)
   - [Other Fedora options](#other-fedora-options)
   - [Fedora Magazine](#fedora-magazine)
 - [2) Installation](#2-installation)
   - [Installation Scripts](#installation-scripts)
 - [3) Shells](#3-shells)
-    - [Eza Colors](#eza-colors)
   - [Zsh](#zsh)
     - [Zsh Tweaks](#zsh-tweaks)
     - [Themes](#themes)
   - [Bash](#bash)
+  - [Eza](#eza)
 - [4) DNF \& Repositories](#4-dnf--repositories)
   - [DNF Options](#dnf-options)
   - [RPM Fusion](#rpm-fusion)
@@ -58,10 +57,7 @@
 - [12 Upgrades and Beta versions](#12-upgrades-and-beta-versions)
   - [RPM Fusion](#rpm-fusion-1)
   - [Upgrading Fedora](#upgrading-fedora)
-- [13) Little Tips \& Tricks](#13-little-tips--tricks)
-  - [Updating Apps](#updating-apps)
-- [14) KDE Development](#14-kde-development)
-- [15) Ham Radio](#15-ham-radio)
+- [13) Ham Radio](#13-ham-radio)
 
 
 <br>
@@ -83,14 +79,9 @@ As I find more I'll add it. I hope it helps you.
 
 ### Fedora 40
 
-Fedora 40 Beta is now out for testing.
-
 Fedora has decided to drop X11 support for Fedora 40 KDE. [Linuxiac](https://linuxiac.com/fedora-40-to-offer-plasma-6-drops-x11-entirely/) has a nice writeup on it with a link to the offical Fedora Wiki.
 
 I've seen a few programs not install correctly, like Kate and Yakuake, because of QT5 vs QT6 conflicts. Also, some of the plasmoids I used in Fedora 39 are not available yet.
-
-### KDE 6
-KDE announced the release of KDE 6, and one of the most requested features is back: the Cube. I'll definitely be enabling that. KDE 6 has a LOT of new features and it's in Fedora 40.
 <br><br>
 
 ## Other Fedora options
@@ -155,34 +146,6 @@ I have my post-installation scripts & config files in the Files directory.
 <a name="shells"></a>
 
 # 3) Shells
-
-I switched to **<code>eza</code>** to replace **<code>ls</code>**. See [https://github.com/eza-community/eza](https://github.com/eza-community/eza) for more information. It formats things really well.
-
-```
-alias ls='eza -lao --group-directories-first --no-permissions --time-style "+%m/%d/%y %H:%M" --git'
-```
-Many of the switches are straight from **<code>ls</code>** but there are a few new ones.
-
--l : Long directory format<br>
--a : All files & directories, including . and ..<br>
--o : Octal permissions<br>
---group-directories-first<br>
---no-permissions : This one removes the standard wide permissions column<br>
---time-style : Allows you to format the time & date column<br>
---git : Adds the git status for each file
-<br>
-
-### Eza Colors
-There's a very good man page on ArchLinux [https://man.archlinux.org/man/eza_colors.5.en](https://man.archlinux.org/man/eza_colors.5.en) that documents how to set various colors. I changed two<br>
-```
-export EZA_COLORS="di=33:da=36"
-```
-
-*di* sets the directory color<br>
-*da* sets the date color
-
-<br>
-<img src="Images/eza.png"/>
 
 <a name="zsh"></a>
 
@@ -323,6 +286,36 @@ and looks like this.
 ![title](Images/bash.png)
 <br>
 <br>
+
+## Eza
+
+I switched to **<code>eza</code>** to replace **<code>ls</code>**. See [https://github.com/eza-community/eza](https://github.com/eza-community/eza) for more information. It formats things really well.
+
+```
+alias ls='eza -lao --group-directories-first --no-permissions --time-style "+%m/%d/%y %H:%M" --git'
+```
+Many of the switches are straight from **<code>ls</code>** but there are a few new ones.
+
+-l : Long directory format<br>
+-a : All files & directories, including . and ..<br>
+-o : Octal permissions<br>
+--group-directories-first<br>
+--no-permissions : This one removes the standard wide permissions column<br>
+--time-style : Allows you to format the time & date column<br>
+--git : Adds the git status for each file
+<br><br>
+
+
+There's a very good man page on ArchLinux [https://man.archlinux.org/man/eza_colors.5.en](https://man.archlinux.org/man/eza_colors.5.en) that documents how to set various colors. I changed two<br>
+```
+export EZA_COLORS="di=33:da=36"
+```
+
+*di* sets the directory color<br>
+*da* sets the date color
+
+<br>
+<img src="Images/eza.png"/>
 
 <a name="dnf"></a>
 
@@ -913,37 +906,7 @@ But if you want to upgrade your Fedora installation here's  instructions on how 
 
 <br>
 
-<a name="tips"></a>
-# 13) Little Tips & Tricks
-
-## Updating Apps
-
-DNF doesn't update everything; it leaves out updates from PackageKit (some stuff in Discover) and Flatpaks. So I just use a little script to update everything.<br>
-
-```
-#!/bin/bash
-sudo dnf update -y --refresh # (might as well update the repos)
-sudo fwupdmgr get-updates
-flatpak update -y
-```
-
-<a name="kdedev"></a>
-
-# 14) KDE Development
-
-I usually install the groups <code>"Development Tools"</code> and <code>"X Software Development"</code> by default since it seems like I'm always running into things I need. 
-
-```
-sudo dnf install @development-tools
-sudo dnf install @x-software-development
-```
-
-Check out https://develop.kde.org/develop for a good introduction to KDE/Qt development.
-
-If you're interested in working on it check out the Fedora KDE SIG
-at [https://fedoraproject.org/wiki/SIGs/KDE](https://fedoraproject.org/wiki/SIGs/KDE)<br><br>
-
-# 15) Ham Radio
+# 13) Ham Radio
 
 I'm a ham radio operator (K5SGC) and I've been able to get most of the ham radio software I need to run working correctly in Fedora. Much of it runs under Wine but there is a good amount that runs native in Linux.
 
