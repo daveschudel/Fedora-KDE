@@ -1,10 +1,10 @@
 - [1) Introduction](#1-introduction)
-  - [Latest Information](#latest-information)
-    - [Fedora 40](#fedora-40)
+  - [Fedora 40](#fedora-40)
   - [Other Fedora options](#other-fedora-options)
   - [Fedora Magazine](#fedora-magazine)
 - [2) Installation](#2-installation)
-  - [Installation Scripts](#installation-scripts)
+  - [Comments](#comments)
+  - [Encryption](#encryption)
 - [3) Shells](#3-shells)
   - [Zsh](#zsh)
     - [Zsh Tweaks](#zsh-tweaks)
@@ -57,7 +57,9 @@
 - [12 Upgrades and Beta versions](#12-upgrades-and-beta-versions)
   - [RPM Fusion](#rpm-fusion-1)
   - [Upgrading Fedora](#upgrading-fedora)
-- [13) Ham Radio](#13-ham-radio)
+- [13) Problems](#13-problems)
+  - [Sound](#sound)
+- [14) Ham Radio](#14-ham-radio)
 
 
 <br>
@@ -75,13 +77,19 @@ I've spent a lot of time just playing with Fedora and KDE, learning how it works
 As I find more I'll add it. I hope it helps you. 
 <br><br>
 
-## Latest Information
 
-### Fedora 40
+## Fedora 40
 
 Fedora has decided to drop X11 support for Fedora 40 KDE. [Linuxiac](https://linuxiac.com/fedora-40-to-offer-plasma-6-drops-x11-entirely/) has a nice writeup on it with a link to the offical Fedora Wiki.
 
-I've seen a few programs not install correctly, like Kate and Yakuake, because of QT5 vs QT6 conflicts. Also, some of the plasmoids I used in Fedora 39 are not available yet.
+I've seen a few programs not install correctly because of QT5 vs QT6 conflicts. Also, some of the plasmoids I used in Fedora 39 are not available yet.
+
+A much more serious problem is with VirtualBox. In full screen mode the VM will lock up under Wayland. The workaround is to disable the status bar at the bottom of the VM. Otherwise you can install X11 support and just run under X. That's what I did. <br><br>
+```sudo dnf install plasma-workspace-x11```
+
+FYI: Even though the standard Fedora 40 KDE install targets Wayland, apps still have to be written for Wayland. Many are not. So Wayland starts an X server to handle those apps - XWayland. 
+
+IMHO, that tells me Wayland isn't quite ready. 😎
 <br><br>
 
 ## Other Fedora options
@@ -124,12 +132,15 @@ gpg --verify-files CHECKSUM_FILENAME
 ```
 sha256sum -c CHECKSUM_FILE
 ```
+## Comments
 
-Unless I'm installing Fedora in a VM I ***always*** encrypt the drive. I use the standard install options and leave the root user disabled. Obviously if you need a specific partition layout set it up here. I'd be wary of playing with it for the sake of playing with it. The Fedora engineers have done a great job of optimizing everything for the desktop and it would be very easy to *optimize* your system so it runs worse. I used to make the swap partition larger but there was no need for it. Enlarge it if you want to be able to hibernate. 
+Unless I'm installing Fedora in a VM I ***always*** encrypt the drive. I use the standard install options and leave the root user disabled. Obviously if you need a specific partition layout set it up here. I'd be wary of playing with it for the sake of playing with it. The Fedora engineers have done a great job of optimizing everything for the desktop and it would be very easy to *optimize* your system so it runs worse. (I did that once in FreeBSD and had to wipe the disk and start over). I used to make the swap partition larger but there was no need for it. Enlarge it if you want to be able to hibernate. 
 
 Fedora uses the Btvfs file system instead of Ext4. I'd leave it alone. There are discussions and/or arguments all over the web about the problems & benefits of Btvfs but like for partitioning, you're best just to leave it alone.
 
 The Fedora installer looks different depending on what spin you're installing. For example, the KDE Spin has you setup the user account before installing while the standard Fedora installation (Gnome) has you creating the user after installing. I'm not sure why.
+
+
 
 After installing Fedora you'll want to update everything before adding to your system. See the [DNF](#dnf) section for more information. 
 
@@ -139,8 +150,8 @@ sudo dnf update -y
 
 The '-y' parameter suppresses the 'yes/no' prompts. It can be disabled in ```\etc\dnf\dnf.cfg``` by adding ```assume_yes=True``` but that's not a good idea. I only use <code>-y</code> for updates.
 
-## Installation Scripts
-I have my post-installation scripts & config files in the Files directory. 
+## Encryption
+When you select encryption in the Fedora install, it is *not* full disk encryption. It leaves ```/boot``` unencrypted. That's why you only have to enter the password once, unlike OpenSUSE's full disk encryption where you have to enter it twice. Keep that in mind if you need a very secure system. You can manually configure that in the installer.
 <br><br>
 
 <a name="shells"></a>
@@ -165,7 +176,7 @@ It will create ```~/.oh-my-zsh/``` in your home directory. Themes are in ```~/.o
 <a name="zsh-themes"></a>
 ### Zsh Tweaks
 
-OhMyZsh left those ```zcompdump``` files all over my home directory. Open ```./oh-my-zsh/oh-my-zsh.sh``` and look 
+Zsh left those ```zcompdump``` files all over my home directory. Open ```./oh-my-zsh/oh-my-zsh.sh``` and look 
 for the line
 
 ```
@@ -177,6 +188,8 @@ and change it to something like this. (I put mine in .config)
 ```
 ZSH_COMPDUMP="${ZDOTDIR:-$HOME}/.config/.zcompdump-${SHORT_HOST}-${ZSH_VERSION}"
 ```
+
+If it doesn't work there could be a system .zshrc somewhere. I haven't seen it in Fedora but I've seen it in other distros. It's usually in ```/etc```.
 
 ### Themes
 
@@ -291,6 +304,10 @@ and looks like this.
 
 I switched to **<code>eza</code>** to replace **<code>ls</code>**. See [https://github.com/eza-community/eza](https://github.com/eza-community/eza) for more information. It formats things really well.
 
+It's available in the standard Fedora repositories
+```sudo dnf install eza```
+
+And use it like this:
 ```
 alias ls='eza -lao --group-directories-first --no-permissions --time-style "+%m/%d/%y %H:%M" --git'
 ```
@@ -503,7 +520,10 @@ All of that lives down in /usr. I'll keep trying until I get it right.
 
 ## Changing The Volume Name
 
-Launch KDE Disk Editor from the Live CD. Rename your home volume to whatever you want. You can't change the name of a volume when booting from it. If your disk is encrypted you'll have to unlock it first. I just reboot back into the USB drive right after installing Fedora & do it then.
+I used to use the KDE Partition Manager to do this but it wouldn't let me change the volume name while booted from that partition. For some reason GParted works just fine. 
+<br>
+
+```sudo dnf install gparted```
 <br><br>
 
 <a name="konsole"></a>
@@ -832,11 +852,6 @@ GRUB_DEFAULT=0
 
 # Sets the resolution of the Grub screen if you're using graphics
 GRUB_GFXMODE=auto
-
-# Disables BLS - I don't know why, but if you leave BLS enabled none of the
-# changes made to the files in /etc/grub.d (10_linux and 30_os-prober) work. 
-GRUB_ENABLE_BLSCFG=false
-
 ```
 
 This will set your grub options. To save changes and write the Grub menu to disk. If you're running on a UEFI system run
@@ -906,7 +921,20 @@ But if you want to upgrade your Fedora installation here's  instructions on how 
 
 <br>
 
-# 13) Ham Radio
+
+# 13) Problems
+
+## Sound
+I started having problems with Fedora either not seeing the sound card or everything went to a dummy output device. I have a ThinkPad with the Intel sound chip so I added an entry to ```/etc/default/grub```
+
+In GRUB_CMDLINE_LINUX, add this to the list of parameters:
+
+```snd_hda_intel.dmic_detect=0```
+
+I haven't had a sound problem since. I have another machine that has a Ryzen and the AMD sound device. I haven't found the correct setting for it.
+<br><br>
+
+# 14) Ham Radio
 
 I'm a ham radio operator (K5SGC) and I've been able to get most of the ham radio software I need to run working correctly in Fedora. Much of it runs under Wine but there is a good amount that runs native in Linux.
 
