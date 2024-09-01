@@ -8,7 +8,6 @@ USER_FILES_DIR=/home/dave/Setup/User
 
 INSTALL_ZSH_FILES="True"            # Update zsh with user files
 INSTALL_BASH_FILES="True"           # Update bash with user files
-FLATPAKSFILE="setup-flatpaks.cfg"   # list of Flatpaks to install
 
 # [Text colors]
 HEADINGCOLOR=$YELLOW_F              # Some color aliases to make things easier (defined in colors.sh)
@@ -29,8 +28,8 @@ then
   echo -e "${BOLD}${INDENTEDCOLOR}  Zsh${NORM}"
 
 # Copy my .zshrc & theme
-  cp -p $USER_FILES_DIR/.zshrc $HOME
-  cp -p $USER_FILES_DIR/*.zsh-theme $HOME/.oh-my-zsh/themes
+  cp $USER_FILES_DIR/.zshrc $HOME
+  cp $USER_FILES_DIR/*.zsh-theme $HOME/.oh-my-zsh/themes
 
 # This one has the zcompdir set to ./cache instead of dumping zcompdir files
 # all over your home directory
@@ -63,14 +62,6 @@ rm -rf $HOME/Templates
 
 echo -e "${BOLD}${INDENTEDCOLOR}  Git${NORM}"
 cp $USER_FILES_DIR/.gitconfig $HOME
-
-echo -e "${BOLD}${HEADINGCOLOR}Installing Flatpaks${NORM}"
-while IFS= read -r line
-do
-  filename="${line%%\#*}"
-  echo -e "  ${BOLD}${INDENTEDCOLOR}$filename${NORM}"
-  flatpak --noninteractive install $filename
-done < $FLATPAKSFILE
 
 # If I've edited these files on my Mac those .DS_Store files will pop up everywhere.
 # The Icon? files are the Mac's icon information (as opposed to .directory)
