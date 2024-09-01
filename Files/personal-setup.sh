@@ -34,8 +34,7 @@ then
 
 # This one has the zcompdir set to ./cache instead of dumping zcompdir files
 # all over your home directory
-  cp -p $USER_FILES_DIR/*.zsh-theme $HOME/.oh-my-zsh/oh-my-zsh.sh
-
+  cp -p $USER_FILES_DIR/oh-my-zsh.sh $HOME/.oh-my-zsh
   source $HOME/.zshrc
 fi
 
@@ -45,6 +44,8 @@ then
   cp -p $USER_FILES_DIR/.dircolors $HOME
   cp -p $USER_FILES_DIR/.bashrc $HOME/
 fi
+
+cp $USER_FILES_DIR/.hushlogin $HOME
 
 echo -e "${BOLD}${INDENTEDCOLOR}  ssh${NORM}"
 # My ssh files in ..Fedora/User already have the attributes set needed for ssh

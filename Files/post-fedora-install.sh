@@ -10,10 +10,9 @@
 source ./colors.sh                  # Color codes used in this script
 
 # [General options]
-HOSTNAME="Lucy"                     # Set hostname (obviously..)
+HOSTNAME="Raphtalia"                # Set hostname (obviously..)
 DEFAULT_USER="dave"                 # Used to set your default shell since this script is
                                     #  run as sudo
-
 # [Grub options]
 INSTALL_GRUB_THEME="True"           # Make changes to /etc/default/grub to use themes and
                                     #  other options (see below)
@@ -29,8 +28,9 @@ PLYMOUTH_THEME="spinner"            #  the theme.. Make sure it's installed
 # [Applications]
 REMOVEFILE="setup-remove-apps.cfg"  # Apps to remove
 APPSFILE="setup-install-apps.cfg"   # Apps & software groups to install
-USE_CONFIGURED_REPO_FILES="True"    # Copy formatted repo files to /etc/yum.repos.d -
+USE_CONFIGURED_REPO_FILES="False"   # Copy formatted repo files to /etc/yum.repos.d -
                                     #  they're in ./Repos
+INSTALL_SUPERPAPER="False"          # Install Superpaper for dual monitor support
 
 # [Text colors]
 HEADINGCOLOR=$YELLOW_F              # Some color aliases to make things easier (defined
@@ -50,6 +50,9 @@ INSTALL_GRUB_THEME="${string^}"
 string=$GRUB_NAMING
 GRUB_NAMING="${string^}"
 
+string=$INSTALL_SUPERPAPER
+INSTALL_SUPERPAPER="${string^}"
+
 clear
 echo
 echo -e "${BOLD}${HEADINGCOLOR}Fedora Post-Install Setup ${BOLD}${NORM}"
@@ -62,6 +65,7 @@ fi
 echo -e "  ${BOLD}${SUBHEADINGCOLOR}Configuration${NORM}"
 echo -e "  ${BOLD}${INDENTEDCOLOR}  Set Hostname to:                ${BOLD}$HOSTNAME${NORM}"
 echo
+
 echo -e "  ${BOLD}${SUBHEADINGCOLOR}Boot Options${NORM}"
 echo -e "  ${BOLD}${INDENTEDCOLOR}  Install Grub Boot Theme?        ${BOLD}$INSTALL_GRUB_THEME${NORM}"
 
@@ -83,6 +87,8 @@ echo -e "  ${BOLD}${INDENTEDCOLOR}  Use pre-configured repo files?  ${BOLD}$USE_
 echo -e "  ${BOLD}${INDENTEDCOLOR}  List of apps to remove:         ${BOLD}$REMOVEFILE${NORM}"
 echo -e "  ${BOLD}${INDENTEDCOLOR}  List of apps to install:        ${BOLD}$APPSFILE${NORM}"
 echo
+echo -e "  ${BOLD}${INDENTEDCOLOR}  Install SuperPaper?             ${BOLD}$INSTALL_SUPERPAPER${NORM}"
+
 echo
 read -p "Options correct? Press any key to continue or CTRL-C to quit" answer
 
@@ -108,20 +114,7 @@ echo -e "${BOLD}${HEADINGCOLOR}Installing repositories${NORM}"
 # all of the keys get imported
 
 echo -e "  ${BOLD}${INDENTEDCOLOR}  RPM Fusion${BOLD}${NORM}"
-dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-
-echo -e "  ${BOLD}${INDENTEDCOLOR}  VSCode${BOLD}${NORM}"
-rpm --import https://packages.microsoft.com/keys/microsoft.asc
-printf "[vscode]\nname=packages.microsoft.com\nbaseurl=https://packages.microsoft.com/yumrepos/vscode/\nenabled=1\ngpgcheck=1\nrepo_gpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc\nmetadata_expire=1h" | tee -a /etc/yum.repos.d/vscode.repo
-
-# There is a little glitch with the Vivaldi repo. When it's installed it's named
-#   vivaldi-fedora.repo but after it's used to install Vivaldi it adds another one
-#   named vivaldi.repo. Not sure why, but I delete them both at the end of them
-#   script if USE_CONFIGURED_REPO_FILES is set. You'll get 'duplicate repo' warnings
-#   until then
-
-echo -e "  ${BOLD}${INDENTEDCOLOR}  Vivaldi${BOLD}${NORM}"
-dnf config-manager -y --add-repo https://repo.vivaldi.com/stable/vivaldi-fedora.repo
+dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
 echo -e "  ${BOLD}${INDENTEDCOLOR}  Flathub${BOLD}${NORM}"
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
@@ -148,14 +141,21 @@ do
   dnf -y -q install $filename
 done < $APPSFILE
 
-# Check for that duplicate Vivaldi repo
-read -p "Debug: Check Vivaldi repo.." answer
+# Remove duplicate Vivaldi repo
+rm /etc/yum.repos.d/vivaldi-fedora.repo
+
+# Install Superpaper
+if [ $INSTALL_SUPERPAPER == "True" ];
+then
+  echo -e "${BOLD}${HEADINGCOLOR}Installing Superpaper${NORM}"
+  python3 -m pip install --user --upgrade superpaper
+fi
 
 # [Install Microsoft fonts]
 
 # These are the free/public Microsoft fonts. It makes life MUCH easier by not
 # mapping the general Microsoft fonts to something strange with files created
-# in Office.
+# in Office.if [ $GRUB_NAMING == "True" ];
 
 echo -e "${BOLD}${HEADINGCOLOR}Installing Microsoft Fonts${NORM}"
 rpm -i --quiet https://downloads.sourceforge.net/project/mscorefonts2/rpms/msttcore-fonts-installer-2.6-1.noarch.rpm
@@ -189,11 +189,11 @@ then
 
   # Backup our grub config first
   cp -r /etc/default/grub /etc/default/grub.bak
-  cp -r ./Grub/poly-dark /boot/grub2/themes
+  cp -r ./Grub/poly-dark/ /boot/grub2/themes/
 
   # Comment out the default settings
   sed -ie 's/GRUB_TERMINAL/#GRUB_TERMINAL/' /etc/default/grub
-  sed -ie 's/GRUB_ENABLE_BLSCFG/#GRUB_ENABLE_BLSCFG/' /etc/default/grub
+  #sed -ie 's/GRUB_ENABLE_BLSCFG/#GRUB_ENABLE_BLSCFG/' /etc/default/grub
   sed -ie 's/GRUB_DEFAULT/#GRUB_DEFAULT/' /etc/default/grub
   sed -ie 's/GRUB_DISABLE_SUBMENU/#GRUB_DISABLE_SUBMENU/' /etc/default/grub
   sed -ie 's/GRUB_DISABLE_RECOVERY/#GRUB_DISABLE_RECOVERY/' /etc/default/grub
@@ -204,7 +204,7 @@ then
   echo "GRUB_DISABLE_SUBMENU=False" >> /etc/default/grub
   echo "GRUB_DISABLE_RECOVERY=False" >> /etc/default/grub
   echo "GRUB_DEFAULT=0" >> /etc/default/grub
-  echo "GRUB_ENABLE_BLSCFG=False" >> /etc/default/grub
+  #echo "GRUB_ENABLE_BLSCFG=False" >> /etc/default/grub
   echo "GRUB_GFXMODE=$GRUB_GFXMODE" >> /etc/default/grub
 
   # Removing empty lines at the end of GRUB config
