@@ -662,7 +662,7 @@ sudo dnf install yakuake
 
 ### Using the Microsoft repository
 
-At this point (Fedora 39) VSCode isn't in the Fedora or RPM Fusion repositories. You can download it but I like having it installed from a repo so it stays up to date without having use a Flatpak.
+At this point (Fedora 40) VSCode isn't in the Fedora or RPM Fusion repositories. You can download it but I like having it installed from a repo so it stays up to date without having use a Flatpak.
 
 This will install the repo and key
 
