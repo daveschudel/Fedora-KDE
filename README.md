@@ -607,7 +607,6 @@ This comes from Roj131 at https://forum.kde.org/viewtopic.php%3Ft=154087.html#. 
         source: "/home/dave/Setup/Wallpapers/Stargate/Gate.png"
     }
 ```
-<br>
 
 ### 5.5.4. Appearance
 
