@@ -67,6 +67,7 @@ winetricks -q dotnet472
 winetricks vb6run
 winetricks vcrun2015
 ```
+You may run into a problem installing ```vb6run``` and ```vcrun2015```. The version of winetricks in the repos is out of date for some reason. Just update winetricks by ```sudo winetricks --self-updating``` and that should fix it.
 
 FYI: the .NET install takes a long time.<br><br>
 I got SELinux warnings all over the place when installing .NET so I made the appropriate adjustments. Install
