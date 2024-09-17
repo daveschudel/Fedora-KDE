@@ -14,6 +14,7 @@ flatpak install flathub com.slack.Slack
 ```
 dnf config-manager --add-repo https://repo.vivaldi.com/stable/vivaldi-fedora.repo
 ```
+or install the Flatpak. I noticed some strange things with the Flatpak not permitting access to the microphone in the Flatpak install. I'll dig into it and see what I can find out.
 
 
 [Neochat](https://apps.kde.org/neochat/) (Matrix Client)
@@ -33,7 +34,7 @@ sudo dnf install keepassxc
 ```
   
 [NordVPN](https://nordvpn.com/)
-  You need to purchase a subscription, then download the installer
+  You need to purchase a subscription, then download the installer.
 
 [GTKHash](https://gtkhash.org/)
 ```
@@ -50,7 +51,8 @@ sudo dnf install blueman
 sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
 sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
 ```
-
+or use the Flatpak.
+<br>
 ## Multimedia
 [VLC](https://www.videolan.org/vlc/) handles just about every kind of video format I've come across.
 ```
@@ -67,4 +69,4 @@ flatpak install flathub com.spotify.Client
 ```
 sudo dnf install boinc-client boinc-manager
 ```
-The installer just installs the app, so go [here](https://boinc.berkeley.edu/wiki/Installing_BOINC_on_Fedora) to get it set up.
+The installer just installs the app, so go [here](https://boinc.berkeley.edu/wiki/Installing_BOINC_on_Fedora) to get it set up. Be a little cautious - BOINC can suck some CPU power if you let it. If you're on a desktop it's not a problem but on a laptop it can get hot. It generally doesn't run on a laptop if it's on battery.

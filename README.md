@@ -689,6 +689,7 @@ sudo dnf install yakuake
 ## 6.2. Visual Studio Code
 
 <a name="vscode-repo"></a>
+I really, really want to use Kate but it has a decent markdown viewer but you can't do anything with it. VSCode has a nice markdown plugin by Yu Zhang called Markdown All in One. It's very good.
 
 ### 6.2.1. Using the Microsoft repository
 
