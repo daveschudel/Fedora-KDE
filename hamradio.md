@@ -3,7 +3,7 @@
     - [Pairing the D74](#pairing-the-d74)
   - [Setup Wine for WinLink](#setup-wine-for-winlink)
   - [Serial-over-Bluetooth](#serial-over-bluetooth)
-  - [Wine Fonts](#wine-fonts)
+  - [Wine Fonts \& App Resolution](#wine-fonts--app-resolution)
   - [SELinux warnings](#selinux-warnings)
   - [Using the D74 for Winlink](#using-the-d74-for-winlink)
 - [3) TQSL](#3-tqsl)
@@ -27,7 +27,7 @@ Here are some tips on using Fedora for ham radio. I use the KDE spin but most of
 
 # 2) Winlink
 
-K6ETA has a very good writeup on getting [Winlink running on Wine](http://k6eta.com/linux/installing-rms-express-on-linux-with-wine) but it's for connecting to your radio over a USB-to-Serial cable. I set mine up to use the TNC in the Kenwood D74 wirelessly.
+K6ETA has a very good writeup on getting [Winlink running on Wine](http://k6eta.com/linux/installing-rms-express-on-linux-with-wine) but it's for connecting to your radio over a USB-to-Serial cable. I set mine up to use the TNC in the Kenwood D74 wirelessly. However, the built-in TNC will not support VERA-FM. I personally have a problem with using a closed proprietary system but I have to admit the speeds & error handling are superior to standard Winlink.
 
 
 ### Pairing the D74
@@ -92,7 +92,7 @@ This maps rfcomm0 to COM1 in Wine. Then open <code>~/.wine/system.reg</code> and
 ```
 Then download & install Winlink and configure it to use COM1.<br>
 
-## Wine Fonts
+## Wine Fonts & App Resolution
 
 Sometimes the fonts on Wine apps are sized differently than in native apps. To fix this, go into winecfg, select 'Display' and you'll see a slider for Screen Resolution. It was set to 96 dpi originally so I set it to 144 so it matched everything else on my machine.
 
