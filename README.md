@@ -91,8 +91,6 @@ A much more serious problem is with VirtualBox. In full screen mode the VM will 
 ```sudo dnf install plasma-workspace-x11```
 
 FYI: Even though the standard Fedora 40 KDE install targets Wayland, apps still have to be written for Wayland. Many are not. So Wayland starts an X server to handle those apps - XWayland. 
-
-Also, VirtualBox VMs will freeze under Wayland unless you disable the menu bar at the bottom (or top) of the screen. IMHO, another indication that Wayland isn't ready for prime time.
 <br><br>
 
 ## 1.2. Other Fedora options
@@ -637,7 +635,7 @@ Once it's done it looks like this
 <br><br>
 ### 5.5.6. KDE Desktop Effects
 
-I started using a Desktop Effect called Energize B [Burn-My-Windows] available on the KDE Store [https://www.pling.com/p/1884311It]. It makes opening & closing windows look like they're beaming in and out with a transporter. I miss the spinning cube, but the KDE6 announcement said they're bringing it back. 
+I started using a Desktop Effect called Energize B [Burn-My-Windows] available on the KDE Store [https://www.pling.com/p/1884311It]. It makes opening & closing windows look like they're beaming in and out with a transporter. 
 
 KDE is great if you want to show off 😎
 <br><br>
@@ -689,7 +687,7 @@ sudo dnf install yakuake
 ## 6.2. Visual Studio Code
 
 <a name="vscode-repo"></a>
-I really, really want to use Kate but it has a decent markdown viewer but you can't do anything with it. VSCode has a nice markdown plugin by Yu Zhang called Markdown All in One. It's very good.
+I really, really want to use Kate. It has a decent markdown viewer but you can't do anything with it. VSCode has a nice markdown plugin by Yu Zhang called Markdown All in One. It's very good.
 
 ### 6.2.1. Using the Microsoft repository
 
@@ -830,7 +828,9 @@ Then install it using their script
 sh <(curl -sSf https://downloads.nordcdn.com/apps/linux/install.sh)
 ```
 
-There's a nice NordVPN Plasma Widget that puts a icon in the tray for controlling it. I use the one by korapp.
+I have had problems using their NordLynx protocol where the VPN would just freeze up. I switched over to using OpenVPN and everything works fine.
+
+```nordvpn set technology OpenVPN```
 <br><br>
 
 ## 8.4. Laptop Power Management
@@ -864,29 +864,42 @@ Here is a good overview of SELinux for Fedora.
 <a name="grub-config"></a>
 The main config file is <code>/etc/default/grub.</code> I set mine up with these differences.<br>
 
-I add/change these lines to the grub config file
+I add/change these lines to the grub config file. 
+
+First, the theme
+
 ```
 GRUB_THEME=/boot/grub2/themes/poly-dark/theme.txt 
+```
+<br>
 
-# The wording is a bit strange, but disabling this will enable the
-# submenu on the Grub menu. It puts the other kernels into the submenu
-# cleaning up your menu.
+For the submenus the wording is a bit strange, but disabling this will enable the submenu on the Grub menu. It puts the other kernels into the submenu cleaning up your menu. But since I've switched over to enabling BLSCFG this feature stopped working.
+  
+```
 GRUB_DISABLE_SUBMENU=false 
+```
+<br>
 
-# I recommend disabling this. The Recovery options are always
-# a good idea to have. Plus if you enable the submenu Grub puts
-# them all there.   
+I recommend disabling disabling recovery. The Recovery options are always a good idea to have. Plus if you enable the submenu Grub puts them all there. 
+```  
 GRUB_DISABLE_RECOVERY=false  
+```
+<br>
 
-# The default menu item when Grub starts
-GRUB_DEFAULT=0   
+The default menu item when Grub starts
+```
+GRUB_DEFAULT=0  
+``` 
+<br>
 
-# Sets the resolution of the Grub screen if you're using graphics
+Sets the resolution of the Grub screen if you're using graphics
+```
 GRUB_GFXMODE=auto
 ```
+<br>
 
 This will set your grub options. To save changes and write the Grub menu to disk. If you're running on a UEFI system run
-```ss
+```
 sudo grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg
 ```
 For legacy systems run
