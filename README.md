@@ -1,17 +1,17 @@
-- [1) Introduction](#1-introduction)
+- [1. Introduction](#1-introduction)
   - [1.1. Fedora 40](#11-fedora-40)
   - [1.2. Other Fedora options](#12-other-fedora-options)
   - [1.3. Fedora Magazine](#13-fedora-magazine)
-- [2) Installation](#2-installation)
+- [2. Installation](#2-installation)
   - [2.1. Comments](#21-comments)
   - [2.2. Encryption](#22-encryption)
-- [3) Shells](#3-shells)
+- [3. Shells](#3-shells)
   - [3.1. Zsh](#31-zsh)
     - [3.1.1. Zsh Tweaks](#311-zsh-tweaks)
     - [3.1.2. Themes](#312-themes)
   - [3.2. Bash](#32-bash)
   - [3.3. Eza](#33-eza)
-- [4) DNF \& Repositories](#4-dnf--repositories)
+- [4. DNF \& Repositories](#4-dnf--repositories)
   - [4.1. DNF Options](#41-dnf-options)
   - [4.2. RPM Fusion](#42-rpm-fusion)
   - [4.3. Customizing the Repo List](#43-customizing-the-repo-list)
@@ -19,7 +19,7 @@
   - [4.5. Groups](#45-groups)
   - [4.6. Installing Additional Desktop Environments](#46-installing-additional-desktop-environments)
   - [4.7. COPR](#47-copr)
-- [5) My Fedora KDE settings \& tweaks](#5-my-fedora-kde-settings--tweaks)
+- [5. My Fedora KDE settings \& tweaks](#5-my-fedora-kde-settings--tweaks)
   - [5.1. Backup \& Restore](#51-backup--restore)
   - [5.2. Changing The Volume Name](#52-changing-the-volume-name)
   - [5.3. Konsole](#53-konsole)
@@ -34,7 +34,7 @@
     - [5.5.7. KDE Splash Screen](#557-kde-splash-screen)
     - [5.5.8. KDE Filetype Icons](#558-kde-filetype-icons)
   - [5.6. Multiple Desktops](#56-multiple-desktops)
-- [6) Apps \& Packages I'd Recommend](#6-apps--packages-id-recommend)
+- [6. Apps \& Packages I'd Recommend](#6-apps--packages-id-recommend)
   - [6.1. Yakuake](#61-yakuake)
   - [6.2. Visual Studio Code](#62-visual-studio-code)
     - [6.2.1. Using the Microsoft repository](#621-using-the-microsoft-repository)
@@ -42,34 +42,36 @@
   - [6.3. Microsoft Open Fonts](#63-microsoft-open-fonts)
   - [6.4. OneDrive](#64-onedrive)
   - [6.5. Other Apps](#65-other-apps)
-- [7) Additional Software Installers](#7-additional-software-installers)
+- [7. Additional Software Installers](#7-additional-software-installers)
   - [7.1. Fedy](#71-fedy)
   - [7.2. DNF Dragora](#72-dnf-dragora)
   - [7.3. Flatpaks](#73-flatpaks)
-- [8) Other System Topics](#8-other-system-topics)
+- [8. Other System Topics](#8-other-system-topics)
   - [8.1. SSH](#81-ssh)
   - [8.2. Backups](#82-backups)
-  - [8.3. VPN](#83-vpn)
-  - [8.4. Laptop Power Management](#84-laptop-power-management)
-- [9) SELinux](#9-selinux)
-- [10) Grub](#10-grub)
+  - [8.3 Network](#83-network)
+    - [8.3.1. Disable IPv6](#831-disable-ipv6)
+  - [8.4. VPN](#84-vpn)
+  - [8.5. Laptop Power Management](#85-laptop-power-management)
+- [9. SELinux](#9-selinux)
+- [10. Grub](#10-grub)
   - [10.1. Grub Configuration Files](#101-grub-configuration-files)
   - [10.2. Themes](#102-themes)
-- [11) Plymouth](#11-plymouth)
-- [12 Upgrades and Beta versions](#12-upgrades-and-beta-versions)
+- [11. Plymouth](#11-plymouth)
+- [12. Upgrades and Beta versions](#12-upgrades-and-beta-versions)
   - [12.1. RPM Fusion](#121-rpm-fusion)
   - [12.2. Upgrading Fedora](#122-upgrading-fedora)
-- [13) Problems \& Fixes](#13-problems--fixes)
+- [13. Problems \& Fixes](#13-problems--fixes)
   - [13.1. Sound](#131-sound)
   - [13.2. VirtualBox](#132-virtualbox)
-- [14) Ham Radio](#14-ham-radio)
+- [14. Ham Radio](#14-ham-radio)
 
 
 <br>
 
 <a name="intro"></a>
 
-# 1) Introduction
+# 1. Introduction
 
 I've run Fedora since Fedora 9. It's my choice for a Linux OS for a number of reasons. When I first started with Linux my college used Scientific Linux, based on CentOS which itself is based on RedHat. Other students used Ubuntu, but I found it difficult to use since the development tools & other things don't match. Think Ubuntu's Build Essentials vs Fedora's Development Tools group. Everything I did on my machine matched what was used on the servers.  
 
@@ -114,7 +116,7 @@ The primary Fedora release comes with the GNOME desktop environment. Fedora also
 
 <a name="install"></a>
 
-# 2) Installation
+# 2. Installation
 
 * Download the Fedora KDE Spin [https://spins.fedoraproject.org/en/kde/](https://spins.fedoraproject.org/en/kde/)
 <br>
@@ -157,7 +159,7 @@ When you select encryption in the Fedora install, it is *not* full disk encrypti
 
 <a name="shells"></a>
 
-# 3) Shells
+# 3. Shells
 
 <a name="zsh"></a>
 
@@ -337,7 +339,7 @@ export EZA_COLORS="di=33:da=36"
 
 <a name="dnf"></a>
 
-# 4) DNF & Repositories
+# 4. DNF & Repositories
 <a name="dnf-config"></a>
 
 There are many options for DNF from getting through proxies, security settings, and more. Look at the official [Fedora DNF Reference](https://docs.fedoraproject.org/en-US/fedora/latest/system-administrators-guide/package-management/DNF/), the [Fedora DNF Quickdocs](https://docs.fedoraproject.org/en-US/quick-docs/dnf/) and the [DNF GitHub page](https://github.com/rpm-software-management/dnf) for more information.
@@ -508,7 +510,7 @@ There are nightly builds of software as well. Some of them are personal repos an
 
 <a name="various-kde-settings"></a>
 
-# 5) My Fedora KDE settings & tweaks
+# 5. My Fedora KDE settings & tweaks
 
 ## 5.1. Backup & Restore
 
@@ -663,7 +665,7 @@ There are some great transitions available where your desktops can slide over on
 
 <a name="other-apps"></a>
 
-# 6) Apps & Packages I'd Recommend
+# 6. Apps & Packages I'd Recommend
 
 A list of other applications can be found at [https://apps.kde.org](https://apps.kde.org) but these are the ones I use the most.
 
@@ -757,7 +759,7 @@ I would still keep an eye on it just to make sure it doesn't do strange things.
 <br><br>
 
 
-# 7) Additional Software Installers
+# 7. Additional Software Installers
 
 ## 7.1. Fedy
 Fedy is a utility from the people who provide RPM Fusion. It's a utility that lets you install utilities and codecs from a nice graphical interface.
@@ -798,7 +800,7 @@ For more information, see the Fedora Developer page for Flatpaks https://develop
 You can see all available Flatpaks by going to https://www.flathub.org
 <br><br>
 
-# 8) Other System Topics
+# 8. Other System Topics
 
 ## 8.1. SSH
 I've created my private and public keys but the correct permissions are easy to forget. Just use <code>chmod permissions filename/directory</code>
@@ -819,7 +821,26 @@ Keep in mind that cloud solutions may or may not work well for a backup solution
 
 This isn't so much a problem with Linux but Apple's iCloud drive and Microsoft's OneDrive have a 'Files on Demand' setting that defaults to **on**. It **looks** like the files are there but the backup app won't save them. Be careful with any kind of cloud-based solution.
 
-## 8.3. VPN
+## 8.3 Network
+###  8.3.1. Disable IPv6
+IPv6 can cause problems. To disable it, run<br>
+
+```sudo nano /etc/sysctl```<br>
+
+add the following lines:
+
+```
+net.ipv6.conf.all.disable_ipv6 = 1
+net.ipv6.conf.default.disable_ipv6 = 1
+net.ipv6.conf.lo.disable_ipv6 = 1
+```
+
+then ```sudo sysctl -p``` to disable it.
+
+See the article [https://idroot.us/disable-ipv6-fedora-39/](https://idroot.us/disable-ipv6-fedora-39/) for more info.
+
+
+## 8.4. VPN
 I use NordVPN on MacOS and Linux. For info, see [https://support.nordvpn.com/Connectivity/Linux/1325529112/Installing-and-using-NordVPN-on-Fedora-and-QubesOS-Linux.htm/](https://support.nordvpn.com/Connectivity/Linux/1325529112/Installing-and-using-NordVPN-on-Fedora-and-QubesOS-Linux.htm/). <br>
 
 Then install it using their script
@@ -831,9 +852,13 @@ sh <(curl -sSf https://downloads.nordcdn.com/apps/linux/install.sh)
 I have had problems using their NordLynx protocol where the VPN would just freeze up. I switched over to using OpenVPN and everything works fine.
 
 ```nordvpn set technology OpenVPN```
+
+With NordVPN and other VPN's they use their own DNS so you may 
+get a 'Limited Connectivity' message. That's fine; it's saying 
+it can't connect to things on the network it knows about.
 <br><br>
 
-## 8.4. Laptop Power Management
+## 8.5. Laptop Power Management
 
 It's easiest to do it in the settings app, but if you want to do it
 from the command line install tlp, then you can set power management this way<br>
@@ -846,7 +871,7 @@ Read the man page for cpupower for more options
 
 <a name="selinux"></a>
 
-# 9) SELinux
+# 9. SELinux
 There are people out there who recommend disabling SELinux when alerts start popping up. SELinux is a powerful security tool. It runs in three modes: *disabled*, *permissive* & *enforcing*. Fedora defaults to *enforcing*.
 
 Disable it at your own risk.
@@ -860,7 +885,7 @@ Here is a good overview of SELinux for Fedora.
 
 <br>
 
-# 10) Grub
+# 10. Grub
 <a name="grub-config"></a>
 The main config file is <code>/etc/default/grub.</code> I set mine up with these differences.<br>
 
@@ -935,7 +960,7 @@ You can download Grub themes from gnome-look.org or the KDE store. Depending on 
 
 <a name="plymouth-splash"></a>
 
-# 11) Plymouth
+# 11. Plymouth
 
 The ```plymouth-kcm``` package can be installed to give a Plymouth section in the KDE Settings app.<br><br>
 Plymouth splash screens are found in /usr/share/plymouth/themes. I went into the **spinner** theme and added background-tile.png with my standard splash wallpaper. If the theme you want to modify doesn't have background-tile.png copy your wallpaper into the directory & reselect the Plymouth theme. Otherwise just replace it.
@@ -950,7 +975,7 @@ The Arch Linux site has a good writeup on Plymouth https://wiki.archlinux.org/ti
 
 <a name="parallels"></a>
 
-# 12 Upgrades and Beta versions
+# 12. Upgrades and Beta versions
 
 ## 12.1. RPM Fusion
 
@@ -966,7 +991,7 @@ But if you want to upgrade your Fedora installation here's  instructions on how 
 <br>
 
 
-# 13) Problems & Fixes
+# 13. Problems & Fixes
 
 ## 13.1. Sound
 I started having problems with Fedora either not seeing the sound card or everything went to a dummy output device. I have a ThinkPad with the Intel sound chip so I added an entry to ```/etc/default/grub```
@@ -979,10 +1004,10 @@ I haven't had a sound problem since. I have another machine that has a Ryzen and
 <br><br>
 
 ## 13.2. VirtualBox
-VirtualBox VMs will hang under Wayland. You can make them work again by disabling the mini toolbar under User Interface in the VM's settings.
+VirtualBox VMs will hang under Wayland. You can make them work again by disabling the mini toolbar under User Interface in the VM's settings, or by installing X11 and moving off Wayland.
 <br><br>
 
-# 14) Ham Radio
+# 14. Ham Radio
 
 I'm a ham radio operator (K5SGC) and I've been able to get most of the ham radio software I need to run working correctly in Fedora. Much of it runs under Wine but there is a good amount that runs native in Linux.
 
