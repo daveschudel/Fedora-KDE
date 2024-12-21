@@ -1,7 +1,6 @@
 - [1. Introduction](#1-introduction)
-  - [1.1. Fedora 40](#11-fedora-40)
-  - [1.2. Other Fedora options](#12-other-fedora-options)
-  - [1.3. Fedora Magazine](#13-fedora-magazine)
+  - [1.1. Other Fedora options](#11-other-fedora-options)
+  - [1.2. Fedora Magazine](#12-fedora-magazine)
 - [2. Installation](#2-installation)
   - [2.1. Comments](#21-comments)
   - [2.2. Encryption](#22-encryption)
@@ -14,26 +13,19 @@
 - [4. DNF \& Repositories](#4-dnf--repositories)
   - [4.1. DNF Options](#41-dnf-options)
   - [4.2. RPM Fusion](#42-rpm-fusion)
-  - [4.3. Customizing the Repo List](#43-customizing-the-repo-list)
-  - [4.4. DNF Running Slow](#44-dnf-running-slow)
-  - [4.5. Groups](#45-groups)
-  - [4.6. Installing Additional Desktop Environments](#46-installing-additional-desktop-environments)
-  - [4.7. COPR](#47-copr)
+  - [4.3. DNF Running Slow](#43-dnf-running-slow)
+  - [4.4. Groups](#44-groups)
+  - [4.5. Installing Additional Desktop Environments](#45-installing-additional-desktop-environments)
+  - [4.6. COPR](#46-copr)
 - [5. My Fedora KDE settings \& tweaks](#5-my-fedora-kde-settings--tweaks)
   - [5.1. Backup \& Restore](#51-backup--restore)
   - [5.2. Changing The Volume Name](#52-changing-the-volume-name)
-  - [5.3. Konsole](#53-konsole)
-  - [5.4. Dolphin](#54-dolphin)
-  - [5.5. KDE System Settings](#55-kde-system-settings)
-    - [5.5.1. Startup/SDDM](#551-startupsddm)
-    - [5.5.2. Lock Screen](#552-lock-screen)
-    - [5.5.3. KDE Logout Screen](#553-kde-logout-screen)
-    - [5.5.4. Appearance](#554-appearance)
-    - [5.5.5. KDE Taskbar](#555-kde-taskbar)
-    - [5.5.6. KDE Desktop Effects](#556-kde-desktop-effects)
-    - [5.5.7. KDE Splash Screen](#557-kde-splash-screen)
-    - [5.5.8. KDE Filetype Icons](#558-kde-filetype-icons)
-  - [5.6. Multiple Desktops](#56-multiple-desktops)
+  - [5.3. KDE System Settings](#53-kde-system-settings)
+    - [5.3.1. Startup/SDDM](#531-startupsddm)
+    - [5.3.2. Lock Screen](#532-lock-screen)
+    - [5.3.3. KDE Logout Screen](#533-kde-logout-screen)
+    - [5.3.4. KDE Filetype Icons](#534-kde-filetype-icons)
+  - [5.4. Multiple Desktops](#54-multiple-desktops)
 - [6. Apps \& Packages I'd Recommend](#6-apps--packages-id-recommend)
   - [6.1. Yakuake](#61-yakuake)
   - [6.2. Visual Studio Code](#62-visual-studio-code)
@@ -49,10 +41,9 @@
 - [8. Other System Topics](#8-other-system-topics)
   - [8.1. SSH](#81-ssh)
   - [8.2. Backups](#82-backups)
-  - [8.3 Network](#83-network)
+  - [8.3. 8.3 Network](#83-83-network)
     - [8.3.1. Disable IPv6](#831-disable-ipv6)
   - [8.4. VPN](#84-vpn)
-  - [8.5. Laptop Power Management](#85-laptop-power-management)
 - [9. SELinux](#9-selinux)
 - [10. Grub](#10-grub)
   - [10.1. Grub Configuration Files](#101-grub-configuration-files)
@@ -64,7 +55,6 @@
 - [13. Problems \& Fixes](#13-problems--fixes)
   - [13.1. Sound](#131-sound)
   - [13.2. VirtualBox](#132-virtualbox)
-- [14. Ham Radio](#14-ham-radio)
 
 
 <br>
@@ -83,19 +73,7 @@ As I find more I'll add it. I hope it helps you.
 <br><br>
 
 
-## 1.1. Fedora 40
-
-Fedora has decided to drop X11 support for Fedora 40 KDE. [Linuxiac](https://linuxiac.com/fedora-40-to-offer-plasma-6-drops-x11-entirely/) has a nice writeup on it with a link to the offical Fedora Wiki.
-
-I've seen a few programs not install correctly because of QT5 vs QT6 conflicts. Also, some of the plasmoids I used in Fedora 39 are not available yet.
-
-A much more serious problem is with VirtualBox. In full screen mode the VM will lock up under Wayland. The workaround is to disable the status bar at the bottom of the VM. Otherwise you can install X11 support and just run under X. That's what I did. <br><br>
-```sudo dnf install plasma-workspace-x11```
-
-FYI: Even though the standard Fedora 40 KDE install targets Wayland, apps still have to be written for Wayland. Many are not. So Wayland starts an X server to handle those apps - XWayland. 
-<br><br>
-
-## 1.2. Other Fedora options
+## 1.1. Other Fedora options
 
 The primary Fedora release comes with the GNOME desktop environment. Fedora also releases 'spins' and 'labs'. Spins are distros focused on a desktop environment; e.g. KDE, LXDE, i3. Spins can be found [here](https://spins.fedoraproject.org/). Fedora Labs are distros designed for a specific purpose. These include
 
@@ -110,7 +88,7 @@ The primary Fedora release comes with the GNOME desktop environment. Fedora also
 * [Scientific](https://labs.fedoraproject.org/en/scientific/)
 <br><br>
 
-## 1.3. Fedora Magazine
+## 1.2. Fedora Magazine
 [Fedora Magazine](https://fedoramagazine.org/) has a lot of good information. They'll post articles on how-tos and new apps to try.
 <br><br>
 
@@ -378,63 +356,9 @@ You can install it from your browser but I think it's easier to do it from the c
 sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 ```
 
-<a name="custom-repo-list"></a>
+## 4.3. DNF Running Slow
 
-## 4.3. Customizing the Repo List
-Fedora's repository files are located in <code>/etc/yum.repos.d</code>. This is a section of a .repo. There can be other sections, like for debug or source packages. These are usually disabled.
-
-```
-[fedora]
-name=Fedora $releasever - $basearch
-metalink=https://mirrors.fedoraproject.org/metalink?repo=fedora-$releasever&arch=$basearch
-enabled=1
-countme=1
-metadata_expire=7d
-repo_gpgcheck=0
-type=rpm
-gpgcheck=1
-gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-$releasever-$basearch
-skip_if_unavailable=False
-```
-
-Fedora's Repository Docs are here - [https://docs.fedoraproject.org/en-US/quick-docs/repositories/](https://docs.fedoraproject.org/en-US/quick-docs/repositories/)
-
-
-To change what the repo looks like when running dnf change the 2nd line of the .repo file.
-
-The entries will look like this
-
-```
-name=Fedora $releasever - $basearch
-```
-<br>
-You can change them to something like this so the repo names and architecture are in columns.  
-
-```
-Fedora $releasever              - $basearch
-name=Fedora $releasever Updates - $basearch
-```
-<br>
-Or remove the architecture altogether
-
-```
-Fedora $releasever
-name=Fedora $releasever
-```
-
-If you want them in order, rename each repo file; e.g.
-
-```
-01-Fedora.repo 
-02-Fedora-updates.repo
-```
-to make it look like this
-<img src="Images/dnf.png"/>
-<br>
-
-## 4.4. DNF Running Slow
-
-DNF can take a long to update itself because it downloads the repository data often. A [discussion](https://ask.fedoraproject.org/t/why-is-dnf-so-slow/6316) on the Fedora Project site suggested setting <code>metadata_expire=2d</code> in <code>/etc/dnf/dnf.conf</code>. 
+DNF in Fedora 41 is faster than before but it can take a long to update itself when it downloads the repository data. A [discussion](https://ask.fedoraproject.org/t/why-is-dnf-so-slow/6316) on the Fedora Project site suggested setting <code>metadata_expire=2d</code> in <code>/etc/dnf/dnf.conf</code>. 
 
 If you use the -q parameter (quiet) like in my install scripts it can look like the process hangs. 
 
@@ -442,7 +366,7 @@ I noticed that not all repositories I installed had the <code>metadata_expire</c
 
 It appears that if you run dnf with the ```--refresh``` option it updates the repository data much faster than if you let Fedora handle it. I'm not sure why, it just seems that way. 
 
-## 4.5. Groups
+## 4.4. Groups
 
 There are a lot of dnf groups to choose from. See a list of groups by running 
 ```
@@ -474,7 +398,7 @@ Robotics (robotics-suite)
 
 You can see what's in each group by running <code>dnf group info GROUP_NAME</code>. I generally install *Development Tools* and *X Software Development* but take a look at the ones that sound like they might fit your needs. <br><br>
 
-## 4.6. Installing Additional Desktop Environments
+## 4.5. Installing Additional Desktop Environments
 
 Groups are by far the easiest way to install the big desktop environments. For example, if for some unknown reason you wanted to install Gnome 😎 you'd use
 ```
@@ -499,7 +423,7 @@ rpmfusion-nonfree-appstream-data
 
 Many of the options in dnf are actually plugins. You can install additional plugins, like the one you'll need for updating Fedora itself. See the plugins section at [https://docs.fedoraproject.org/en-US/quick-docs/dnf/](https://docs.fedoraproject.org/en-US/quick-docs/dnf/)
 
-## 4.7. COPR
+## 4.6. COPR
 If you want something other than what's in the Fedora & RPM Fusion repos, check out Fedora's COPR (COmmunity PRojects) repositories. They're user-created repos with their projects. <br><br>
 I use one COPR repo for one of my ham radio apps that isn't available in the Fedora or RPM repos.<br><br>
 There are nightly builds of software as well. Some of them are personal repos and say 'do not use'. Don't use them. 😎
@@ -529,41 +453,12 @@ I used to use the KDE Partition Manager to do this but it wouldn't let me change
 ```sudo dnf install gparted```
 <br><br>
 
-<a name="konsole"></a>
-
-## 5.3. Konsole
-
-* General - Uncheck 'Remember window size'
-* Profiles - You can't edit the Default profile so create a new one. I use a 90x24 window size. Under Command change it to /bin/zsh. Konsole will use the shell specified here and *not* the default shell for your account
-* Under Appearance, I use White on Black, then press Edit and change Background transparency to 10%. I also bump the font up a bit.
-* Scrolling to Unlimited
-
-
-Set your new profile to the default profile. Then I disable all of toolbars under the Konsole Settings menu and hide the Menubar. Make sure you exit the Konsole session or it may not save your profile properly.
-<br><br>
-
-<a name="dolphin"></a>
-
-## 5.4. Dolphin
-I remove all of the 'search for' categories on the left. I also hide the boot partition. Then I add what I need to 'Places'.
-
-I setup Dolphin like this: In Settings<br>
-* General/Behavior - Remember display style for each folder. This is handy for making the icons larger in folders with images, etc.
-* General/Previews - Select the types you want displayed. I generally turn off everything but images & ebooks
-* Context Menu - take everything out I don't need or want. There are additional services you can download. 
-
-To change the icons for file types, go into System Settings/Applications and create a file type for what you want. For example, I created a type Text/x-shell, set the icon, and added .bashrc, .zshrc, etc. as filename patterns.
-
-When you set icons for folders it does not change the small icon in the Dolphin 'Places' section. I had to change those seperately. Right click on the icon and select 'Edit'. Then you can change that icon.<br>
-
-<img src="Images/dolphin.png"/>
-<br>
 <a name="system-settings"></a>
 
-## 5.5. KDE System Settings
+## 5.3. KDE System Settings
 <a name="sddm"></a>
 
-### 5.5.1. Startup/SDDM
+### 5.3.1. Startup/SDDM
 I set it to automatically log in. Yes, I know this is bad security but if you set the machine up with an encrypted drive you have to login with that before continuing. I don't worry about it on a VM either. Obviously if this machine might be at risk don't do this. I use mine for playing around and learning about Fedora. <br>
 
 If you want to unblur the SDDM wallpaper, edit Main.qml in <code>/usr/share/sddm/themes/theme-name></code> and comment out the WallpaperFader section.
@@ -582,11 +477,11 @@ If you want to unblur the SDDM wallpaper, edit Main.qml in <code>/usr/share/sddm
 <br>
 <a name="appearance"></a>
 
-### 5.5.2. Lock Screen
+### 5.3.2. Lock Screen
 This can be set in KDE Preferences
 <br>
 
-### 5.5.3. KDE Logout Screen
+### 5.3.3. KDE Logout Screen
 This comes from Roj131 at https://forum.kde.org/viewtopic.php%3Ft=154087.html#. He creates a new theme but I just edited the one I was using. I went into /usr/share/plasma/look-and-feel/org.fedoraproject.fedora.desktop/contents/logout/Logout.qml and
 
 * Commented out "property alias backgroundColor: backgroundRect.color"
@@ -609,45 +504,8 @@ This comes from Roj131 at https://forum.kde.org/viewtopic.php%3Ft=154087.html#. 
     }
 ```
 
-### 5.5.4. Appearance
 
-* Icons - Gradient Light
-* Colors - Nord Light 
-* Fonts - Comfortaa
-* Plasma Style - Breeze AlphaBlack. It gives you the ability to have a transparent panel.
-* Window Decorations - Breeze, but I change the window title so it's on the right.
-* [Plasma Splash Screen](#kde-splash-screen)
-
-The [KDE Store](https://store.kde.org) has a complete list of Plasma widgets, fonts, colors, themes and other addons. They can also be found in Discover under Plasma Addons.
-<br><br>
-<a name="taskbar"></a>
-
-### 5.5.5. KDE Taskbar
-* Change menu to Application Menu. Right-click on any widget and it will give you a list of alternatives.<br>
-* Application Menu Settings, check 'Flatten submenus' and uncheck Recent categories<br>
-* Install Latte Seperator<br>
-* Install Latte Spacer
-* Add another digital clock & set it to UTC<br>
-* Use QuickLaunches to group applications<br>
-* Use Latte Seperator to put nice seperators between the QuickLaunches, clocks, etc., and a Latte Spacer to put a little space between the last QuickLaunch and the Task Manager. It's available from "Get New Widgets" in the Add Widgets window.
-<br><br>
-
-Once it's done it looks like this
-<img src="Images/taskbar.png"/>
-<br><br>
-### 5.5.6. KDE Desktop Effects
-
-I started using a Desktop Effect called Energize B [Burn-My-Windows] available on the KDE Store [https://www.pling.com/p/1884311It]. It makes opening & closing windows look like they're beaming in and out with a transporter. 
-
-KDE is great if you want to show off 😎
-<br><br>
-
-### 5.5.7. KDE Splash Screen
-I modified [this theme](https://store.kde.org/p/2072224) and put my standard Stargate wallpaper in it so it matches my Grub, Plymouth, Login & Lock screens. 
-
-When you install a new splash screen from the Settings app it will put it in <code>~/.local/share/plasma/look-and-feel</code>. I just went in and changed the wallpaper in contents/splash/images.
-
-### 5.5.8. KDE Filetype Icons
+### 5.3.4. KDE Filetype Icons
 The icons for files like <code>.bashrc</code> and <code>.zshrc</code> will show up as plain text. You can't just change the icon from Dolphin. You need to go into KDE Settings/Applications/File Associations. There are a lot of them in there.<br><br>
 You can add one for <code>.zshrc</code> for example. Click Add and select the type category you want to use. For example, you could pick Application and create a new type called shell-config. Select the icon you want, and enter each filename pattern. I found it didn't work if you entered '*.zshrc' but '.zshrc' worked fine. Click apply, then open Dolphin. The icon for <code>.zshrc</code> should show with the new icon.<br>
 
@@ -656,7 +514,7 @@ I went through and set application types for all sorts of things.
 
 
 <a name="desktops"></a>
-## 5.6. Multiple Desktops
+## 5.4. Multiple Desktops
 
 KDE, like most desktop environments will use multiple desktops. Set them up in Settings/Workspace Behavior/Virtual desktops.
 
@@ -693,7 +551,7 @@ I really, really want to use Kate. It has a decent markdown viewer but you can't
 
 ### 6.2.1. Using the Microsoft repository
 
-At this point (Fedora 40) VSCode isn't in the Fedora or RPM Fusion repositories. You can download it but I like having it installed from a repo so it stays up to date without having use a Flatpak.
+At this point (Fedora 41) VSCode isn't in the Fedora or RPM Fusion repositories. You can download it but I like having it installed from a repo so it stays up to date without having use a Flatpak.
 
 This will install the repo and key
 
@@ -714,7 +572,7 @@ sudo dnf install code
 ### 6.2.2. Using a Flatpak
 If you prefer Flatpaks<br>
 ```
-flatpak install https://flathub.org/repo/appstream/com.visualstudio.code.flatpakref
+flatpak install com.visualstudio.code
 ```
 
 See [https://code.visualstudio.com/docs/setup/linux](https://code.visualstudio.com/docs/setup/linux) or [Microsoft's Visual Studio Code GitHub page](https://github.com/Microsoft/vscode) for more information.
@@ -821,7 +679,7 @@ Keep in mind that cloud solutions may or may not work well for a backup solution
 
 This isn't so much a problem with Linux but Apple's iCloud drive and Microsoft's OneDrive have a 'Files on Demand' setting that defaults to **on**. It **looks** like the files are there but the backup app won't save them. Be careful with any kind of cloud-based solution.
 
-## 8.3 Network
+## 8.3. 8.3 Network
 ###  8.3.1. Disable IPv6
 IPv6 can cause problems. To disable it, run<br>
 
@@ -858,17 +716,6 @@ get a 'Limited Connectivity' message. That's fine; it's saying
 it can't connect to things on the network it knows about.
 <br><br>
 
-## 8.5. Laptop Power Management
-
-It's easiest to do it in the settings app, but if you want to do it
-from the command line install tlp, then you can set power management this way<br>
-
-```
-cpupower frequency-set --governor conservative
-```
-Read the man page for cpupower for more options
-<br><br>
-
 <a name="selinux"></a>
 
 # 9. SELinux
@@ -898,11 +745,13 @@ GRUB_THEME=/boot/grub2/themes/poly-dark/theme.txt
 ```
 <br>
 
-For the submenus the wording is a bit strange, but disabling this will enable the submenu on the Grub menu. It puts the other kernels into the submenu cleaning up your menu. But since I've switched over to enabling BLSCFG this feature stopped working.
+It appears that submenus are disabled. Not sure why, but 
   
 ```
 GRUB_DISABLE_SUBMENU=false 
 ```
+doesn't work.
+
 <br>
 
 I recommend disabling disabling recovery. The Recovery options are always a good idea to have. Plus if you enable the submenu Grub puts them all there. 
@@ -923,16 +772,68 @@ GRUB_GFXMODE=auto
 ```
 <br>
 
-This will set your grub options. To save changes and write the Grub menu to disk. If you're running on a UEFI system run
-```
-sudo grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg
-```
-For legacy systems run
+This will set your grub options. To save changes and write the Grub menu to disk
 ```
 sudo grub2-mkconfig -o /boot/grub2/grub.cfg
 ```
-You can edit grub.cfg directly for testing, but it will work until grub2-mkconfig overwrites it.
-<br><br>
+This is a change from previous versions where you wrote grub.cfg to <code>/boot/efi/EFI/fedora<code>- [1. Introduction](#1-introduction)
+- [1. Introduction](#1-introduction)
+  - [1.1. Other Fedora options](#11-other-fedora-options)
+  - [1.2. Fedora Magazine](#12-fedora-magazine)
+- [2. Installation](#2-installation)
+  - [2.1. Comments](#21-comments)
+  - [2.2. Encryption](#22-encryption)
+- [3. Shells](#3-shells)
+  - [3.1. Zsh](#31-zsh)
+    - [3.1.1. Zsh Tweaks](#311-zsh-tweaks)
+    - [3.1.2. Themes](#312-themes)
+  - [3.2. Bash](#32-bash)
+  - [3.3. Eza](#33-eza)
+- [4. DNF \& Repositories](#4-dnf--repositories)
+  - [4.1. DNF Options](#41-dnf-options)
+  - [4.2. RPM Fusion](#42-rpm-fusion)
+  - [4.3. DNF Running Slow](#43-dnf-running-slow)
+  - [4.4. Groups](#44-groups)
+  - [4.5. Installing Additional Desktop Environments](#45-installing-additional-desktop-environments)
+  - [4.6. COPR](#46-copr)
+- [5. My Fedora KDE settings \& tweaks](#5-my-fedora-kde-settings--tweaks)
+  - [5.1. Backup \& Restore](#51-backup--restore)
+  - [5.2. Changing The Volume Name](#52-changing-the-volume-name)
+  - [5.3. KDE System Settings](#53-kde-system-settings)
+    - [5.3.1. Startup/SDDM](#531-startupsddm)
+    - [5.3.2. Lock Screen](#532-lock-screen)
+    - [5.3.3. KDE Logout Screen](#533-kde-logout-screen)
+    - [5.3.4. KDE Filetype Icons](#534-kde-filetype-icons)
+  - [5.4. Multiple Desktops](#54-multiple-desktops)
+- [6. Apps \& Packages I'd Recommend](#6-apps--packages-id-recommend)
+  - [6.1. Yakuake](#61-yakuake)
+  - [6.2. Visual Studio Code](#62-visual-studio-code)
+    - [6.2.1. Using the Microsoft repository](#621-using-the-microsoft-repository)
+    - [6.2.2. Using a Flatpak](#622-using-a-flatpak)
+  - [6.3. Microsoft Open Fonts](#63-microsoft-open-fonts)
+  - [6.4. OneDrive](#64-onedrive)
+  - [6.5. Other Apps](#65-other-apps)
+- [7. Additional Software Installers](#7-additional-software-installers)
+  - [7.1. Fedy](#71-fedy)
+  - [7.2. DNF Dragora](#72-dnf-dragora)
+  - [7.3. Flatpaks](#73-flatpaks)
+- [8. Other System Topics](#8-other-system-topics)
+  - [8.1. SSH](#81-ssh)
+  - [8.2. Backups](#82-backups)
+  - [8.3. 8.3 Network](#83-83-network)
+    - [8.3.1. Disable IPv6](#831-disable-ipv6)
+  - [8.4. VPN](#84-vpn)
+- [9. SELinux](#9-selinux)
+- [10. Grub](#10-grub)
+  - [10.1. Grub Configuration Files](#101-grub-configuration-files)
+  - [10.2. Themes](#102-themes)
+- [11. Plymouth](#11-plymouth)
+- [12. Upgrades and Beta versions](#12-upgrades-and-beta-versions)
+  - [12.1. RPM Fusion](#121-rpm-fusion)
+  - [12.2. Upgrading Fedora](#122-upgrading-fedora)
+- [13. Problems \& Fixes](#13-problems--fixes)
+  - [13.1. Sound](#131-sound)
+  - [13.2. VirtualBox](#132-virtualbox)
 
 <a name="custom-grub"></a>
 
@@ -994,21 +895,17 @@ But if you want to upgrade your Fedora installation here's  instructions on how 
 # 13. Problems & Fixes
 
 ## 13.1. Sound
-I started having problems with Fedora either not seeing the sound card or everything went to a dummy output device. I have a ThinkPad with the Intel sound chip so I added an entry to ```/etc/default/grub```
+I started having problems with Fedora either not seeing the sound card or everything went to a dummy output device. There is a LOT on the web on people having problems with pipewire and having the sound card set to a dummy output. I have a ThinkPad with the Intel sound chip so I added an entry to ```/etc/default/grub```
 
 In GRUB_CMDLINE_LINUX, add this to the list of parameters:
 
 ```snd_hda_intel.dmic_detect=0```
 
-I haven't had a sound problem since. I have another machine that has a Ryzen and the AMD sound device. I haven't found the correct setting for it.
+This will get sound back but the microphone is still missing. 
 <br><br>
 
 ## 13.2. VirtualBox
-VirtualBox VMs will hang under Wayland. You can make them work again by disabling the mini toolbar under User Interface in the VM's settings, or by installing X11 and moving off Wayland.
+VirtualBox VMs will hang under Wayland. Sometimes you can make them work again by disabling the mini toolbar under User Interface in the VM's settings. Otherwise install X11 and moving off Wayland. 
+```sudo dnf install plasma-workspace-x11```
 <br><br>
 
-# 14. Ham Radio
-
-I'm a ham radio operator (K5SGC) and I've been able to get most of the ham radio software I need to run working correctly in Fedora. Much of it runs under Wine but there is a good amount that runs native in Linux.
-
-[Ham Radio Setup](./hamradio.md)
