@@ -776,7 +776,7 @@ This will set your grub options. To save changes and write the Grub menu to disk
 ```
 sudo grub2-mkconfig -o /boot/grub2/grub.cfg
 ```
-This is a change from previous versions where you wrote grub.cfg to <code>/boot/efi/EFI/fedora<code>- [1. Introduction](#1-introduction)
+This is a change from previous versions where you wrote grub.cfg to <code>/boot/efi/EFI/fedora<code>
 
 <a name="custom-grub"></a>
 
