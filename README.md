@@ -285,8 +285,7 @@ and looks like this.
 
 I switched to **<code>eza</code>** to replace **<code>ls</code>**. See [https://github.com/eza-community/eza](https://github.com/eza-community/eza) for more information. It formats things really well.
 
-It's available in the standard Fedora repositories
-```sudo dnf install eza```
+Eza isn't available in the standard Fedora repositories anymore. Acccording to the docs, there's no maintainer anymore. You'll have to download it directly from their GitHub page. 
 
 And use it like this:
 ```
@@ -848,7 +847,7 @@ This will get sound back but the microphone is still missing.
 <br><br>
 
 ## 13.2. VirtualBox
-VirtualBox VMs will hang under Wayland. Sometimes you can make them work again by disabling the mini toolbar under User Interface in the VM's settings. Otherwise install X11 and moving off Wayland. 
+VirtualBox VMs will sometimes hang under Wayland. Sometimes you can make them work again by disabling the mini toolbar under User Interface in the VM's settings. Otherwise install X11 and moving off Wayland. 
 ```sudo dnf install plasma-workspace-x11```
 <br><br>
 
