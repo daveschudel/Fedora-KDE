@@ -140,12 +140,7 @@ sudo dnf install wsjtx
 If you're using a SignaLink the sound card will show up as an 'alsa' device so configure WSJT-X using that. I don't know how radios with built-in sound cards will show up but I'd assume it would be something similar.<br>
 
 ## GridTracker
-GridTracker isn't in the Fedora or RPMFusion repositories, but can be installed from NR0Q's COPR repository. 
-
-```
-sudo dnf copr enable nr0q/GridTracker
-sudo dnf install gridtracker
-```
+GridTracker isn't in the Fedora or RPMFusion repositories. Download it from https://gridtracker.org/index.php/downloads/gridtracker-downloads
 
 # 5) Logging
 
